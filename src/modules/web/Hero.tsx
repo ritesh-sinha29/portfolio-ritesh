@@ -235,11 +235,11 @@ export default function Hero({ isLoaded = false }: HeroProps) {
               aboutEl.scrollIntoView({ behavior: "smooth" });
             }
           }}
-          className="group bg-[#c5eb35] hover:bg-[#b5e024] text-[#141b16] font-sans font-semibold text-xs sm:text-sm px-6 py-2.5 rounded-full flex items-center gap-2 transition-all duration-300 shadow-sm hover:scale-105 active:scale-95 cursor-pointer"
+          className="group bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-full flex items-center gap-2 transition-all duration-300 shadow-[0_4px_16px_rgba(197,235,53,0.3)] hover:shadow-[0_6px_20px_rgba(197,235,53,0.45)] hover:scale-105 active:scale-95 cursor-pointer border border-[#c5eb35]/20"
         >
           <span>Contact</span>
-          <span className="w-5 h-5 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
-            <ArrowUpRight className="w-3.5 h-3.5 text-[#141b16]" />
+          <span className="w-5 h-5 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:bg-[#141b16] transition-all">
+            <ArrowUpRight className="w-3.5 h-3.5 text-[#141b16] group-hover:text-[#c5eb35] transition-colors" />
           </span>
         </button>
       </header>
@@ -274,9 +274,9 @@ export default function Hero({ isLoaded = false }: HeroProps) {
             <NoiseBackground
               containerClassName="w-fit p-1 rounded-full"
               gradientColors={[
-                "rgb(197, 235, 53)",
-                "rgb(181, 224, 36)",
-                "rgb(220, 252, 70)",
+                "rgb(20, 27, 22)",
+                "rgb(45, 55, 48)",
+                "rgb(30, 38, 33)",
               ]}
             >
               <button
@@ -291,9 +291,9 @@ export default function Hero({ isLoaded = false }: HeroProps) {
             <NoiseBackground
               containerClassName="w-fit p-1 rounded-full"
               gradientColors={[
-                "rgb(197, 235, 53)",
-                "rgb(181, 224, 36)",
-                "rgb(220, 252, 70)",
+                "rgb(20, 27, 22)",
+                "rgb(45, 55, 48)",
+                "rgb(30, 38, 33)",
               ]}
             >
               <button
@@ -343,7 +343,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
           className="flex items-center gap-2"
           style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
         >
-          <span className="w-5 h-5 flex items-center justify-center rounded-full text-xs bg-[#c5eb35] ">
+          <span className="w-5 h-5 flex items-center justify-center rounded-full text-xs bg-[#c5eb35] text-[#141b16] font-bold">
             R
           </span>
           <span className="font-sans text-[11px] font-semibold tracking-wider text-neutral-800 group-hover:text-black uppercase whitespace-nowrap">
@@ -377,13 +377,13 @@ export default function Hero({ isLoaded = false }: HeroProps) {
               {/* Top Header */}
               <div className="p-4 sm:p-5 border-b border-black/8 flex items-center justify-between bg-neutral-50/70">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-full bg-[#c5eb35] flex items-center justify-center font-sans font-bold text-xs text-[#141b16] shadow-xs">
+                  <div className="w-8 h-8 rounded-full bg-[#141b16] flex items-center justify-center font-sans font-bold text-xs text-white shadow-xs">
                     R
                   </div>
                   <div>
                     <h3 className="font-sans font-semibold text-sm sm:text-base text-neutral-900 tracking-tight flex items-center gap-2">
                       Roxy - AI Agent
-                      <span className="w-2 h-2 rounded-full bg-[#c5eb35] animate-pulse" />
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                     </h3>
                     <p className="text-[11px] text-neutral-500 font-sans">
                       ROX Personal Assistant
@@ -413,7 +413,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
                     <div
                       className={`max-w-[82%] px-3.5 py-2.5 rounded-2xl leading-relaxed ${
                         msg.role === "user"
-                          ? "bg-[#c5eb35] text-[#141b16] font-medium rounded-br-xs"
+                          ? "bg-[#141b16] text-white font-medium rounded-br-xs"
                           : "bg-neutral-100 text-neutral-800 rounded-bl-xs"
                       }`}
                     >
@@ -434,7 +434,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder="Ask anything..."
-                    className="w-full pl-3.5 pr-10 py-2.5 text-xs sm:text-sm bg-white border border-black/10 rounded-full focus:outline-hidden focus:border-[#c5eb35] focus:ring-1 focus:ring-[#c5eb35] transition-all text-neutral-900 placeholder:text-neutral-400"
+                    className="w-full pl-3.5 pr-10 py-2.5 text-xs sm:text-sm bg-white border border-black/10 rounded-full focus:outline-hidden focus:border-[#141b16] focus:ring-1 focus:ring-[#141b16] transition-all text-neutral-900 placeholder:text-neutral-400"
                   />
                   <button
                     type="button"
@@ -453,7 +453,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
                 <button
                   type="submit"
                   disabled={!inputValue.trim()}
-                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#c5eb35] hover:bg-[#b5e024] disabled:opacity-50 disabled:cursor-not-allowed text-[#141b16] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 shrink-0"
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#c5eb35] hover:bg-[#b4db26] disabled:opacity-50 disabled:cursor-not-allowed text-[#141b16] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 shrink-0 font-semibold"
                   aria-label="Send message"
                 >
                   <Send className="w-4 h-4" />

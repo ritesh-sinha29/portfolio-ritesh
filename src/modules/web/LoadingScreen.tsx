@@ -136,13 +136,13 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
 
           {/* Typewriter cursor */}
           <span
-            className="inline-block w-2.5 h-12 sm:w-3.5 sm:h-16 md:w-4 sm:h-20 lg:w-5 lg:h-24 bg-[#c5eb35] animate-[pulse_0.75s_infinite] ml-2 shadow-[0_0_15px_#c5eb35]"
+            className="inline-block w-2.5 h-12 sm:w-3.5 sm:h-16 md:w-4 sm:h-20 lg:w-5 lg:h-24 bg-[#F5C86C] animate-[pulse_0.75s_infinite] ml-2 shadow-[0_0_15px_#F5C86C]"
             style={{ verticalAlign: "middle" }}
           />
         </div>
 
         {/* Subtitle */}
-        <p className="font-sans font-semibold text-xs sm:text-sm md:text-base text-[#c5eb35] mt-6 tracking-[0.25em] uppercase drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+        <p className="font-sans font-semibold text-xs sm:text-sm md:text-base text-[#F5C86C] mt-6 tracking-[0.25em] uppercase drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
           AI Engineer &amp; Builder
         </p>
       </main>

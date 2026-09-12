@@ -5,7 +5,7 @@ import React, { forwardRef, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Sparkles, Activity, Layers, Terminal } from "lucide-react";
 import Footer from "./Footer";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -15,69 +15,66 @@ interface OverlayProps {
   onVideoClick?: () => void;
 }
 
-interface ProjectItem {
+interface FlipProjectItem {
   id: string;
   number: string;
   title: string;
+  phase: string;
+  badge: string;
+  accentClass: string;
+  accentHex: string;
+  metric: string;
+  tagline: string;
   imageUrl: string;
   description: string;
   tech: string[];
 }
 
-const projectsData: ProjectItem[] = [
+const featuredFlipProjects: FlipProjectItem[] = [
   {
     id: "wekraft",
     number: "01",
-    title: "wekraft",
+    title: "WEKRAFT",
+    phase: "PHASE 01",
+    badge: "AI DEV PLATFORM",
+    accentClass: "bg-[#c5eb35] text-[#141b16]",
+    accentHex: "#c5eb35",
+    metric: "SUB-80MS TTFT // MCP READY",
+    tagline: "AUTONOMOUS SDLC ENGINE",
     imageUrl: "/wekraft.png",
     description:
-      "AI-powered project execution platform bridging Devs & PMs with bidirectional GitHub sync and third-party MCP integrations.",
-    tech: ["LangGraph", "MCP", "Ably"],
+      "Enterprise project execution engine bridging Devs & PMs with bidirectional GitHub sync, automated workflows, and MCP integrations.",
+    tech: ["LangGraph", "MCP", "Ably", "Next.js"],
   },
   {
     id: "clarioo",
     number: "02",
-    title: "clarioo",
+    title: "CLARIOO",
+    phase: "PHASE 02",
+    badge: "CAREER AI ENGINE",
+    accentClass: "bg-[#F5C86C] text-[#141b16]",
+    accentHex: "#F5C86C",
+    metric: "12K+ ACTIVE INTERVIEWS",
+    tagline: "INTELLIGENT UPSKILLING",
     imageUrl: "/clarioo.png",
     description:
-      "Personalized career acceleration platform for students & professionals, featuring tailored roadmaps and AI-proctored mock interviews.",
-    tech: ["Next.js", "Vapi", "Supabase"],
+      "Personalized career acceleration platform featuring dynamic adaptive roadmaps and AI-proctored real-time voice mock evaluations.",
+    tech: ["Next.js", "Vapi AI", "Supabase", "Tailwind"],
   },
   {
     id: "looma",
     number: "03",
-    title: "looma",
+    title: "LOOMA",
+    phase: "PHASE 03",
+    badge: "COLLAB CANVAS",
+    accentClass: "bg-[#123826] text-[#c5eb35]",
+    accentHex: "#123826",
+    metric: "<20MS SYNC LATENCY",
+    tagline: "REALTIME GENERATIVE IDE",
     imageUrl: "/looma.png",
     description:
-      "Real-time collaborative canvas enabling teams to sketch, design, and instantly generate live deployable web applications.",
-    tech: ["Vercel AI", "Firecrawl", "Liveblocks"],
-  },
-  {
-    id: "aria",
-    number: "04",
-    title: "Aria",
-    imageUrl: "/aria.png",
-    description:
-      "Intelligent personal productivity operating system connecting Gmail, Slack, and Discord to turn daily chaos into automated action.",
-    tech: ["LangGraph", "FastAPI", "Composio"],
-  },
-  {
-    id: "enterprise-sales-agent",
-    number: "05",
-    title: "Enterprise sales agent",
-    imageUrl: "/pan-agent.png",
-    description:
-      "Enterprise-grade bilingual sales agent architected with semantic caching, strict guardrails, background jobs, and persistent memory.",
-    tech: ["LangGraph", "Hybrid RAG", "Temporal.io"],
-  },
-  {
-    id: "vocalx",
-    number: "06",
-    title: "vocalx",
-    imageUrl: "/vocalx.png",
-    description:
-      "Next-gen AI recruitment engine that automates JD parsing, question generation, and real-time proctored voice interviews with analytics.",
-    tech: ["Vapi", "Next.js 16", "React 19"],
+      "Infinite collaborative canvas enabling engineering teams to sketch architectures and instantly generate live deployable cloud apps.",
+    tech: ["Vercel AI", "Firecrawl", "Liveblocks", "WebSockets"],
   },
 ];
 
@@ -92,7 +89,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
     const stageBgRef = useRef<HTMLDivElement>(null);
     const projectsTitleRef = useRef<HTMLHeadingElement>(null);
     const projectsSubtitleRef = useRef<HTMLParagraphElement>(null);
-    const cardsTrackRef = useRef<HTMLDivElement>(null);
+    const cardsContainerRef = useRef<HTMLDivElement>(null);
 
     // Footer underlying element
     const footerRef = useRef<HTMLDivElement>(null);
@@ -223,18 +220,12 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
       { scope: sectionRef },
     );
 
-    // 2. GSAP animation: Pinned Projects Stage + Curtain Lift to reveal Achievements
-    // - Pinned on scroll
-    // - Phase 1: Background transitions from green #123826 to light grey #eaeae8
-    // - Phase 2: Project cards glide in horizontally from right side
-    // - Phase 3 (Curtain Lift): Entire Projects panel glides UPWARD (yPercent: -100),
-    //   unmasking the underlying green Achievements section that was sitting there all along!
+    // 2. GSAP animation: Premium World-Class 3D FlipCards Scroll Transition
     useGSAP(
       () => {
         if (
           !stageContainerRef.current ||
           !projectsPanelRef.current ||
-          !cardsTrackRef.current ||
           !stageBgRef.current
         )
           return;
@@ -242,41 +233,55 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
         const stage = stageContainerRef.current;
         const panel = projectsPanelRef.current;
         const bg = stageBgRef.current;
-        const track = cardsTrackRef.current;
         const title = projectsTitleRef.current;
         const subtitle = projectsSubtitleRef.current;
 
-        // Set initial states
+        // Set initial GPU states
         gsap.set(bg, { backgroundColor: "#123826" });
-        gsap.set(title, { color: "#ffffff", autoAlpha: 1 });
-        gsap.set(subtitle, { color: "rgba(255, 255, 255, 0.7)" });
+        gsap.set(title, { color: "#ffffff", y: -10, opacity: 0.9 });
+        gsap.set(subtitle, { color: "rgba(255, 255, 255, 0.7)", opacity: 0.8 });
         gsap.set(panel, { yPercent: 0 });
 
-        // Cards start off-screen to the right
-        gsap.set(track, {
-          x: () => window.innerWidth + 80,
+        featuredFlipProjects.forEach((_, index) => {
+          const cardId = `#flip-card-${index}`;
+          const innerCard = stage.querySelector(`${cardId} .flip-card-inner`);
+          gsap.set(cardId, {
+            opacity: 0,
+            yPercent: -130,
+            scale: 0.35,
+            xPercent: index === 0 ? 80 : index === 1 ? 0 : -80,
+            rotationZ: index === 0 ? -8 : index === 1 ? 0 : 8,
+            transformPerspective: 1400,
+            willChange: "transform, opacity",
+          });
+          if (innerCard) {
+            gsap.set(innerCard, {
+              rotationY: 0,
+              transformStyle: "preserve-3d",
+              willChange: "transform",
+            });
+          }
         });
 
-        // Master pinned scrubbed timeline
+        // Master scrubbed pinned timeline
         const masterTl = gsap.timeline({
           scrollTrigger: {
             trigger: stage,
             start: "top top",
-            end: "+=4600",
+            end: "+=3600",
             pin: true,
-            scrub: 1,
+            scrub: 1.5,
             anticipatePin: 1,
             invalidateOnRefresh: true,
           },
         });
 
-        // PHASE 1 (0 -> 1.0): Color Shift
-        // Background changes to light grey (#eaeae8), "Projects" turns Lemon green (#96cc14)
+        // Stage 1: Fluid ambient color transition
         masterTl.to(
           bg,
           {
             backgroundColor: "#eaeae8",
-            duration: 1.0,
+            duration: 1.2,
             ease: "power2.inOut",
           },
           "colorShift",
@@ -285,8 +290,10 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
         masterTl.to(
           title,
           {
-            color: "#96cc14",
-            duration: 1.0,
+            color: "#141b16",
+            y: 0,
+            opacity: 1,
+            duration: 1.2,
             ease: "power2.inOut",
           },
           "colorShift",
@@ -295,52 +302,113 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
         masterTl.to(
           subtitle,
           {
-            color: "#383f3a",
-            duration: 0.8,
+            color: "#4a534c",
+            opacity: 1,
+            duration: 1.2,
             ease: "power2.inOut",
           },
           "colorShift",
         );
 
-        // Hold briefly so user sees centered Lemon green Projects
-        masterTl.to({}, { duration: 0.3 });
-
-        // PHASE 2 (1.3 -> 5.0): Horizontal Project Cards Slide Across
-        masterTl.to(
-          track,
-          {
-            x: () => {
-              const trackWidth = track.scrollWidth;
-              const viewportWidth = window.innerWidth;
-              return -(trackWidth - viewportWidth + 160);
+        // Stage 2: Staggered 3D spatial drop & deceleration
+        featuredFlipProjects.forEach((_, index) => {
+          const cardId = `#flip-card-${index}`;
+          masterTl.to(
+            cardId,
+            {
+              opacity: 1,
+              yPercent: 0,
+              scale: 0.88,
+              duration: 1.4,
+              ease: "power2.out",
             },
-            duration: 3.7,
-            ease: "none",
-          },
-          ">",
-        );
+            `colorShift+=${0.25 + index * 0.16}`,
+          );
+        });
 
-        // Hold cards briefly
-        masterTl.to({}, { duration: 0.4 });
+        // Stage 3: Smooth spatial fan-out to 3-column formation
+        featuredFlipProjects.forEach((_, index) => {
+          const cardId = `#flip-card-${index}`;
+          masterTl.to(
+            cardId,
+            {
+              xPercent: 0,
+              rotationZ: 0,
+              scale: 1,
+              duration: 1.2,
+              ease: "power2.inOut",
+            },
+            `fanOut+=${index * 0.12}`,
+          );
+        });
 
-        // PHASE 3 (5.4 -> 7.2): CURTAIN LIFT OVERLAY TRANSITION
-        // As you scroll further, the Projects panel glides UPWARD off the screen,
-        // perfectly uncovering the green Achievements page resting underneath!
+        // Stage 4: Cascading Luxurious 3D 180° Flip Reveal
+        featuredFlipProjects.forEach((_, index) => {
+          const innerCard = stage.querySelector(
+            `#flip-card-${index} .flip-card-inner`,
+          );
+          if (innerCard) {
+            masterTl.to(
+              innerCard,
+              {
+                rotationY: 180,
+                duration: 1.6,
+                ease: "power2.inOut",
+              },
+              `flipPhase+=${index * 0.26}`,
+            );
+          }
+        });
+
+        // Stage 5: Premium interaction hold
+        masterTl.to({}, { duration: 0.8 });
+
+        // Stage 6: Velvet Curtain Lift Reveal
         masterTl.to(
           panel,
           {
             yPercent: -100,
             duration: 1.8,
-            ease: "power1.inOut",
+            ease: "power2.inOut",
           },
-          ">",
+          "curtainLift",
         );
 
-        // Trigger refresh after setup
         ScrollTrigger.refresh();
       },
       { scope: sectionRef },
     );
+
+    // Responsive 3D Mouse Perspective with Smooth Spring Dampening
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+      const card = e.currentTarget;
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 7;
+      const rotateX = -((y - rect.height / 2) / (rect.height / 2)) * 7;
+
+      gsap.to(card, {
+        rotateX: rotateX,
+        rotateY: rotateY,
+        transformPerspective: 1200,
+        ease: "power2.out",
+        duration: 0.35,
+        overwrite: "auto",
+      });
+    };
+
+    const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+      const card = e.currentTarget;
+      gsap.to(card, {
+        rotateX: 0,
+        rotateY: 0,
+        ease: "power2.out",
+        duration: 0.7,
+        overwrite: "auto",
+      });
+    };
 
     return (
       <section
@@ -349,7 +417,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
         className={`relative w-full bg-[#123826] text-white select-none ${className}`}
       >
         {/* ==================================================================== */}
-        {/* STAGE 1: ABOUT ME & VIDEO CAPSULE (NO ROUNDED TOP CORNERS)           */}
+        {/* STAGE 1: ABOUT ME & VIDEO CAPSULE                                    */}
         {/* ==================================================================== */}
         <div
           id="about-section"
@@ -371,7 +439,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
           <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center pt-2 sm:pt-6">
             {/* Top Category Badge */}
             <div className="overlay-kicker flex items-center gap-2 px-8 py-1.5 rounded-full bg-white/25 border border-white/10 backdrop-blur-sm mb-5 sm:mb-7">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#c5eb35]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
               <span className="font-sans text-sm tracking-wide">ABOUT ME</span>
             </div>
 
@@ -417,7 +485,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                 type="button"
                 onClick={onVideoClick}
                 aria-label="Know more about me reel"
-                className="group relative cursor-pointer block rounded-full p-[2px] hover:from-[#c5eb35]/90 hover:via-white/40 hover:to-[#c5eb35]/40 transition-all duration-500 w-full max-w-[720px] sm:max-w-[880px] md:max-w-[1020px] lg:max-w-[900px]"
+                className="group relative cursor-pointer block rounded-full p-[2px] hover:from-white/60 hover:via-white/30 hover:to-white/60 transition-all duration-500 w-full max-w-[720px] sm:max-w-[880px] md:max-w-[1020px] lg:max-w-[900px]"
               >
                 <div className="relative w-full h-[105px] sm:h-[135px] md:h-[200px] lg:h-[245px] rounded-full overflow-hidden flex items-center justify-center">
                   <video
@@ -449,7 +517,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
         </div>
 
         {/* ==================================================================== */}
-        {/* STAGE 2 & 3 PINNED CONTAINER: PROJECTS WITH CURTAIN LIFT REVEAL     */}
+        {/* STAGE 2 & 3 PINNED CONTAINER: PREMIUM 3D FLIPCARDS STAGE             */}
         {/* ==================================================================== */}
         <div
           ref={stageContainerRef}
@@ -462,7 +530,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
           {/* Layer 1 (On Top): Projects Panel — Slides UPWARD on scroll! */}
           <div
             ref={projectsPanelRef}
-            className="absolute inset-0 w-full h-full z-20 overflow-hidden rounded-b-xl sm:rounded-b-2xl will-change-transform"
+            className="absolute inset-0 w-full h-full z-20 overflow-hidden rounded-b-xl sm:rounded-b-2xl will-change-transform flex flex-col justify-between"
           >
             {/* Stage Background: transitions from #123826 to #eaeae8 */}
             <div
@@ -471,84 +539,189 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
               style={{ backgroundColor: "#123826" }}
             />
 
+            {/* Tactile dot matrix background */}
+            <div
+              className="absolute inset-0 pointer-events-none opacity-25"
+              style={{
+                backgroundImage: "radial-gradient(#141b16 1.2px, transparent 1.2px)",
+                backgroundSize: "28px 28px",
+              }}
+            />
+
             {/* Film grain noise overlay */}
             <div className="absolute inset-0 bg-noise opacity-10 pointer-events-none mix-blend-overlay" />
 
-            {/* Centered "Projects" & "Top Loved Works" */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10 px-4 text-center">
+            {/* Header: Centered "Projects" & Subtitle */}
+            <div className="relative z-10 w-full flex flex-col items-center justify-center pt-8 sm:pt-11 px-4 text-center">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/5 border border-black/8 text-[11px] font-mono font-semibold text-[#141b16] uppercase tracking-wider mb-2">
+                <Sparkles className="w-3 h-3 text-[#c5eb35]" />
+                <span>Featured Architecture Showcase</span>
+              </div>
+
               <h2
                 ref={projectsTitleRef}
-                className="font-sans font-medium tracking-tight text-6xl sm:text-7xl md:text-8xl lg:text-[7.5rem] leading-none will-change-[color]"
+                className="font-sans font-medium tracking-tight text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] leading-none will-change-[color]"
               >
                 Projects
               </h2>
               <p
                 ref={projectsSubtitleRef}
-                className="font-sans text-base sm:text-xl md:text-2xl font-normal tracking-tight mt-3 sm:mt-4 will-change-[color]"
+                className="font-sans text-xs sm:text-sm md:text-base font-normal tracking-tight mt-1.5 will-change-[color] text-neutral-600"
               >
-                Top Loved Works
+                Top Loved Works • Scroll down to flip & inspect system architecture
               </p>
             </div>
 
-            {/* Horizontal Project Photo Cards */}
+            {/* Tweenlabs 3D Spatial FlipCards Container */}
             <div
-              ref={cardsTrackRef}
-              className="absolute top-1/2 -translate-y-1/2 left-0 flex items-center gap-6 sm:gap-8 md:gap-9 pl-8 pr-20 z-20 will-change-transform"
+              ref={cardsContainerRef}
+              className="relative z-20 w-full max-w-6xl mx-auto flex-1 flex items-center justify-center px-4 sm:px-6 py-2"
             >
-              {projectsData.map((project) => (
-                <Link
-                  key={project.id}
-                  href="/work"
-                  className="group relative flex-shrink-0 w-[300px] sm:w-[390px] md:w-[470px] lg:w-[530px] xl:w-[560px] h-[230px] sm:h-[285px] md:h-[335px] lg:h-[365px] rounded-2xl sm:rounded-3xl overflow-hidden bg-transparent shadow-[0_16px_45px_rgba(0,0,0,0.12)] border border-black/10 transition-all duration-500 hover:shadow-[0_24px_55px_rgba(0,0,0,0.22)] hover:-translate-y-1.5 cursor-pointer will-change-transform block"
-                >
-                  {/* Project Screenshot — Clean & Natural */}
-                  <div className="relative w-full h-full overflow-hidden bg-neutral-100">
-                    <img
-                      src={project.imageUrl}
-                      alt={project.title}
-                      loading="lazy"
-                      className="w-full h-full object-cover object-top group-hover:scale-104 transition-transform duration-700 ease-out"
-                    />
+              <div className="w-full flex flex-wrap sm:flex-nowrap items-center justify-center gap-4 sm:gap-6 md:gap-8 pointer-events-auto">
+                {featuredFlipProjects.map((stage, index) => (
+                  <div
+                    key={stage.id}
+                    id={`flip-card-${index}`}
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}
+                    className="card w-[240px] sm:w-[270px] md:w-[305px] lg:w-[335px] aspect-[5/7] max-h-[465px] flex-1 relative transform-gpu cursor-pointer group"
+                    style={{
+                      transformStyle: "preserve-3d",
+                      transform: "perspective(1400px) rotateX(0deg) rotateY(0deg)",
+                    }}
+                  >
+                    <div className="card-wrapper w-full h-full transform-gpu">
+                      <div
+                        className="flip-card-inner w-full h-full relative"
+                        style={{ transformStyle: "preserve-3d" }}
+                      >
+                        {/* ================= FRONT SIDE FACE ================= */}
+                        <div
+                          className="flip-card-front absolute inset-0 border border-black/12 shadow-[0_20px_50px_rgba(20,27,22,0.12)] p-4 sm:p-5 bg-white text-[#141b16] rounded-3xl flex flex-col justify-between select-none backface-hidden"
+                          style={{
+                            boxShadow: "0 20px 48px -12px rgba(20,27,22,0.14), inset 0 1px 0 rgba(255,255,255,0.9)",
+                          }}
+                        >
+                          {/* Top Header Badge Row */}
+                          <div className="flex justify-between items-center">
+                            <span className="font-mono text-[10px] sm:text-[11px] font-bold text-neutral-400 tracking-wider">
+                              [{stage.phase}]
+                            </span>
+                            <span
+                              className={`inline-flex items-center gap-1.5 border border-[#141b16]/15 px-3 py-0.5 rounded-full text-[9px] sm:text-[10px] font-mono font-bold uppercase shadow-xs ${stage.accentClass}`}
+                            >
+                              <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
+                              {stage.badge}
+                            </span>
+                          </div>
 
-                    {/* Subtle bottom-only shade strictly to make text readable */}
-                    <div className="absolute bottom-0 inset-x-0 h-32 sm:h-40 md:h-44 bg-gradient-to-t from-black/90 via-black/45 to-transparent pointer-events-none" />
+                          {/* Media Preview Frame with specular shadow */}
+                          <div className="inner-img-frame w-full h-[145px] sm:h-[165px] md:h-[185px] border border-black/10 relative overflow-hidden rounded-2xl bg-neutral-100 my-2 shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
+                            <img
+                              src={stage.imageUrl}
+                              alt={stage.title}
+                              className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 ease-out"
+                            />
+                            {/* Subtle glossy sheen */}
+                            <div className="absolute inset-0 bg-linear-to-tr from-black/20 via-transparent to-white/10 pointer-events-none" />
+                          </div>
 
-                    {/* Top Number & External Arrow with Frosted Glass Badges */}
-                    <div className="absolute top-3.5 sm:top-4 left-3.5 sm:left-4 right-3.5 sm:right-4 flex justify-between items-center z-10">
-                      <span className="px-2.5 py-0.5 rounded-full bg-black/35 backdrop-blur-md border border-white/20 text-[11px] sm:text-xs font-mono font-medium text-white tracking-widest shadow-xs">
-                        {project.number}
-                      </span>
+                          {/* Bottom Card Title & Subtitle */}
+                          <div className="flex flex-col gap-1 border-t border-neutral-100 pt-2.5">
+                            <div className="flex justify-between items-baseline">
+                              <h3 className="font-sans font-bold text-base sm:text-lg tracking-tight text-[#141b16]">
+                                {stage.title}
+                              </h3>
+                              <span className="font-mono text-xs text-neutral-400 font-bold">
+                                0{index + 1}/03
+                              </span>
+                            </div>
 
-                      <div className="w-8 h-8 rounded-full bg-black/35 backdrop-blur-md border border-white/20 flex items-center justify-center text-white group-hover:bg-[#c5eb35] group-hover:text-black group-hover:rotate-45 transition-all duration-300 shadow-xs">
-                        <ArrowUpRight className="w-4 h-4" />
-                      </div>
-                    </div>
+                            <div className="flex justify-between items-center text-[10px] sm:text-[11px] font-mono text-neutral-500">
+                              <span>{stage.tagline}</span>
+                              <span className="text-neutral-400 font-sans text-[10px] flex items-center gap-1">
+                                <span>FLIP ↻</span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
 
-                    {/* Bottom Project Info */}
-                    <div className="absolute bottom-3.5 sm:bottom-4 left-3.5 sm:left-5 right-3.5 sm:right-5 z-10 flex flex-col gap-1 sm:gap-1.5">
-                      <h3 className="font-sans font-bold text-lg sm:text-xl md:text-2xl text-white tracking-tight leading-tight drop-shadow-sm">
-                        {project.title}
-                      </h3>
+                        {/* ================= BACK SIDE FACE (SCROLL-REVEALED) ================= */}
+                        <div
+                          className="flip-card-back absolute inset-0 border border-black/12 shadow-[0_20px_50px_rgba(20,27,22,0.12)] p-4 sm:p-5 bg-white text-[#141b16] rounded-3xl flex flex-col justify-between select-none backface-hidden [transform:rotateY(180deg)]"
+                          style={{
+                            boxShadow: "0 20px 48px -12px rgba(20,27,22,0.14), inset 0 1px 0 rgba(255,255,255,0.9)",
+                          }}
+                        >
+                          {/* Back Header */}
+                          <div className="w-full flex justify-between font-mono font-bold text-[10px] sm:text-[11px] uppercase border-b border-neutral-200 pb-2.5 items-center">
+                            <span className="text-neutral-500 flex items-center gap-1.5">
+                              <Terminal className="w-3 h-3 text-[#141b16]" />
+                              0{index + 1} // SPECS & ARCH
+                            </span>
+                            <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] font-mono font-bold flex items-center gap-1">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                              LIVE PROD
+                            </span>
+                          </div>
 
-                      <p className="font-sans text-xs sm:text-[13px] text-neutral-100/95 line-clamp-2 leading-relaxed drop-shadow-xs">
-                        {project.description}
-                      </p>
+                          {/* Architecture Metrics Chip */}
+                          <div className="my-1 px-3 py-1.5 rounded-xl bg-neutral-50 border border-black/6 flex items-center justify-between">
+                            <span className="font-mono text-[9px] sm:text-[10px] text-neutral-500 uppercase tracking-wider">
+                              SYSTEM METRIC
+                            </span>
+                            <span className="font-mono font-bold text-[9px] sm:text-[10px] text-[#141b16]">
+                              {stage.metric}
+                            </span>
+                          </div>
 
-                      {/* Tech Pills */}
-                      <div className="flex flex-wrap items-center gap-1.5 mt-0.5">
-                        {project.tech.map((t) => (
-                          <span
-                            key={t}
-                            className="px-2.5 py-0.5 rounded-full bg-[#c5eb35] text-[10px] sm:text-[11px] font-mono font-semibold text-[#141b16] shadow-xs"
-                          >
-                            {t}
-                          </span>
-                        ))}
+                          {/* Description */}
+                          <div className="flex-1 flex flex-col justify-center py-1">
+                            <p className="text-[11px] sm:text-[12px] font-sans text-neutral-700 leading-relaxed font-normal">
+                              {stage.description}
+                            </p>
+                            
+                            {/* Tech Stack Pills */}
+                            <div className="flex flex-wrap gap-1.5 mt-2.5">
+                              {stage.tech.map((t) => (
+                                <span
+                                  key={t}
+                                  className="px-2.5 py-0.5 rounded-full bg-neutral-100 hover:bg-neutral-200 border border-black/8 text-[9px] sm:text-[10px] font-mono text-neutral-800 font-semibold transition-colors"
+                                >
+                                  {t}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Back Action Row */}
+                          <div className="flex justify-between items-center border-t border-neutral-200 pt-2.5 font-mono text-[10px]">
+                            <span className="text-neutral-400">ENGINEERED BY ROX</span>
+                            <Link
+                              href="/work"
+                              className="flex items-center gap-1.5 bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-bold px-3 py-1 rounded-full shadow-xs hover:scale-105 active:scale-95 transition-all text-xs"
+                            >
+                              <span>Case Study</span>
+                              <ArrowUpRight className="w-3 h-3 stroke-[2.5]" />
+                            </Link>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </Link>
-              ))}
+                ))}
+              </div>
+            </div>
+
+            {/* Bottom "Explore All Works" Navigation Bar */}
+            <div className="relative z-20 pb-8 flex justify-center">
+              <Link
+                href="/work"
+                className="group px-7 py-3 rounded-full bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-semibold text-xs sm:text-sm flex items-center gap-2 transition-all duration-300 shadow-[0_4px_20px_rgba(197,235,53,0.35)] hover:shadow-[0_8px_28px_rgba(197,235,53,0.5)] hover:scale-105 active:scale-95 border border-[#c5eb35]/30"
+              >
+                <span>Explore All Production Case Studies</span>
+                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
             </div>
           </div>
         </div>

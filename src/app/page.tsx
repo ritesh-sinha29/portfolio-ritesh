@@ -87,7 +87,7 @@ export default function Home() {
             onClick={() => scrollToSection("home")}
             className={`px-4 sm:px-5 py-2 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
               activeTab === "home"
-                ? "bg-[#c5eb35] text-[#141b16] shadow-xs scale-[1.02]"
+                ? "bg-[#c5eb35] text-[#141b16] shadow-sm scale-[1.02]"
                 : "text-[#5a625b] hover:text-[#141b16] hover:bg-black/5"
             }`}
           >
@@ -99,7 +99,7 @@ export default function Home() {
             onClick={() => scrollToSection("works")}
             className={`px-4 sm:px-5 py-2 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
               activeTab === "works"
-                ? "bg-[#c5eb35] text-[#141b16] shadow-xs scale-[1.02]"
+                ? "bg-[#c5eb35] text-[#141b16] shadow-sm scale-[1.02]"
                 : "text-[#5a625b] hover:text-[#141b16] hover:bg-black/5"
             }`}
           >
@@ -111,7 +111,7 @@ export default function Home() {
             onClick={() => scrollToSection("about")}
             className={`px-4 sm:px-5 py-2 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
               activeTab === "about"
-                ? "bg-[#c5eb35] text-[#141b16] shadow-xs scale-[1.02]"
+                ? "bg-[#c5eb35] text-[#141b16] shadow-sm scale-[1.02]"
                 : "text-[#5a625b] hover:text-[#141b16] hover:bg-black/5"
             }`}
           >

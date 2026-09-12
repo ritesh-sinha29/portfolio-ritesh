@@ -104,7 +104,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
       className="fixed inset-0 z-50 w-full h-screen text-white flex flex-col justify-between p-8 sm:p-12 md:p-16 select-none overflow-hidden bg-black"
       style={{ willChange: "transform" }}
     >
-      {/* Fullscreen Video Background */}
+      {/* Fullscreen Video Background with Male Character */}
       <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
         <video
           autoPlay
@@ -114,14 +114,11 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           preload="auto"
           className="absolute inset-0 w-full h-full object-cover brightness-[0.85] contrast-[1.05]"
         >
-          <source
-            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260429_114316_1c7889ad-2885-410e-b493-98119fee0ddb.mp4"
-            type="video/mp4"
-          />
+          <source src="/loading_bg.mp4" type="video/mp4" />
         </video>
 
         {/* Subtle cinematic gradient overlay for high contrast */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-black/50 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/50 pointer-events-none" />
       </div>
 
       {/* Top spacer */}

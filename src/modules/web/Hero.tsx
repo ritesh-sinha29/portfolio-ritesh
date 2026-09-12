@@ -74,7 +74,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
         lower.includes("hire")
       ) {
         reply =
-          "You can reach out directly to ROX via email at ronitrai1237@gmail.com or connect on LinkedIn and GitHub!";
+          "You can reach out directly to ROX via email at riteshsinha4146@gmail.com or connect on LinkedIn and GitHub!";
       }
 
       setMessages([

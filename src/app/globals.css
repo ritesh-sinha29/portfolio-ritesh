@@ -1,17 +1,28 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Helvetica Regular";
+  src: url("https://db.onlinewebfonts.com/t/a64ff11d2c24584c767f6257e880dc65.eot");
+  src: url("https://db.onlinewebfonts.com/t/a64ff11d2c24584c767f6257e880dc65.eot?#iefix") format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/a64ff11d2c24584c767f6257e880dc65.woff2") format("woff2"),
+    url("https://db.onlinewebfonts.com/t/a64ff11d2c24584c767f6257e880dc65.woff") format("woff"),
+    url("https://db.onlinewebfonts.com/t/a64ff11d2c24584c767f6257e880dc65.ttf") format("truetype"),
+    url("https://db.onlinewebfonts.com/t/a64ff11d2c24584c767f6257e880dc65.svg#Helvetica Regular") format("svg");
+  font-display: swap;
+}
+
 @theme {
   --color-primary: #DEDBC8;
   --color-lemon: #c5eb35;
   --font-serif: 'Instrument Serif', Georgia, serif;
   --font-silkscreen: 'Silkscreen', cursive;
-  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-sans: 'Helvetica Regular', 'Inter', system-ui, sans-serif;
 }
 
 :root {
   --font-serif: 'Instrument Serif', Georgia, serif;
   --font-silkscreen: 'Silkscreen', cursive;
-  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-sans: 'Helvetica Regular', 'Inter', system-ui, sans-serif;
   --background: #eaeae8;
   --foreground: #141b16;
 }
@@ -29,7 +40,7 @@
 }
 
 .font-sans {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Helvetica Regular', 'Inter', system-ui, sans-serif;
 }
 
 body {
@@ -38,7 +49,35 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Helvetica Regular', 'Inter', system-ui, sans-serif;
+}
+
+/* Liquid Glass Effect */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.01);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 20%,
+    rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%,
+    rgba(255,255,255,0.15) 80%, rgba(255,255,255,0.45) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
 }
 
 /* Custom SVG Noise Textures */

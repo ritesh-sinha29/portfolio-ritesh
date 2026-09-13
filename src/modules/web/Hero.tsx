@@ -31,7 +31,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
   const taglineRef = useRef<HTMLDivElement>(null);
   const bottomArrowRef = useRef<HTMLDivElement>(null);
   const bottomSocialsRef = useRef<HTMLDivElement>(null);
-  const quickInfoRef = useRef<HTMLButtonElement>(null);
+  const quickInfoRef = useRef<HTMLDivElement>(null);
 
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -196,7 +196,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
       bottomArrowRef.current,
       bottomSocialsRef.current,
       quickInfoRef.current,
-    ].filter((el): el is HTMLButtonElement | HTMLDivElement => Boolean(el));
+    ].filter((el): el is HTMLDivElement => Boolean(el));
 
     if (bottomControls.length > 0) {
       tl.to(
@@ -228,21 +228,23 @@ export default function Hero({ isLoaded = false }: HeroProps) {
           RITESH SINHA
         </span>
 
-        {/* Contact Pill Button */}
-        <MagneticButton
-          onClick={() => {
-            const aboutEl = document.getElementById("about-section");
-            if (aboutEl) {
-              aboutEl.scrollIntoView({ behavior: "smooth" });
-            }
-          }}
-          className="group bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-full flex items-center gap-2 transition-all duration-300 shadow-[0_4px_16px_rgba(197,235,53,0.3)] hover:shadow-[0_6px_20px_rgba(197,235,53,0.45)] border border-[#c5eb35]/20"
-        >
-          <span>Contact</span>
-          <span className="w-5 h-5 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:bg-[#141b16] transition-all">
-            <ArrowUpRight className="w-3.5 h-3.5 text-[#141b16] group-hover:text-[#c5eb35] transition-colors" />
-          </span>
-        </MagneticButton>
+        {/* Contact Pill Button inside dock */}
+        <div className="p-1 rounded-full bg-white/95 backdrop-blur-md border border-black/10 shadow-xs inline-flex items-center">
+          <MagneticButton
+            onClick={() => {
+              const aboutEl = document.getElementById("about-section");
+              if (aboutEl) {
+                aboutEl.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
+            className="group bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-bold text-xs sm:text-sm px-4 sm:px-5 py-1.5 sm:py-2 rounded-full flex items-center gap-2 transition-colors duration-150 shadow-xs"
+          >
+            <span>Contact</span>
+            <span className="w-5 h-5 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:bg-[#141b16] transition-colors">
+              <ArrowUpRight className="w-3.5 h-3.5 text-[#141b16] group-hover:text-[#c5eb35] transition-colors stroke-[2.5]" />
+            </span>
+          </MagneticButton>
+        </div>
       </header>
 
       {/* Main Center Stage */}
@@ -272,20 +274,20 @@ export default function Hero({ isLoaded = false }: HeroProps) {
             </span>
           </p>
 
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-1.5 sm:gap-3 mt-3 sm:mt-7">
+          <div className="inline-flex flex-row items-center p-1 sm:p-1.5 rounded-full bg-white/95 backdrop-blur-md border border-black/10 shadow-[0_6px_24px_rgba(0,0,0,0.06)] gap-1 mt-3 sm:mt-7 max-w-full">
             <MagneticButton
-              className="rounded-full border border-black bg-white px-2.5 sm:px-5 py-1.5 sm:py-2.5 text-[10px] sm:text-sm font-semibold text-black shadow-xs flex items-center justify-center gap-1 sm:gap-2 hover:bg-neutral-50"
+              className="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-sans font-bold text-[#141b16] hover:bg-neutral-100 flex items-center justify-center gap-1.5 sm:gap-2 transition-colors duration-150"
             >
-              <Download className="w-3 h-3 sm:w-4 sm:h-4 text-black" />
+              <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#141b16]" />
               <span>Download CV</span>
             </MagneticButton>
 
             <MagneticButton
               href="/work"
-              className="rounded-full border border-black bg-white px-2.5 sm:px-5 py-1.5 sm:py-2.5 text-[10px] sm:text-sm font-semibold text-black shadow-xs flex items-center justify-center gap-1 sm:gap-2 hover:bg-neutral-50"
+              className="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-sans font-bold bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] shadow-xs flex items-center justify-center gap-1.5 sm:gap-2 transition-colors duration-150"
             >
-              <span>See my Blogs</span>
-              <ArrowUpRight className="w-3 h-3 sm:w-4 sm:h-4 text-black" />
+              <span>Explore Works</span>
+              <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#141b16] stroke-[2.5]" />
             </MagneticButton>
           </div>
         </div>
@@ -309,25 +311,29 @@ export default function Hero({ isLoaded = false }: HeroProps) {
       </div>
 
       {/* Ask anything Tab (Right Screen Edge) */}
-      <button
+      <div
         ref={quickInfoRef}
-        type="button"
-        aria-label="Ask anything"
-        onClick={() => setIsChatOpen(true)}
-        className="fixed sm:absolute right-0 top-1/2 z-30 bg-white/95 backdrop-blur-md border-l border-y border-black/10 py-4 px-2 rounded-l-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] flex items-center justify-center cursor-pointer hover:bg-white transition-all duration-300 group hover:translate-x-[-3px]"
+        className="fixed sm:absolute right-0 top-1/2 -translate-y-1/2 z-30 pointer-events-auto"
       >
-        <div
-          className="flex items-center gap-2"
-          style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+        <MagneticButton
+          ariaLabel="Ask anything"
+          onClick={() => setIsChatOpen(true)}
+          magneticStrength={0.25}
+          className="bg-white/95 backdrop-blur-md border-l border-y border-black/10 py-4 px-2 rounded-l-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] flex items-center justify-center hover:bg-white transition-all duration-300 group hover:translate-x-[-3px]"
         >
-          <span className="w-5 h-5 flex items-center justify-center rounded-full text-xs bg-[#c5eb35] text-[#141b16] font-bold">
-            R
-          </span>
-          <span className="font-sans text-[11px] font-semibold tracking-wider text-neutral-800 group-hover:text-black uppercase whitespace-nowrap">
-            Ask anything
-          </span>
-        </div>
-      </button>
+          <div
+            className="flex items-center gap-2"
+            style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+          >
+            <span className="w-5 h-5 flex items-center justify-center rounded-full text-xs bg-[#c5eb35] text-[#141b16] font-bold">
+              R
+            </span>
+            <span className="font-sans text-[11px] font-semibold tracking-wider text-neutral-800 group-hover:text-black uppercase whitespace-nowrap">
+              Ask anything
+            </span>
+          </div>
+        </MagneticButton>
+      </div>
 
       {/* Right Side AI Agent Popup */}
       <AnimatePresence>
@@ -368,14 +374,13 @@ export default function Hero({ isLoaded = false }: HeroProps) {
                   </div>
                 </div>
 
-                <button
-                  type="button"
+                <MagneticButton
                   onClick={() => setIsChatOpen(false)}
-                  className="w-8 h-8 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 flex items-center justify-center transition-colors cursor-pointer"
-                  aria-label="Close chat"
+                  className="w-8 h-8 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 flex items-center justify-center transition-colors"
+                  ariaLabel="Close chat"
                 >
                   <X className="w-4 h-4" />
-                </button>
+                </MagneticButton>
               </div>
 
               {/* Body Space: Chat Messages */}
@@ -413,18 +418,18 @@ export default function Hero({ isLoaded = false }: HeroProps) {
                     placeholder="Ask anything..."
                     className="w-full pl-3.5 pr-10 py-2.5 text-xs sm:text-sm bg-white border border-black/10 rounded-full focus:outline-hidden focus:border-[#141b16] focus:ring-1 focus:ring-[#141b16] transition-all text-neutral-900 placeholder:text-neutral-400"
                   />
-                  <button
-                    type="button"
+                  <MagneticButton
                     onClick={() => {
                       setInputValue(
                         "Tell me about Ritesh Sinha's tech stack and experience!",
                       );
                     }}
-                    className="absolute right-2.5 p-1 text-neutral-400 hover:text-neutral-800 transition-colors cursor-pointer"
+                    className="absolute right-2.5 p-1 text-neutral-400 hover:text-neutral-800 transition-colors"
                     title="Voice input / suggestion"
+                    scaleOnHover={1.15}
                   >
                     <Mic className="w-4 h-4" />
-                  </button>
+                  </MagneticButton>
                 </div>
 
                 <MagneticButton
@@ -469,10 +474,10 @@ export default function Hero({ isLoaded = false }: HeroProps) {
         {/* Spacer */}
         <div className="flex-1" />
 
-        {/* Bottom Right: Social Icons (GitHub, LinkedIn, X) */}
+        {/* Bottom Right: Social Icons Pill Dock (GitHub, LinkedIn, X) */}
         <div
           ref={bottomSocialsRef}
-          className="flex items-center gap-2 sm:gap-3 text-[#141b16]"
+          className="p-1 rounded-full bg-white/95 backdrop-blur-md border border-black/10 shadow-xs flex items-center gap-1 text-[#141b16]"
         >
           {/* GitHub */}
           <MagneticButton
@@ -480,9 +485,9 @@ export default function Hero({ isLoaded = false }: HeroProps) {
             target="_blank"
             rel="noreferrer"
             ariaLabel="GitHub"
-            className="w-7 h-7 rounded-full flex items-center justify-center hover:bg-black/5 text-[#141b16]"
+            className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 text-[#141b16] transition-colors"
           >
-            <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
+            <svg className="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24">
               <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -497,9 +502,9 @@ export default function Hero({ isLoaded = false }: HeroProps) {
             target="_blank"
             rel="noreferrer"
             ariaLabel="LinkedIn"
-            className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-black/5 text-[#141b16]"
+            className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 text-[#141b16] transition-colors"
           >
-            <svg className="w-8 h-8 fill-current" viewBox="0 0 24 24">
+            <svg className="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24">
               <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.45 1.45 0 1 0 0-2.9 1.45 1.45 0 0 0 0 2.9m1.4 9.74V9.97H5.06v8.53h2.8z" />
             </svg>
           </MagneticButton>
@@ -510,9 +515,9 @@ export default function Hero({ isLoaded = false }: HeroProps) {
             target="_blank"
             rel="noreferrer"
             ariaLabel="X"
-            className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-black/5 text-[#141b16]"
+            className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 text-[#141b16] transition-colors"
           >
-            <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
             </svg>
           </MagneticButton>

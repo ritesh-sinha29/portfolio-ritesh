@@ -208,16 +208,18 @@ export default function WorkPage() {
           RITESH SINHA
         </Link>
 
-        {/* Right: Contact Pill Button */}
-        <MagneticButton
-          href={`mailto:${email}`}
-          className="group bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-full flex items-center gap-2 transition-all duration-300 shadow-[0_4px_16px_rgba(197,235,53,0.3)] hover:shadow-[0_6px_20px_rgba(197,235,53,0.45)] border border-[#c5eb35]/20"
-        >
-          <span>Contact</span>
-          <span className="w-5 h-5 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:bg-[#141b16] transition-all">
-            <ArrowUpRight className="w-3.5 h-3.5 text-[#141b16] group-hover:text-[#c5eb35] transition-colors" />
-          </span>
-        </MagneticButton>
+        {/* Right: Contact Pill Button inside dock */}
+        <div className="p-1 rounded-full bg-white/95 backdrop-blur-md border border-black/10 shadow-xs inline-flex items-center">
+          <MagneticButton
+            href={`mailto:${email}`}
+            className="group bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-bold text-xs sm:text-sm px-4 sm:px-5 py-1.5 sm:py-2 rounded-full flex items-center gap-2 transition-colors duration-150 shadow-xs"
+          >
+            <span>Contact</span>
+            <span className="w-5 h-5 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:bg-[#141b16] transition-colors">
+              <ArrowUpRight className="w-3.5 h-3.5 text-[#141b16] group-hover:text-[#c5eb35] transition-colors stroke-[2.5]" />
+            </span>
+          </MagneticButton>
+        </div>
       </header>
 
       {/* Universal Floating Top Navigation Pill with Magnetic Dock physics */}
@@ -245,12 +247,16 @@ export default function WorkPage() {
       {/* Hero Header Area */}
       <section className="relative z-10 pt-14 sm:pt-20 md:pt-24 pb-8 sm:pb-12 px-4 sm:px-8 max-w-7xl mx-auto text-center flex flex-col items-center">
         {/* Top Badge */}
-        <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-black/10 shadow-xs mb-4 sm:mb-5">
+        <MagneticButton
+          magneticStrength={0.25}
+          scaleOnHover={1.05}
+          className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-black/10 shadow-xs mb-4 sm:mb-5"
+        >
           <span className="w-2 h-2 rounded-full bg-[#c5eb35] animate-pulse" />
           <span className="font-mono text-[10px] sm:text-xs text-[#5a625b] font-bold tracking-wider uppercase">
             6+ Production Applications &amp; AI Systems
           </span>
-        </div>
+        </MagneticButton>
 
         {/* Big Headline */}
         <h1 className="font-serif italic font-light text-5xl sm:text-7xl md:text-8xl tracking-tight text-[#141b16] leading-none">
@@ -262,26 +268,19 @@ export default function WorkPage() {
           Intelligent AI agents, real-time collaborative canvases, distributed architectures, and voice engines built with production-grade performance.
         </p>
 
-        {/* Filter Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2.5 mt-6 sm:mt-10 p-1.5 rounded-full bg-white border border-black/10 shadow-sm max-w-full">
-          {[
-            { id: "all", label: "All Works" },
-            { id: "ai-systems", label: "AI Systems & Agents" },
-            { id: "voice-ai", label: "Voice AI" },
-            { id: "fullstack", label: "Interactive & Full-Stack" },
-          ].map((tab) => (
-            <MagneticButton
-              key={tab.id}
-              onClick={() => setSelectedCategory(tab.id as any)}
-              className={`px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-sm font-sans font-bold tracking-tight transition-colors duration-200 ${
-                selectedCategory === tab.id
-                  ? "bg-[#c5eb35] text-[#141b16] shadow-xs"
-                  : "text-[#5a625b] hover:text-[#141b16] hover:bg-black/5"
-              }`}
-            >
-              {tab.label}
-            </MagneticButton>
-          ))}
+        {/* Filter Tabs (MagneticDock) */}
+        <div className="mt-6 sm:mt-10 flex justify-center max-w-full">
+          <MagneticDock
+            variant="inline"
+            activeId={selectedCategory}
+            onItemClick={(id) => setSelectedCategory(id as any)}
+            items={[
+              { id: "all", label: "All Works" },
+              { id: "ai-systems", label: "AI Systems & Agents" },
+              { id: "voice-ai", label: "Voice AI" },
+              { id: "fullstack", label: "Interactive & Full-Stack" },
+            ]}
+          />
         </div>
       </section>
 
@@ -304,15 +303,21 @@ export default function WorkPage() {
                 />
 
                 {/* Badge Pills */}
-                <div className="absolute top-3 left-3 right-3 flex justify-between items-center pointer-events-none">
-                  <span className="font-mono text-[9.5px] sm:text-[11px] font-bold text-[#141b16] bg-white border border-[#141b16] shadow-[1.5px_1.5px_0px_#141b16] px-2.5 py-0.5 rounded-full">
+                <div className="absolute top-3 left-3 right-3 flex justify-between items-center pointer-events-auto z-10">
+                  <MagneticButton
+                    magneticStrength={0.2}
+                    scaleOnHover={1.08}
+                    className="font-mono text-[9.5px] sm:text-[11px] font-bold text-[#141b16] bg-white border border-[#141b16] shadow-[1.5px_1.5px_0px_#141b16] px-2.5 py-0.5 rounded-full"
+                  >
                     #{project.number}
-                  </span>
-                  <span
+                  </MagneticButton>
+                  <MagneticButton
+                    magneticStrength={0.2}
+                    scaleOnHover={1.08}
                     className={`font-mono text-[9px] sm:text-[10.5px] font-bold uppercase px-2.5 py-0.5 rounded-full border border-[#141b16] shadow-[1.5px_1.5px_0px_#141b16] ${project.accentClass}`}
                   >
                     {project.badge}
-                  </span>
+                  </MagneticButton>
                 </div>
               </div>
 
@@ -350,44 +355,52 @@ export default function WorkPage() {
                   {/* Tech Badges */}
                   <div className="flex flex-wrap gap-1 mt-3.5">
                     {project.tech.map((t) => (
-                      <span
+                      <MagneticButton
                         key={t}
-                        className="px-2 py-0.5 rounded bg-neutral-100 border border-black/10 text-[9.5px] sm:text-[10px] font-mono font-bold text-neutral-800"
+                        magneticStrength={0.25}
+                        scaleOnHover={1.08}
+                        className="px-2 py-0.5 rounded bg-neutral-100 hover:bg-neutral-200 border border-black/10 text-[9.5px] sm:text-[10px] font-mono font-bold text-neutral-800 transition-colors"
                       >
                         {t}
-                      </span>
+                      </MagneticButton>
                     ))}
                   </div>
                 </div>
 
-                {/* Footer Action Links */}
-                <div className="flex items-center justify-between gap-2 pt-4 mt-4 border-t border-neutral-200">
+                {/* Footer Action Pill Buttons (Matching Screenshot with MagneticButton) */}
+                <div className="pt-4 mt-4 border-t border-neutral-200/80 flex items-center justify-between gap-2">
+                  {/* Launch App - Lime Pill with 2px Black Border */}
                   <MagneticButton
                     href={project.liveUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex-1 flex items-center justify-center gap-1 py-2 px-2.5 sm:px-3 rounded-full bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-bold text-xs border border-[#141b16] shadow-[2px_2px_0px_#141b16] hover:shadow-[3px_3px_0px_#141b16] transition-all duration-200"
+                    magneticStrength={0.35}
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2 px-4 rounded-full bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-bold text-xs sm:text-[13px] border-2 border-[#141b16] transition-colors duration-150"
                   >
                     <span>Launch App</span>
                     <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
                   </MagneticButton>
 
+                  {/* View - White Pill with 2px Black Border */}
                   <MagneticButton
                     href={project.liveUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-1 px-3 py-2 rounded-full bg-white hover:bg-neutral-50 border border-[#141b16] shadow-[2px_2px_0px_#141b16] text-[#141b16] font-sans font-bold text-xs transition-all duration-200"
+                    magneticStrength={0.3}
+                    className="flex items-center justify-center gap-1.5 py-2 px-3.5 rounded-full bg-white hover:bg-neutral-100 text-[#141b16] font-sans font-bold text-xs sm:text-[13px] border-2 border-[#141b16] transition-colors duration-150"
                     title={`View ${project.title}`}
                   >
-                    <Eye className="w-3.5 h-3.5 stroke-[2]" />
+                    <Eye className="w-3.5 h-3.5 stroke-[2.2]" />
                     <span>View</span>
                   </MagneticButton>
 
+                  {/* Source - White Pill with 2px Black Border */}
                   <MagneticButton
                     href={project.githubUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-1 px-3 py-2 rounded-full bg-white hover:bg-neutral-50 border border-[#141b16] shadow-[2px_2px_0px_#141b16] text-[#141b16] font-sans font-bold text-xs transition-all duration-200"
+                    magneticStrength={0.3}
+                    className="flex items-center justify-center gap-1.5 py-2 px-3.5 rounded-full bg-white hover:bg-neutral-100 text-[#141b16] font-sans font-bold text-xs sm:text-[13px] border-2 border-[#141b16] transition-colors duration-150"
                     title={`View ${project.title} GitHub Source Code`}
                   >
                     <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -397,7 +410,7 @@ export default function WorkPage() {
                         d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
                       />
                     </svg>
-                    <span className="hidden sm:inline">Source</span>
+                    <span>Source</span>
                   </MagneticButton>
                 </div>
               </div>
@@ -416,10 +429,11 @@ export default function WorkPage() {
             Open for select high-impact engineering roles, AI system architecture consulting, and founding engineering opportunities.
           </p>
 
-          <div className="flex items-center gap-3 mt-6 px-4 py-2 rounded-full bg-[#eaeae8] border border-black/15 shadow-inner">
+          {/* Email Dock Bar */}
+          <div className="flex items-center gap-2 mt-6 p-1 sm:p-1.5 rounded-full bg-white/95 backdrop-blur-md border border-black/10 shadow-[0_4px_20px_rgba(0,0,0,0.06)]">
             <a
               href={`mailto:${email}`}
-              className="font-sans font-bold text-xs sm:text-base text-[#141b16] hover:text-emerald-700 transition-colors"
+              className="px-4 py-2 font-sans font-bold text-xs sm:text-sm text-[#141b16] hover:text-[#5a625b] transition-colors truncate"
             >
               {email}
             </a>
@@ -427,9 +441,38 @@ export default function WorkPage() {
             <MagneticButton
               onClick={handleCopyEmail}
               ariaLabel="Copy email address"
-              className="w-7 h-7 rounded-full bg-[#c5eb35] border border-[#141b16] text-[#141b16] flex items-center justify-center shadow-xs"
+              className="px-4 py-2 rounded-full bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-bold text-xs flex items-center gap-1.5 shadow-xs transition-colors duration-150"
             >
-              {copied ? <Check className="w-3.5 h-3.5 stroke-[2.5]" /> : <Copy className="w-3.5 h-3.5 stroke-[2.5]" />}
+              {copied ? (
+                <>
+                  <Check className="w-3.5 h-3.5 stroke-[2.5]" />
+                  <span>Copied!</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-3.5 h-3.5 stroke-[2.5]" />
+                  <span>Copy Email</span>
+                </>
+              )}
+            </MagneticButton>
+          </div>
+
+          {/* Bottom Dual Action Pill Dock: Back to Home & Hire Me */}
+          <div className="mt-8 inline-flex items-center p-1 sm:p-1.5 rounded-full bg-white/95 backdrop-blur-md border border-black/10 shadow-[0_6px_24px_rgba(0,0,0,0.06)] gap-1">
+            <MagneticButton
+              href="/"
+              className="px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-sans font-bold text-[#141b16] hover:bg-neutral-100 flex items-center gap-1.5 sm:gap-2 transition-colors duration-150 uppercase tracking-wider"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 stroke-[2.5]" />
+              <span>Home</span>
+            </MagneticButton>
+
+            <MagneticButton
+              href={`mailto:${email}`}
+              className="px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-sans font-bold bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] shadow-xs flex items-center gap-1.5 sm:gap-2 transition-colors duration-150 uppercase tracking-wider"
+            >
+              <span>Hire Me</span>
+              <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
             </MagneticButton>
           </div>
         </div>

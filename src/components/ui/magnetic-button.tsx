@@ -2,10 +2,7 @@
 
 import React, { forwardRef, useImperativeHandle, useRef } from "react";
 import Link from "next/link";
-import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-
-gsap.registerPlugin(useGSAP);
 
 export interface MagneticButtonProps {
   children: React.ReactNode;
@@ -30,8 +27,8 @@ export const MagneticButton = forwardRef<HTMLElement, MagneticButtonProps>(
     {
       children,
       className = "",
-      magneticStrength = 0.35,
-      scaleOnHover = 1.05,
+      magneticStrength = 0.4,
+      scaleOnHover = 1.07,
       squashOnClick = true,
       href,
       target,
@@ -50,34 +47,34 @@ export const MagneticButton = forwardRef<HTMLElement, MagneticButtonProps>(
 
     useImperativeHandle(ref, () => elementRef.current as HTMLElement);
 
-    const { contextSafe } = useGSAP({ scope: elementRef });
-
     const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
       if (disabled) return;
       const el = elementRef.current;
       if (!el) return;
 
       const rect = el.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
+      const currentX = (gsap.getProperty(el, "x") as number) || 0;
+      const currentY = (gsap.getProperty(el, "y") as number) || 0;
 
-      const distanceX = e.clientX - centerX;
-      const distanceY = e.clientY - centerY;
+      // Calculate the true untransformed center of the button
+      const originalCenterX = rect.left - currentX + rect.width / 2;
+      const originalCenterY = rect.top - currentY + rect.height / 2;
+
+      const distanceX = e.clientX - originalCenterX;
+      const distanceY = e.clientY - originalCenterY;
 
       const pullX = distanceX * magneticStrength;
       const pullY = distanceY * magneticStrength;
 
-      contextSafe(() => {
-        gsap.to(el, {
-          x: pullX,
-          y: pullY,
-          scale: scaleOnHover,
-          rotation: pullX * 0.04,
-          duration: 0.25,
-          ease: "power2.out",
-          overwrite: "auto",
-        });
-      })();
+      gsap.to(el, {
+        x: pullX,
+        y: pullY,
+        scale: scaleOnHover,
+        rotation: pullX * 0.08,
+        duration: 0.28,
+        ease: "power2.out",
+        overwrite: "auto",
+      });
     };
 
     const handleMouseLeave = () => {
@@ -85,44 +82,40 @@ export const MagneticButton = forwardRef<HTMLElement, MagneticButtonProps>(
       const el = elementRef.current;
       if (!el) return;
 
-      contextSafe(() => {
-        gsap.to(el, {
-          x: 0,
-          y: 0,
-          scale: 1,
-          rotation: 0,
-          duration: 0.6,
-          ease: "elastic.out(1.2, 0.4)",
-          overwrite: "auto",
-        });
-      })();
+      gsap.to(el, {
+        x: 0,
+        y: 0,
+        scale: 1,
+        rotation: 0,
+        duration: 0.7,
+        ease: "elastic.out(1.2, 0.35)",
+        overwrite: "auto",
+      });
     };
 
     const handleClick = (e: React.MouseEvent<HTMLElement>) => {
       if (disabled) return;
       const el = elementRef.current;
       if (el && squashOnClick) {
-        contextSafe(() => {
-          const tl = gsap.timeline();
-          tl.to(el, {
-            scaleX: 1.15,
-            scaleY: 0.85,
-            duration: 0.1,
+        const tl = gsap.timeline();
+        tl.to(el, {
+          scaleX: 1.2,
+          scaleY: 0.8,
+          duration: 0.1,
+          ease: "power1.out",
+        })
+          .to(el, {
+            scaleX: 0.88,
+            scaleY: 1.14,
+            duration: 0.12,
             ease: "power1.out",
           })
-            .to(el, {
-              scaleX: 0.92,
-              scaleY: 1.08,
-              duration: 0.12,
-              ease: "power1.out",
-            })
-            .to(el, {
-              scaleX: 1,
-              scaleY: 1,
-              duration: 0.25,
-              ease: "elastic.out(1.2, 0.35)",
-            });
-        })();
+          .to(el, {
+            scaleX: 1,
+            scaleY: 1,
+            duration: 0.3,
+            ease: "elastic.out(1.2, 0.35)",
+          });
       }
 
       if (onClick) {
@@ -130,7 +123,7 @@ export const MagneticButton = forwardRef<HTMLElement, MagneticButtonProps>(
       }
     };
 
-    const combinedClasses = `will-change-transform inline-flex items-center justify-center cursor-pointer select-none ${className}`;
+    const baseClasses = `will-change-transform transform-gpu inline-flex items-center justify-center cursor-pointer select-none ${className}`;
 
     if (href) {
       const isExternal =
@@ -148,7 +141,7 @@ export const MagneticButton = forwardRef<HTMLElement, MagneticButtonProps>(
             href={href}
             target={target}
             rel={rel || (target === "_blank" ? "noreferrer" : undefined)}
-            className={combinedClasses}
+            className={baseClasses}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             onClick={handleClick}
@@ -168,7 +161,7 @@ export const MagneticButton = forwardRef<HTMLElement, MagneticButtonProps>(
             elementRef.current = el as HTMLElement;
           }}
           href={href}
-          className={combinedClasses}
+          className={baseClasses}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           onClick={handleClick}
@@ -189,7 +182,7 @@ export const MagneticButton = forwardRef<HTMLElement, MagneticButtonProps>(
         }}
         type={type}
         disabled={disabled}
-        className={combinedClasses}
+        className={baseClasses}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         onClick={handleClick}

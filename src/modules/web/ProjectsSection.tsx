@@ -149,13 +149,12 @@ const ProjectsSection = React.forwardRef<HTMLDivElement, ProjectsSectionProps>(
                       Quick Info
                     </h4>
                   </div>
-                  <button
-                    type="button"
+                  <MagneticButton
                     onClick={() => setQuickInfoOpen(false)}
-                    className="text-xs font-semibold uppercase px-3 py-1 rounded-full bg-black/5 hover:bg-black/10 cursor-pointer text-black"
+                    className="text-xs font-semibold uppercase px-3.5 py-1.5 rounded-full bg-black/5 hover:bg-black/10 text-black transition-colors"
                   >
                     Close
-                  </button>
+                  </MagneticButton>
                 </div>
 
                 <div className="mt-8 space-y-6">
@@ -201,14 +200,16 @@ const ProjectsSection = React.forwardRef<HTMLDivElement, ProjectsSectionProps>(
                 </div>
               </div>
 
-              <div className="border-t border-black/10 pt-4">
-                <a
-                  href="mailto:riteshsinha4146@gmail.com"
-                  className="w-full py-3 rounded-full bg-[#c5eb35] hover:bg-[#b8e528] text-black font-sans font-semibold text-sm flex items-center justify-center gap-2 transition-all cursor-pointer"
-                >
-                  <span>Initiate Contact</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </a>
+              <div className="border-t border-black/10 pt-4 flex justify-center">
+                <div className="w-full p-1 rounded-full bg-white border border-black/10 shadow-xs flex items-center">
+                  <MagneticButton
+                    href="mailto:riteshsinha4146@gmail.com"
+                    className="w-full py-2.5 rounded-full bg-[#c5eb35] hover:bg-[#b8e528] text-[#141b16] font-sans font-bold text-sm flex items-center justify-center gap-2 shadow-xs transition-colors duration-150 uppercase tracking-wider"
+                  >
+                    <span>Initiate Contact</span>
+                    <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+                  </MagneticButton>
+                </div>
               </div>
             </div>
           </div>

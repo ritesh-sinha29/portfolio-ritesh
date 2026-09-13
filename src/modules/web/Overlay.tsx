@@ -640,45 +640,49 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                             </p>
                             <div className="flex flex-wrap gap-0.5 sm:gap-1 mt-1 sm:mt-1.5">
                               {stage.tech.map((t) => (
-                                <span
+                                <MagneticButton
                                   key={t}
-                                  className="px-1 sm:px-1.5 py-0.5 rounded bg-neutral-100 border border-black/10 text-[7px] xs:text-[8px] sm:text-[8.5px] font-mono text-neutral-800 font-semibold"
+                                  magneticStrength={0.25}
+                                  scaleOnHover={1.08}
+                                  className="px-1 sm:px-1.5 py-0.5 rounded bg-neutral-100 hover:bg-neutral-200 border border-black/10 text-[7px] xs:text-[8px] sm:text-[8.5px] font-mono text-neutral-800 font-semibold transition-colors"
                                 >
                                   {t}
-                                </span>
+                                </MagneticButton>
                               ))}
                             </div>
                           </div>
 
-                          <div className="flex justify-between items-center border-t border-neutral-200 pt-1.5 sm:pt-2 gap-1">
-                            {/* Live Link Button */}
-                            <MagneticButton
-                              href={stage.liveUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="flex-1 flex items-center justify-center gap-0.5 sm:gap-1 px-1.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-bold text-[8px] xs:text-[9px] sm:text-[11px] shadow-xs"
-                              title={`Visit ${stage.title} Live`}
-                            >
-                              <span>Check Live Website</span>
-                              <ArrowUpRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 stroke-[2.5]" />
-                            </MagneticButton>
+                          <div className="w-full pt-1.5 sm:pt-2 border-t border-neutral-200">
+                            <div className="bg-white/95 backdrop-blur-md border border-black/10 shadow-xs rounded-full p-0.5 sm:p-1 flex items-center justify-between gap-1">
+                              {/* Live Link Button */}
+                              <MagneticButton
+                                href={stage.liveUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="flex-1 flex items-center justify-center gap-0.5 sm:gap-1 px-1.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-bold text-[8px] xs:text-[9px] sm:text-[11px] shadow-xs uppercase tracking-wider transition-colors duration-150"
+                                title={`Visit ${stage.title} Live`}
+                              >
+                                <span>Check Live</span>
+                                <ArrowUpRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 stroke-[2.5]" />
+                              </MagneticButton>
 
-                            {/* GitHub Button */}
-                            <MagneticButton
-                              href={stage.githubUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="flex items-center gap-1 px-1.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-neutral-100 hover:bg-neutral-200 text-[#141b16] font-sans font-bold text-[8px] xs:text-[9px] sm:text-[11px] border border-black/10 shadow-xs"
-                              title={`View ${stage.title} on GitHub`}
-                            >
-                              <svg className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 fill-current" viewBox="0 0 24 24">
-                                <path
-                                  fillRule="evenodd"
-                                  clipRule="evenodd"
-                                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                                />
-                              </svg>
-                            </MagneticButton>
+                              {/* GitHub Button */}
+                              <MagneticButton
+                                href={stage.githubUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="flex items-center gap-1 px-1.5 sm:px-2.5 py-1 sm:py-1.5 rounded-full text-[#141b16] hover:bg-neutral-100 font-sans font-bold text-[8px] xs:text-[9px] sm:text-[11px] transition-colors duration-150"
+                                title={`View ${stage.title} on GitHub`}
+                              >
+                                <svg className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 fill-current" viewBox="0 0 24 24">
+                                  <path
+                                    fillRule="evenodd"
+                                    clipRule="evenodd"
+                                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                                  />
+                                </svg>
+                              </MagneticButton>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -688,15 +692,17 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
               </div>
             </div>
 
-            {/* Bottom "Explore All Works" Navigation Bar */}
+            {/* Bottom "Explore All Works" Navigation Bar (Pill Dock Style) */}
             <div className="relative z-20 pb-5 sm:pb-6 md:pb-7 pt-1 flex justify-center shrink-0">
-              <MagneticButton
-                href="/work"
-                className="group px-6 py-2.5 rounded-full bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-bold text-xs sm:text-sm flex items-center gap-2 transition-all duration-300 shadow-[0_4px_16px_rgba(197,235,53,0.3)] hover:shadow-[0_6px_22px_rgba(197,235,53,0.45)] border border-[#c5eb35]/40"
-              >
-                <span>View All 6+ Production Projects</span>
-                <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </MagneticButton>
+              <div className="inline-flex items-center p-1 sm:p-1.5 rounded-full bg-white/95 backdrop-blur-md border border-black/10 shadow-[0_6px_24px_rgba(0,0,0,0.08)] gap-1">
+                <MagneticButton
+                  href="/work"
+                  className="px-5 sm:px-7 py-2 sm:py-2.5 rounded-full bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-bold text-xs sm:text-sm flex items-center gap-2 shadow-xs transition-colors duration-150 uppercase tracking-wider"
+                >
+                  <span>View All 6+ Production Projects</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
+                </MagneticButton>
+              </div>
             </div>
           </div>
         </div>

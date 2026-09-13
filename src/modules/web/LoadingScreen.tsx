@@ -19,9 +19,11 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   const [typedText, setTypedText] = useState("");
   const [isDone, setIsDone] = useState(false);
 
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   const fullText = "Hey I'm Ritesh";
 
-  // Typewriter effect in center
+  // Typewriter effect in center - fast and snappy
   useEffect(() => {
     let index = 0;
     const interval = setInterval(() => {
@@ -30,9 +32,18 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
       if (index >= fullText.length) {
         clearInterval(interval);
       }
-    }, 110);
+    }, 70);
 
     return () => clearInterval(interval);
+  }, []);
+
+  // Ensure video plays smoothly on mount without getting stuck
+  useEffect(() => {
+    const vid = videoRef.current;
+    if (vid) {
+      vid.muted = true;
+      vid.play().catch(() => {});
+    }
   }, []);
 
   useGSAP(
@@ -46,21 +57,21 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
 
       const counter = { val: 0 };
 
-      // 1. Number loading smoothly from 0 to 99
+      // 1. Number loading smoothly from 0 to 99 in 1.4s
       tl.to(counter, {
         val: 99,
-        duration: 2.6,
-        ease: "power1.inOut",
+        duration: 1.4,
+        ease: "power2.inOut",
         onUpdate: () => {
           if (numberRef.current) {
             numberRef.current.textContent = Math.floor(counter.val).toString();
           }
         },
       })
-        // 2. Hit 100 right after 99
+        // 2. Hit 100
         .to(counter, {
           val: 100,
-          duration: 0.2,
+          duration: 0.15,
           ease: "none",
           onUpdate: () => {
             if (numberRef.current) {
@@ -69,27 +80,27 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           },
         })
         // 3. Brief micro-pause at 100
-        .to({}, { duration: 0.25 })
+        .to({}, { duration: 0.15 })
         // 4. Center content lift before swipe
         .to(
           [centerContentRef.current, footerRef.current],
           {
             y: -25,
             opacity: 0,
-            duration: 0.45,
+            duration: 0.35,
             ease: "power2.in",
           },
-          "-=0.1"
+          "-=0.05"
         )
         // 5. Swipe up smoothly
         .to(
           containerRef.current,
           {
             yPercent: -100,
-            duration: 0.95,
+            duration: 0.75,
             ease: "power4.inOut",
           },
-          "-=0.15"
+          "-=0.1"
         );
     },
     { scope: containerRef }
@@ -101,17 +112,20 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
     <aside
       ref={containerRef}
       aria-label="Loading Screen"
-      className="fixed inset-0 z-50 w-full h-screen text-white flex flex-col justify-between p-8 sm:p-12 md:p-16 select-none overflow-hidden bg-black"
+      className="fixed inset-0 z-50 w-full h-screen text-white flex flex-col justify-between p-8 sm:p-12 md:p-16 select-none overflow-hidden bg-[#0c1319]"
       style={{ willChange: "transform" }}
     >
       {/* Fullscreen Video Background with Male Character */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
+      <div className="absolute inset-0 w-full h-full overflow-hidden z-0 bg-[#0c1319]">
         <video
+          ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
           preload="auto"
+          disablePictureInPicture
+          disableRemotePlayback
           className="absolute inset-0 w-full h-full object-cover brightness-[0.85] contrast-[1.05]"
         >
           <source src="/loading_bg.mp4" type="video/mp4" />

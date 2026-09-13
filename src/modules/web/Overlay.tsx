@@ -104,13 +104,28 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
       }
     };
 
-    // Ensure video always plays muted and in a loop
+    // Ensure video plays muted, loops smoothly, and plays only when in view to save resources
     useEffect(() => {
       const vid = videoRef.current;
-      if (vid) {
-        vid.muted = true;
-        vid.play().catch(() => {});
-      }
+      if (!vid) return;
+
+      vid.muted = true;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              vid.play().catch(() => {});
+            } else {
+              vid.pause();
+            }
+          });
+        },
+        { rootMargin: "200px" }
+      );
+
+      observer.observe(vid);
+      return () => observer.disconnect();
     }, []);
 
     // 1. GSAP animation: About Me text highlights line by line
@@ -453,16 +468,19 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                 aria-label="Know more about me reel"
                 className="group relative cursor-pointer block rounded-full p-[2px] hover:from-white/60 hover:via-white/30 hover:to-white/60 transition-all duration-500 w-full max-w-[720px] sm:max-w-[880px] md:max-w-[1020px] lg:max-w-[900px]"
               >
-                <div className="relative w-full h-[105px] sm:h-[135px] md:h-[200px] lg:h-[245px] rounded-full overflow-hidden flex items-center justify-center">
+                <div className="relative w-full h-[105px] sm:h-[135px] md:h-[200px] lg:h-[245px] rounded-full overflow-hidden flex items-center justify-center bg-[#141b16]">
                   <video
                     ref={videoRef}
                     autoPlay
                     loop
                     muted
                     playsInline
-                    preload="auto"
+                    preload="metadata"
+                    disablePictureInPicture
+                    disableRemotePlayback
                     className="absolute inset-0 w-full h-full object-cover brightness-[0.95] contrast-[1.05] group-hover:scale-106 transition-transform duration-700 ease-out"
                   >
+                    <source src="/about me.mp4" type="video/mp4" />
                     <source
                       src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260622_202655_a7f5aca0-2f80-4bc9-bcb5-96ac95662003.mp4"
                       type="video/mp4"
@@ -579,6 +597,8 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                             <img
                               src={stage.imageUrl}
                               alt={stage.title}
+                              loading="lazy"
+                              decoding="async"
                               className="absolute inset-0 w-full h-full object-cover object-top"
                             />
                           </div>
@@ -615,6 +635,8 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                             <img
                               src={stage.imageUrl}
                               alt={stage.title}
+                              loading="lazy"
+                              decoding="async"
                               className="absolute inset-0 w-full h-full object-cover object-top"
                             />
                           </div>

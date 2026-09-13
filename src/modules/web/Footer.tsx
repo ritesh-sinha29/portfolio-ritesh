@@ -1,6 +1,6 @@
 "use client";
 
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Check, Copy, ArrowUpRight } from "lucide-react";
 
@@ -11,6 +11,7 @@ interface FooterProps {
 const Footer = forwardRef<HTMLDivElement, FooterProps>(
   ({ className = "" }, ref) => {
     const [copied, setCopied] = useState(false);
+    const videoRef = useRef<HTMLVideoElement>(null);
     const email = "riteshsinha4146@gmail.com";
 
     const handleCopyEmail = () => {
@@ -18,6 +19,30 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     };
+
+    // Smart intersection observer: play video only when in/near viewport to save bandwidth and CPU
+    useEffect(() => {
+      const vid = videoRef.current;
+      if (!vid) return;
+
+      vid.muted = true;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              vid.play().catch(() => {});
+            } else {
+              vid.pause();
+            }
+          });
+        },
+        { rootMargin: "300px" }
+      );
+
+      observer.observe(vid);
+      return () => observer.disconnect();
+    }, []);
 
     return (
       <footer
@@ -29,16 +54,20 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(
         {/* Background Alpine Panorama Video & Poster */}
         <div className="absolute inset-0 w-full h-full overflow-hidden bg-[#1d8fb8] z-0">
           <video
+            ref={videoRef}
             autoPlay
             loop
             muted
             playsInline
-            preload="auto"
+            preload="metadata"
+            disablePictureInPicture
+            disableRemotePlayback
             poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/693205bf-8048-456a-879e-4e0a1b85a098.webp"
             aria-label="Painted alpine panorama: a lone hiker with a pink backpack faces a snow-capped peak above a sea of clouds"
             className="absolute inset-0 w-full h-full object-cover object-right-bottom will-change-transform"
             style={{ filter: "saturate(0.86)" }}
           >
+            <source src="/footer.mp4" type="video/mp4" />
             <source
               src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260826_123836_11a3c5e0-713f-4bef-a8e9-7dd93bdea3b0.mp4"
               type="video/mp4"

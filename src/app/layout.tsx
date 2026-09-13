@@ -7,6 +7,7 @@ import { SmoothCursor } from "@/components/ui/smooth-cursor";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
 });
 
 const instrumentSerif = Instrument_Serif({
@@ -14,12 +15,14 @@ const instrumentSerif = Instrument_Serif({
   weight: ["400"],
   style: ["normal", "italic"],
   variable: "--font-serif",
+  display: "swap",
 });
 
 const silkscreen = Silkscreen({
   subsets: ["latin"],
   weight: ["400", "700"],
   variable: "--font-silkscreen",
+  display: "swap",
 });
 
 export const metadata: Metadata = {

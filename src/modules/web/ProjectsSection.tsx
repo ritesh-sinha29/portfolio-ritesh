@@ -3,6 +3,8 @@
 import React, { useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { CoverFlowCarousel, CarouselItem } from "@/components/ui/3-d-coverflow-carousel";
+import { MagneticButton } from "@/components/ui/magnetic-button";
+import { MagneticDock } from "@/components/tweenlabs/MagneticDock";
 
 export const portfolioCarouselItems: CarouselItem[] = [
   {
@@ -212,47 +214,17 @@ const ProjectsSection = React.forwardRef<HTMLDivElement, ProjectsSectionProps>(
           </div>
         )}
 
-        {/* Floating Bottom Navigation Bar */}
-        <nav
-          aria-label="Main Navigation"
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40 bg-white/95 backdrop-blur-md shadow-[0_12px_40px_rgba(0,0,0,0.12)] border border-black/8 rounded-full p-1.5 flex items-center gap-1 sm:gap-2 transition-all duration-300"
-        >
-          <button
-            type="button"
-            onClick={() => handleNavClick("HOME")}
-            className={`px-5 sm:px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-              activeTab === "HOME"
-                ? "bg-[#c5eb35] text-[#141b16] shadow-sm scale-[1.02]"
-                : "text-[#5a625b] hover:text-[#141b16] hover:bg-black/5"
-            }`}
-          >
-            HOME
-          </button>
-
-          <button
-            type="button"
-            onClick={() => handleNavClick("WORKS")}
-            className={`px-5 sm:px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-              activeTab === "WORKS"
-                ? "bg-[#c5eb35] text-[#141b16] shadow-sm scale-[1.02]"
-                : "text-[#5a625b] hover:text-[#141b16] hover:bg-black/5"
-            }`}
-          >
-            WORKS
-          </button>
-
-          <button
-            type="button"
-            onClick={() => handleNavClick("ABOUT")}
-            className={`px-5 sm:px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-              activeTab === "ABOUT"
-                ? "bg-[#c5eb35] text-[#141b16] shadow-sm scale-[1.02]"
-                : "text-[#5a625b] hover:text-[#141b16] hover:bg-black/5"
-            }`}
-          >
-            ABOUT
-          </button>
-        </nav>
+        {/* Floating Bottom Navigation Bar with Magnetic Dock physics */}
+        <MagneticDock
+          activeId={activeTab.toLowerCase()}
+          onItemClick={(id) => handleNavClick(id.toUpperCase() as any)}
+          items={[
+            { id: "home", label: "HOME", onClick: () => handleNavClick("HOME") },
+            { id: "works", label: "WORKS", onClick: () => handleNavClick("WORKS") },
+            { id: "about", label: "ABOUT", onClick: () => handleNavClick("ABOUT") },
+          ]}
+          className="!fixed !bottom-6 !top-auto"
+        />
       </section>
     );
   },

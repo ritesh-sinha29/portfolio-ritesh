@@ -9,6 +9,7 @@ import { ArrowUpRight, Download, Mic, Send, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { NoiseBackground } from "@/components/ui/noise-background";
 import { SpinningText } from "@/components/ui/spinning-text";
+import { MagneticButton } from "@/components/ui/magnetic-button";
 
 gsap.registerPlugin(useGSAP);
 
@@ -215,12 +216,12 @@ export default function Hero({ isLoaded = false }: HeroProps) {
   return (
     <section
       ref={containerRef}
-      className="relative h-screen w-full bg-[#eaeae8] text-black overflow-hidden flex flex-col justify-between px-6 py-6 select-none"
+      className="relative h-screen w-full bg-[#eaeae8] text-black overflow-hidden flex flex-col justify-between p-4 sm:px-6 sm:py-6 select-none"
     >
-      {/* Top Header Bar */}
+      {/* Top Header Bar (Desktop Only: Logo on left, Contact on right; mobile uses centered floating pill) */}
       <header
         ref={topNavRef}
-        className="relative z-30 w-full flex justify-between items-center max-w-7xl mx-auto"
+        className="relative z-30 w-full hidden sm:flex justify-between items-center max-w-7xl mx-auto"
       >
         {/* Name / Brand */}
         <span className="font-sans font-semibold text-lg sm:text-xl tracking-tight text-[#141b16]">
@@ -228,73 +229,72 @@ export default function Hero({ isLoaded = false }: HeroProps) {
         </span>
 
         {/* Contact Pill Button */}
-        <button
-          type="button"
+        <MagneticButton
           onClick={() => {
             const aboutEl = document.getElementById("about-section");
             if (aboutEl) {
               aboutEl.scrollIntoView({ behavior: "smooth" });
             }
           }}
-          className="group bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-full flex items-center gap-2 transition-all duration-300 shadow-[0_4px_16px_rgba(197,235,53,0.3)] hover:shadow-[0_6px_20px_rgba(197,235,53,0.45)] hover:scale-105 active:scale-95 cursor-pointer border border-[#c5eb35]/20"
+          className="group bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-full flex items-center gap-2 transition-all duration-300 shadow-[0_4px_16px_rgba(197,235,53,0.3)] hover:shadow-[0_6px_20px_rgba(197,235,53,0.45)] border border-[#c5eb35]/20"
         >
           <span>Contact</span>
           <span className="w-5 h-5 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:bg-[#141b16] transition-all">
             <ArrowUpRight className="w-3.5 h-3.5 text-[#141b16] group-hover:text-[#c5eb35] transition-colors" />
           </span>
-        </button>
+        </MagneticButton>
       </header>
 
       {/* Main Center Stage */}
-      <div className="relative w-full h-full! z-20 pointer-events-none">
+      <div className="relative w-full flex-1 max-w-7xl mx-auto z-20 pointer-events-none">
+        {/* Top Headline: AI ENGINEER (Positioned cleanly below the mobile floating nav pill) */}
         <h1
           ref={title1Ref}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-[92px] xl:text-[108px] font-serif tracking-wider italic font-light absolute top-8 sm:top-10 md:top-12 lg:top-14 left-[46%] sm:left-[48%] md:left-[50%] lg:left-[52%] -translate-x-1/2 will-change-transform whitespace-nowrap select-none"
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-[92px] xl:text-[108px] font-serif tracking-tight sm:tracking-wider italic font-light absolute top-14 sm:top-8 md:top-12 lg:top-14 left-1/2 sm:left-[48%] md:left-[50%] lg:left-[52%] -translate-x-1/2 will-change-transform whitespace-nowrap select-none text-center sm:text-left text-[#141b16]"
         >
           AI ENGINEER
         </h1>
+
+        {/* Flanking Text Block: & BUILDER + Bio + CTAs (Flanks right side of silhouette) */}
         <div
           ref={taglineRef}
-          className="absolute top-[28%] sm:top-[30%] md:top-[33%] lg:top-[35%] left-[42%] sm:left-[45%] md:left-[47%] lg:left-[49%] will-change-transform pointer-events-auto"
+          className="absolute top-[28%] sm:top-[28%] md:top-[33%] lg:top-[35%] right-3 sm:right-auto sm:left-[46%] md:left-[48%] lg:left-[50%] w-[42%] sm:w-auto max-w-[180px] sm:max-w-md lg:max-w-lg will-change-transform pointer-events-auto z-20"
         >
           <h2
             ref={title2Ref}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sans leading-tight tracking-tight font-semibold"
+            className="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-sans leading-none sm:leading-tight tracking-tight font-extrabold sm:font-semibold text-[#141b16]"
           >
             &amp; BUILDER
           </h2>
-          <p className="mt-4 sm:mt-5 md:mt-6 max-w-md lg:max-w-lg">
-            <span className="text-sm sm:text-base md:text-lg tracking-tight leading-relaxed font-sans font-medium text-neutral-800">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit,
-              facere! <br />
-              Lorem ipsum dolor, sit amet consectetur adipisicing.
+          <p className="mt-2 sm:mt-5 md:mt-6 max-w-md lg:max-w-lg">
+            <span className="text-[11px] sm:text-base md:text-lg tracking-tight leading-snug sm:leading-relaxed font-sans font-medium text-neutral-800 line-clamp-3 sm:line-clamp-none">
+              Architecting intelligent distributed systems, high-performance web applications, and real-time AI agents.
             </span>
           </p>
 
-          <div className="flex items-center gap-3 mt-6 sm:mt-7">
-            <button
-              type="button"
-              className="cursor-pointer rounded-full border border-black bg-white px-5 py-2.5 text-xs sm:text-sm font-semibold text-black shadow-xs transition-all duration-100 active:scale-98 flex items-center gap-2"
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-1.5 sm:gap-3 mt-3 sm:mt-7">
+            <MagneticButton
+              className="rounded-full border border-black bg-white px-2.5 sm:px-5 py-1.5 sm:py-2.5 text-[10px] sm:text-sm font-semibold text-black shadow-xs flex items-center justify-center gap-1 sm:gap-2 hover:bg-neutral-50"
             >
-              <Download className="w-4 h-4 text-black" />
+              <Download className="w-3 h-3 sm:w-4 sm:h-4 text-black" />
               <span>Download CV</span>
-            </button>
+            </MagneticButton>
 
-            <Link
+            <MagneticButton
               href="/work"
-              className="cursor-pointer rounded-full border border-black bg-white px-5 py-2.5 text-xs sm:text-sm font-semibold text-black shadow-xs transition-all duration-100 active:scale-98 flex items-center gap-2"
+              className="rounded-full border border-black bg-white px-2.5 sm:px-5 py-1.5 sm:py-2.5 text-[10px] sm:text-sm font-semibold text-black shadow-xs flex items-center justify-center gap-1 sm:gap-2 hover:bg-neutral-50"
             >
               <span>See my Blogs</span>
-              <ArrowUpRight className="w-4 h-4 text-black" />
-            </Link>
+              <ArrowUpRight className="w-3 h-3 sm:w-4 sm:h-4 text-black" />
+            </MagneticButton>
           </div>
         </div>
       </div>
 
-      {/* User Image: Grounded at bottom of screen, positioned on the left quadrant clear of bottom nav */}
+      {/* User Image: Grounded at bottom, enlarged and centered on left quadrant without clipping */}
       <div
         ref={imageRef}
-        className="absolute bottom-0 left-[18%] sm:left-[20%] md:left-[22%] lg:left-[24%] xl:left-[25%] -translate-x-1/2 z-10 w-[90vw] max-w-[340px] sm:max-w-[420px] md:max-w-[480px] lg:max-w-[560px] xl:max-w-[640px] h-[72vh] sm:h-[78vh] md:h-[84vh] lg:h-[88vh] xl:h-[92vh] flex items-end justify-center pointer-events-none will-change-transform"
+        className="absolute bottom-0 left-[-6vw] sm:left-[22%] md:left-[24%] xl:left-[25%] sm:-translate-x-1/2 z-10 w-[88vw] sm:w-[90vw] max-w-[360px] sm:max-w-[440px] md:max-w-[500px] lg:max-w-[580px] xl:max-w-[640px] h-[72vh] sm:h-[80vh] md:h-[84vh] lg:h-[88vh] xl:h-[92vh] flex items-end justify-center pointer-events-none will-change-transform"
       >
         <div className="relative w-full h-full">
           <Image
@@ -302,7 +302,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
             alt="Ritesh Sinha"
             fill
             priority
-            sizes="(max-width: 768px) 90vw, (max-width: 1200px) 55vw, 640px"
+            sizes="(max-width: 640px) 88vw, (max-width: 1024px) 50vw, 640px"
             className="object-contain object-bottom select-none"
           />
         </div>
@@ -427,14 +427,14 @@ export default function Hero({ isLoaded = false }: HeroProps) {
                   </button>
                 </div>
 
-                <button
+                <MagneticButton
                   type="submit"
                   disabled={!inputValue.trim()}
-                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#c5eb35] hover:bg-[#b4db26] disabled:opacity-50 disabled:cursor-not-allowed text-[#141b16] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 shrink-0 font-semibold"
-                  aria-label="Send message"
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#c5eb35] hover:bg-[#b4db26] disabled:opacity-50 disabled:cursor-not-allowed text-[#141b16] flex items-center justify-center shadow-xs shrink-0 font-semibold"
+                  ariaLabel="Send message"
                 >
                   <Send className="w-4 h-4" />
-                </button>
+                </MagneticButton>
               </form>
             </motion.aside>
           </>
@@ -444,25 +444,26 @@ export default function Hero({ isLoaded = false }: HeroProps) {
       {/* Bottom Controls Bar */}
       <footer className="relative z-30 w-full max-w-7xl mx-auto flex justify-between items-center mt-2 sm:mt-4">
         {/* Bottom Left: Spinning Text Scroll Indicator */}
-        <div
-          ref={bottomArrowRef}
-          onClick={() =>
-            window.scrollTo({
-              top: window.innerHeight,
-              behavior: "smooth",
-            })
-          }
-          className="relative flex items-center justify-center cursor-pointer select-none group w-14 h-14 sm:w-16 sm:h-16"
-          aria-label="Scroll down"
-        >
-          <SpinningText
-            radius={4.2}
-            duration={12}
-            className="font-sans text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.2em] text-[#141b16] opacity-80 group-hover:opacity-100 transition-opacity"
+        <div ref={bottomArrowRef}>
+          <MagneticButton
+            onClick={() =>
+              window.scrollTo({
+                top: window.innerHeight,
+                behavior: "smooth",
+              })
+            }
+            className="relative flex items-center justify-center select-none group w-14 h-14 sm:w-16 sm:h-16 rounded-full"
+            ariaLabel="Scroll down"
           >
-            • SCROLL DOWN • DISCOVER MORE
-          </SpinningText>
-          <div className="w-2 h-2 rounded-full bg-[#141b16]/40 group-hover:bg-[#141b16] group-hover:scale-125 transition-all duration-300" />
+            <SpinningText
+              radius={4.2}
+              duration={12}
+              className="font-sans text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.2em] text-[#141b16] opacity-80 group-hover:opacity-100 transition-opacity"
+            >
+              • SCROLL DOWN • DISCOVER MORE
+            </SpinningText>
+            <div className="w-2 h-2 rounded-full bg-[#141b16]/40 group-hover:bg-[#141b16] group-hover:scale-125 transition-all duration-300" />
+          </MagneticButton>
         </div>
 
         {/* Spacer */}
@@ -474,12 +475,12 @@ export default function Hero({ isLoaded = false }: HeroProps) {
           className="flex items-center gap-2 sm:gap-3 text-[#141b16]"
         >
           {/* GitHub */}
-          <a
-            href="https://github.com"
+          <MagneticButton
+            href="https://github.com/ritesh-sinha29"
             target="_blank"
             rel="noreferrer"
-            aria-label="GitHub"
-            className="w-7 h-7 rounded-full flex items-center justify-center hover:bg-black/5 hover:scale-110 transition-all text-[#141b16]"
+            ariaLabel="GitHub"
+            className="w-7 h-7 rounded-full flex items-center justify-center hover:bg-black/5 text-[#141b16]"
           >
             <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
               <path
@@ -488,33 +489,33 @@ export default function Hero({ isLoaded = false }: HeroProps) {
                 d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
               />
             </svg>
-          </a>
+          </MagneticButton>
 
           {/* LinkedIn */}
-          <a
+          <MagneticButton
             href="https://linkedin.com"
             target="_blank"
             rel="noreferrer"
-            aria-label="LinkedIn"
-            className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-black/5 hover:scale-110 transition-all text-[#141b16]"
+            ariaLabel="LinkedIn"
+            className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-black/5 text-[#141b16]"
           >
             <svg className="w-8 h-8 fill-current" viewBox="0 0 24 24">
               <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.45 1.45 0 1 0 0-2.9 1.45 1.45 0 0 0 0 2.9m1.4 9.74V9.97H5.06v8.53h2.8z" />
             </svg>
-          </a>
+          </MagneticButton>
 
           {/* X / Twitter */}
-          <a
+          <MagneticButton
             href="https://x.com"
             target="_blank"
             rel="noreferrer"
-            aria-label="X"
-            className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-black/5 hover:scale-110 transition-all text-[#141b16]"
+            ariaLabel="X"
+            className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-black/5 text-[#141b16]"
           >
             <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
             </svg>
-          </a>
+          </MagneticButton>
         </div>
       </footer>
     </section>

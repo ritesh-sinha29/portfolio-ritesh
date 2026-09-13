@@ -8,6 +8,7 @@ import { useGSAP } from "@gsap/react";
 import Hero from "@/modules/web/Hero";
 import Overlay from "@/modules/web/Overlay";
 import LoadingScreen from "@/modules/web/LoadingScreen";
+import MagneticDock from "@/components/tweenlabs/MagneticDock";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -104,47 +105,29 @@ export default function Home() {
         className="relative z-20"
       />
 
-      {/* Floating Top Navigation Pill */}
+      {/* Floating Top Navigation Pill with Magnetic Dock physics */}
       {!isLoading && (
-        <nav
-          aria-label="Main Navigation"
-          className="fixed top-4 sm:top-5 left-1/2 -translate-x-1/2 z-50 bg-white/95 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-black/8 rounded-full p-1 sm:p-1.5 flex items-center gap-1 sm:gap-1.5 transition-all duration-300 select-none"
-        >
-          <button
-            type="button"
-            onClick={() => scrollToSection("home")}
-            className={`px-3.5 sm:px-4.5 py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-              activeTab === "home"
-                ? "bg-[#c5eb35] text-[#141b16] shadow-sm scale-[1.02]"
-                : "text-[#5a625b] hover:text-[#141b16] hover:bg-black/5"
-            }`}
-          >
-            HOME
-          </button>
-
-          <Link
-            href="/work"
-            className={`px-3.5 sm:px-4.5 py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-              activeTab === "works"
-                ? "bg-[#c5eb35] text-[#141b16] shadow-sm scale-[1.02]"
-                : "text-[#5a625b] hover:text-[#141b16] hover:bg-black/5"
-            }`}
-          >
-            WORKS
-          </Link>
-
-          <button
-            type="button"
-            onClick={() => scrollToSection("about")}
-            className={`px-3.5 sm:px-4.5 py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-              activeTab === "about"
-                ? "bg-[#c5eb35] text-[#141b16] shadow-sm scale-[1.02]"
-                : "text-[#5a625b] hover:text-[#141b16] hover:bg-black/5"
-            }`}
-          >
-            ABOUT
-          </button>
-        </nav>
+        <MagneticDock
+          activeId={activeTab}
+          onItemClick={(id) => scrollToSection(id)}
+          items={[
+            {
+              id: "home",
+              label: "HOME",
+              onClick: () => scrollToSection("home"),
+            },
+            {
+              id: "works",
+              label: "WORKS",
+              href: "/work",
+            },
+            {
+              id: "about",
+              label: "ABOUT",
+              onClick: () => scrollToSection("about"),
+            },
+          ]}
+        />
       )}
     </main>
   );

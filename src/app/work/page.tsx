@@ -2,8 +2,10 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Check, Copy, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Check, Copy, Eye, Sparkles } from "lucide-react";
 import { InstantImage } from "@/components/media/InstantImage";
+import MagneticDock from "@/components/tweenlabs/MagneticDock";
+import { MagneticButton } from "@/components/ui/magnetic-button";
 
 interface DetailedProject {
   id: string;
@@ -207,44 +209,38 @@ export default function WorkPage() {
         </Link>
 
         {/* Right: Contact Pill Button */}
-        <a
+        <MagneticButton
           href={`mailto:${email}`}
-          className="group bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-full flex items-center gap-2 transition-all duration-300 shadow-[0_4px_16px_rgba(197,235,53,0.3)] hover:shadow-[0_6px_20px_rgba(197,235,53,0.45)] hover:scale-105 active:scale-95 cursor-pointer border border-[#c5eb35]/20"
+          className="group bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-full flex items-center gap-2 transition-all duration-300 shadow-[0_4px_16px_rgba(197,235,53,0.3)] hover:shadow-[0_6px_20px_rgba(197,235,53,0.45)] border border-[#c5eb35]/20"
         >
           <span>Contact</span>
           <span className="w-5 h-5 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:bg-[#141b16] transition-all">
             <ArrowUpRight className="w-3.5 h-3.5 text-[#141b16] group-hover:text-[#c5eb35] transition-colors" />
           </span>
-        </a>
+        </MagneticButton>
       </header>
 
-      {/* Universal Floating Top Navigation Pill */}
-      <nav
-        aria-label="Main Navigation"
-        className="fixed top-4 sm:top-5 left-1/2 -translate-x-1/2 z-50 bg-white/95 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-black/8 rounded-full p-1 sm:p-1.5 flex items-center gap-1 sm:gap-1.5 transition-all duration-300 select-none"
-      >
-        <Link
-          href="/"
-          className="px-3.5 sm:px-4.5 py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer text-[#5a625b] hover:text-[#141b16] hover:bg-black/5"
-        >
-          HOME
-        </Link>
-
-        <button
-          type="button"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="px-3.5 sm:px-4.5 py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer bg-[#c5eb35] text-[#141b16] shadow-sm scale-[1.02]"
-        >
-          WORKS
-        </button>
-
-        <Link
-          href="/#about-section"
-          className="px-3.5 sm:px-4.5 py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer text-[#5a625b] hover:text-[#141b16] hover:bg-black/5"
-        >
-          ABOUT
-        </Link>
-      </nav>
+      {/* Universal Floating Top Navigation Pill with Magnetic Dock physics */}
+      <MagneticDock
+        activeId="works"
+        items={[
+          {
+            id: "home",
+            label: "HOME",
+            href: "/",
+          },
+          {
+            id: "works",
+            label: "WORKS",
+            onClick: () => window.scrollTo({ top: 0, behavior: "smooth" }),
+          },
+          {
+            id: "about",
+            label: "ABOUT",
+            href: "/#about-section",
+          },
+        ]}
+      />
 
       {/* Hero Header Area */}
       <section className="relative z-10 pt-14 sm:pt-20 md:pt-24 pb-8 sm:pb-12 px-4 sm:px-8 max-w-7xl mx-auto text-center flex flex-col items-center">
@@ -274,18 +270,17 @@ export default function WorkPage() {
             { id: "voice-ai", label: "Voice AI" },
             { id: "fullstack", label: "Interactive & Full-Stack" },
           ].map((tab) => (
-            <button
+            <MagneticButton
               key={tab.id}
-              type="button"
               onClick={() => setSelectedCategory(tab.id as any)}
-              className={`px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-sm font-sans font-bold tracking-tight transition-all duration-300 cursor-pointer ${
+              className={`px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-sm font-sans font-bold tracking-tight transition-colors duration-200 ${
                 selectedCategory === tab.id
-                  ? "bg-[#c5eb35] text-[#141b16] shadow-xs scale-102"
+                  ? "bg-[#c5eb35] text-[#141b16] shadow-xs"
                   : "text-[#5a625b] hover:text-[#141b16] hover:bg-black/5"
               }`}
             >
               {tab.label}
-            </button>
+            </MagneticButton>
           ))}
         </div>
       </section>
@@ -367,21 +362,32 @@ export default function WorkPage() {
 
                 {/* Footer Action Links */}
                 <div className="flex items-center justify-between gap-2 pt-4 mt-4 border-t border-neutral-200">
-                  <a
+                  <MagneticButton
                     href={project.liveUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex-1 flex items-center justify-center gap-1 py-2 rounded-full bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-bold text-xs border border-[#141b16] shadow-[2px_2px_0px_#141b16] hover:shadow-[3px_3px_0px_#141b16] transition-all duration-200 hover:scale-101 active:scale-98"
+                    className="flex-1 flex items-center justify-center gap-1 py-2 px-2.5 sm:px-3 rounded-full bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-bold text-xs border border-[#141b16] shadow-[2px_2px_0px_#141b16] hover:shadow-[3px_3px_0px_#141b16] transition-all duration-200"
                   >
                     <span>Launch App</span>
                     <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
-                  </a>
+                  </MagneticButton>
 
-                  <a
+                  <MagneticButton
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-1 px-3 py-2 rounded-full bg-white hover:bg-neutral-50 border border-[#141b16] shadow-[2px_2px_0px_#141b16] text-[#141b16] font-sans font-bold text-xs transition-all duration-200"
+                    title={`View ${project.title}`}
+                  >
+                    <Eye className="w-3.5 h-3.5 stroke-[2]" />
+                    <span>View</span>
+                  </MagneticButton>
+
+                  <MagneticButton
                     href={project.githubUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-1 px-3 py-2 rounded-full bg-white hover:bg-neutral-50 border border-[#141b16] shadow-[2px_2px_0px_#141b16] text-[#141b16] font-sans font-bold text-xs transition-all duration-200 hover:scale-101 active:scale-98"
+                    className="flex items-center gap-1 px-3 py-2 rounded-full bg-white hover:bg-neutral-50 border border-[#141b16] shadow-[2px_2px_0px_#141b16] text-[#141b16] font-sans font-bold text-xs transition-all duration-200"
                     title={`View ${project.title} GitHub Source Code`}
                   >
                     <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -392,7 +398,7 @@ export default function WorkPage() {
                       />
                     </svg>
                     <span className="hidden sm:inline">Source</span>
-                  </a>
+                  </MagneticButton>
                 </div>
               </div>
             </article>
@@ -418,14 +424,13 @@ export default function WorkPage() {
               {email}
             </a>
 
-            <button
-              type="button"
+            <MagneticButton
               onClick={handleCopyEmail}
-              aria-label="Copy email address"
-              className="w-7 h-7 rounded-full bg-[#c5eb35] border border-[#141b16] text-[#141b16] flex items-center justify-center hover:scale-110 active:scale-90 transition-all cursor-pointer shadow-xs"
+              ariaLabel="Copy email address"
+              className="w-7 h-7 rounded-full bg-[#c5eb35] border border-[#141b16] text-[#141b16] flex items-center justify-center shadow-xs"
             >
               {copied ? <Check className="w-3.5 h-3.5 stroke-[2.5]" /> : <Copy className="w-3.5 h-3.5 stroke-[2.5]" />}
-            </button>
+            </MagneticButton>
           </div>
         </div>
       </section>

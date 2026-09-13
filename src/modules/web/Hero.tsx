@@ -245,32 +245,32 @@ export default function Hero({ isLoaded = false }: HeroProps) {
       </header>
 
       {/* Main Center Stage */}
-      <div className="relative w-full h-full! z-20">
+      <div className="relative w-full h-full! z-20 pointer-events-none">
         <h1
           ref={title1Ref}
-          className="text-[112px] font-serif tracking-wider italic font-light absolute top-16 left-[40%] -translate-x-1/2 will-change-transform"
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-[92px] xl:text-[108px] font-serif tracking-wider italic font-light absolute top-8 sm:top-10 md:top-12 lg:top-14 left-[46%] sm:left-[48%] md:left-[50%] lg:left-[52%] -translate-x-1/2 will-change-transform whitespace-nowrap select-none"
         >
           AI ENGINEER
         </h1>
         <div
           ref={taglineRef}
-          className="absolute top-1/3 mt-14 left-1/2 will-change-transform"
+          className="absolute top-[28%] sm:top-[30%] md:top-[33%] lg:top-[35%] left-[42%] sm:left-[45%] md:left-[47%] lg:left-[49%] will-change-transform pointer-events-auto"
         >
           <h2
             ref={title2Ref}
-            className="text-7xl font-sans leading-7 tracking-normal font-semibold"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sans leading-tight tracking-tight font-semibold"
           >
             & BUILDER
           </h2>
-          <p className="mt-10">
-            <span className="text-lg tracking-tight leading-0 font-sans font-medium">
+          <p className="mt-4 sm:mt-5 md:mt-6 max-w-md lg:max-w-lg">
+            <span className="text-sm sm:text-base md:text-lg tracking-tight leading-relaxed font-sans font-medium text-neutral-800">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit,
               facere! <br />
               Lorem ipsum dolor, sit amet consectetur adipisicing.
             </span>
           </p>
 
-          <div className="flex items-center gap-3 mt-6 ml-10">
+          <div className="flex items-center gap-3 mt-6 sm:mt-7">
             <NoiseBackground
               containerClassName="w-fit p-1 rounded-full"
               gradientColors={[
@@ -314,19 +314,19 @@ export default function Hero({ isLoaded = false }: HeroProps) {
         </div>
       </div>
 
-      {/* User Image: Grounded at bottom of screen, positioned to the left, behind bottom controls */}
+      {/* User Image: Grounded at bottom of screen, positioned on the left quadrant clear of bottom nav */}
       <div
         ref={imageRef}
-        className="absolute bottom-0 left-[24%] sm:left-[28%] md:left-[32%] -translate-x-1/2 z-20 w-[90vw] max-w-[380px] sm:max-w-[460px] md:max-w-[540px] lg:max-w-[620px] xl:max-w-[660px] h-[68vh] sm:h-[70vh] md:h-[74vh] lg:h-[77vh] flex items-end justify-center pointer-events-none will-change-transform"
+        className="absolute bottom-0 left-[18%] sm:left-[20%] md:left-[22%] lg:left-[24%] xl:left-[25%] -translate-x-1/2 z-10 w-[90vw] max-w-[340px] sm:max-w-[420px] md:max-w-[480px] lg:max-w-[560px] xl:max-w-[640px] h-[72vh] sm:h-[78vh] md:h-[84vh] lg:h-[88vh] xl:h-[92vh] flex items-end justify-center pointer-events-none will-change-transform"
       >
         <div className="relative w-full h-full">
           <Image
-            src="/rox_sofa.png"
-            alt="ROX"
+            src="/ritesh standing.svg"
+            alt="Ritesh Sinha"
             fill
             priority
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 680px"
-            className="object-contain object-bottom"
+            sizes="(max-width: 768px) 90vw, (max-width: 1200px) 55vw, 640px"
+            className="object-contain object-bottom select-none"
           />
         </div>
       </div>

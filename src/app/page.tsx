@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -79,14 +80,6 @@ export default function Home() {
         const top = el.getBoundingClientRect().top + window.scrollY;
         window.scrollTo({ top: top + 2, behavior: "smooth" });
       }
-    } else if (sectionId === "works") {
-      const el = document.getElementById("works-stage");
-      if (el) {
-        const pinSpacer = el.closest(".pin-spacer") as HTMLElement | null;
-        const targetEl = pinSpacer || el;
-        const top = targetEl.getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({ top: top + 10, behavior: "smooth" });
-      }
     }
   };
 
@@ -129,9 +122,8 @@ export default function Home() {
             HOME
           </button>
 
-          <button
-            type="button"
-            onClick={() => scrollToSection("works")}
+          <Link
+            href="/work"
             className={`px-3.5 sm:px-4.5 py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
               activeTab === "works"
                 ? "bg-[#c5eb35] text-[#141b16] shadow-sm scale-[1.02]"
@@ -139,7 +131,7 @@ export default function Home() {
             }`}
           >
             WORKS
-          </button>
+          </Link>
 
           <button
             type="button"

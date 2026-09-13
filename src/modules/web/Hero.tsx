@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ArrowUpRight, Download, Mic, Send, X } from "lucide-react";
@@ -260,7 +261,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
             ref={title2Ref}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sans leading-tight tracking-tight font-semibold"
           >
-            & BUILDER
+            &amp; BUILDER
           </h2>
           <p className="mt-4 sm:mt-5 md:mt-6 max-w-md lg:max-w-lg">
             <span className="text-sm sm:text-base md:text-lg tracking-tight leading-relaxed font-sans font-medium text-neutral-800">
@@ -271,45 +272,21 @@ export default function Hero({ isLoaded = false }: HeroProps) {
           </p>
 
           <div className="flex items-center gap-3 mt-6 sm:mt-7">
-            <NoiseBackground
-              containerClassName="w-fit p-1 rounded-full"
-              gradientColors={[
-                "rgb(20, 27, 22)",
-                "rgb(45, 55, 48)",
-                "rgb(30, 38, 33)",
-              ]}
+            <button
+              type="button"
+              className="cursor-pointer rounded-full border border-black bg-white px-5 py-2.5 text-xs sm:text-sm font-semibold text-black shadow-xs transition-all duration-100 active:scale-98 flex items-center gap-2"
             >
-              <button
-                type="button"
-                className="h-full w-full cursor-pointer rounded-full bg-linear-to-r from-neutral-100 via-neutral-100 to-white px-5 py-2.5 text-xs sm:text-sm font-semibold text-black shadow-[0px_2px_0px_0px_var(--color-neutral-50)_inset,0px_0.5px_1px_0px_var(--color-neutral-400)] transition-all duration-100 active:scale-98 flex items-center gap-2"
-              >
-                <Download className="w-4 h-4 text-black" />
-                <span>Download CV</span>
-              </button>
-            </NoiseBackground>
+              <Download className="w-4 h-4 text-black" />
+              <span>Download CV</span>
+            </button>
 
-            <NoiseBackground
-              containerClassName="w-fit p-1 rounded-full"
-              gradientColors={[
-                "rgb(20, 27, 22)",
-                "rgb(45, 55, 48)",
-                "rgb(30, 38, 33)",
-              ]}
+            <Link
+              href="/work"
+              className="cursor-pointer rounded-full border border-black bg-white px-5 py-2.5 text-xs sm:text-sm font-semibold text-black shadow-xs transition-all duration-100 active:scale-98 flex items-center gap-2"
             >
-              <button
-                type="button"
-                onClick={() => {
-                  const worksEl = document.getElementById("works-stage");
-                  if (worksEl) {
-                    worksEl.scrollIntoView({ behavior: "smooth" });
-                  }
-                }}
-                className="h-full w-full cursor-pointer rounded-full bg-linear-to-r from-neutral-100 via-neutral-100 to-white px-5 py-2.5 text-xs sm:text-sm font-semibold text-black shadow-[0px_2px_0px_0px_var(--color-neutral-50)_inset,0px_0.5px_1px_0px_var(--color-neutral-400)] transition-all duration-100 active:scale-98 flex items-center gap-2"
-              >
-                <span>See my Blogs</span>
-                <ArrowUpRight className="w-4 h-4 text-black" />
-              </button>
-            </NoiseBackground>
+              <span>See my Blogs</span>
+              <ArrowUpRight className="w-4 h-4 text-black" />
+            </Link>
           </div>
         </div>
       </div>

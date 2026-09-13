@@ -58,38 +58,38 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(
           {/* Main Headline with Centered Circle Photo */}
           <div className="relative flex flex-col items-center w-full">
             {/* Top Line: White */}
-            <h2 className="font-sans font-medium text-3xl xs:text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] tracking-tight text-white leading-none drop-shadow-[0_4px_24px_rgba(0,0,0,0.75)]">
+            <h2 className="font-sans font-medium text-2xl xs:text-3xl sm:text-6xl md:text-7xl lg:text-[5.5rem] tracking-tight text-white leading-none drop-shadow-[0_4px_24px_rgba(0,0,0,0.75)]">
               YOU FOUND <span className="font-serif italic font-light">ME.</span>
             </h2>
 
             {/* Overlapping Circle Avatar */}
-            <div className="relative z-20 my-[-14px] xs:my-[-18px] sm:my-[-26px] md:my-[-34px] w-18 h-18 xs:w-22 xs:h-22 sm:w-28 sm:h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-[3px] sm:border-4 border-[#F5C86C] shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_24px_rgba(245,200,108,0.35)] bg-neutral-900 transition-transform duration-500 hover:scale-105 shrink-0">
+            <div className="relative z-20 my-[-10px] xs:my-[-14px] sm:my-[-26px] md:my-[-34px] w-14 h-14 xs:w-18 xs:h-18 sm:w-28 sm:h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-2 sm:border-4 border-[#F5C86C] shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_24px_rgba(245,200,108,0.35)] bg-neutral-900 transition-transform duration-500 hover:scale-105 shrink-0">
               <Image
                 src="/podium_rites_bg.webp"
                 alt="Ritesh Sinha"
                 fill
                 priority
-                sizes="(max-width: 640px) 96px, (max-width: 768px) 112px, 144px"
+                sizes="(max-width: 640px) 72px, (max-width: 768px) 112px, 144px"
                 className="object-cover object-center"
               />
             </div>
 
             {/* Bottom Line: Warm Alpine Sunset Gold */}
-            <h2 className="font-sans font-medium text-3xl xs:text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] tracking-tight text-[#F5C86C] leading-none drop-shadow-[0_4px_28px_rgba(0,0,0,0.85)]">
+            <h2 className="font-sans font-medium text-2xl xs:text-3xl sm:text-6xl md:text-7xl lg:text-[5.5rem] tracking-tight text-[#F5C86C] leading-none drop-shadow-[0_4px_28px_rgba(0,0,0,0.85)]">
               NOW LET’S <span className="font-serif italic font-light">BUILD SOMETHING.</span>
             </h2>
           </div>
 
           {/* Email Drop Pill */}
-          <div className="flex flex-col items-center mt-8 sm:mt-12 md:mt-14 w-full px-2">
-            <span className="font-sans text-xs sm:text-sm text-neutral-300 font-normal tracking-wide drop-shadow-sm">
+          <div className="flex flex-col items-center mt-5 xs:mt-6 sm:mt-12 md:mt-14 w-full px-2">
+            <span className="font-sans text-[11px] sm:text-sm text-neutral-300 font-normal tracking-wide drop-shadow-sm">
               Drop me an email:
             </span>
 
-            <div className="flex items-center gap-2 sm:gap-3 mt-2 px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-full bg-black/50 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.4)] max-w-full">
+            <div className="flex items-center gap-2 sm:gap-3 mt-1.5 sm:mt-2 px-3 py-1.5 sm:px-5 sm:py-2.5 rounded-full bg-black/50 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.4)] max-w-full">
               <a
                 href={`mailto:${email}`}
-                className="font-sans font-medium text-xs xs:text-sm sm:text-lg md:text-2xl text-white hover:text-[#F5C86C] transition-colors tracking-tight truncate"
+                className="font-sans font-medium text-[11px] xs:text-sm sm:text-lg md:text-2xl text-white hover:text-[#F5C86C] transition-colors tracking-tight truncate"
               >
                 {email}
               </a>
@@ -99,12 +99,12 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(
                 onClick={handleCopyEmail}
                 aria-label="Copy email address"
                 title={copied ? "Copied!" : "Copy email"}
-                className="w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 rounded-full bg-[#F5C86C] hover:bg-[#E4B553] text-[#0e161c] flex items-center justify-center transition-all duration-200 active:scale-90 cursor-pointer shadow-[0_0_14px_rgba(245,200,108,0.4)] shrink-0"
+                className="w-5 h-5 xs:w-7 xs:h-7 sm:w-8 sm:h-8 rounded-full bg-[#F5C86C] hover:bg-[#E4B553] text-[#0e161c] flex items-center justify-center transition-all duration-200 active:scale-90 cursor-pointer shadow-[0_0_14px_rgba(245,200,108,0.4)] shrink-0"
               >
                 {copied ? (
-                  <Check className="w-3 h-3 sm:w-4 sm:h-4 stroke-[2.5]" />
+                  <Check className="w-2.5 h-2.5 sm:w-4 sm:h-4 stroke-[2.5]" />
                 ) : (
-                  <Copy className="w-3 h-3 sm:w-4 sm:h-4 stroke-[2.5]" />
+                  <Copy className="w-2.5 h-2.5 sm:w-4 sm:h-4 stroke-[2.5]" />
                 )}
               </button>
             </div>
@@ -112,9 +112,9 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(
         </div>
 
         {/* Bottom Bar: ©2026 on Left, Social Icons on Right */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto flex justify-between items-center pt-6 pb-2 text-xs sm:text-sm text-neutral-300">
+        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2.5 sm:gap-0 pt-4 sm:pt-6 pb-2 text-xs sm:text-sm text-neutral-300">
           {/* Left: Copyright */}
-          <div className="font-sans tracking-wide">
+          <div className="font-sans tracking-wide text-[11px] sm:text-xs">
             ©2026 RITESH SINHA
           </div>
 
@@ -122,13 +122,13 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(
           <div className="flex items-center gap-3 sm:gap-4">
             {/* GitHub */}
             <a
-              href="https://github.com"
+              href="https://github.com/ritesh-sinha29"
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub"
-              className="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center hover:bg-[#F5C86C] hover:text-[#0e161c] hover:border-[#F5C86C] hover:scale-110 transition-all text-white shadow-xs"
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center hover:bg-[#F5C86C] hover:text-[#0e161c] hover:border-[#F5C86C] hover:scale-110 transition-all text-white shadow-xs"
             >
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" viewBox="0 0 24 24">
                 <path
                   fillRule="evenodd"
                   clipRule="evenodd"

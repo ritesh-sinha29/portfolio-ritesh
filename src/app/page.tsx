@@ -31,26 +31,62 @@ export default function Home() {
         scrub: true,
       },
     });
+
+    // Highly reliable ScrollSpy tracking across standard and pinned stages
+    const updateSpy = () => {
+      const scrollY = window.scrollY;
+      const vh = window.innerHeight;
+
+      const aboutEl = document.getElementById("about-section");
+      const worksEl = document.getElementById("works-stage");
+
+      if (!aboutEl || !worksEl) return;
+
+      const aboutTop = aboutEl.getBoundingClientRect().top + scrollY;
+      const pinSpacer = worksEl.closest(".pin-spacer") as HTMLElement | null;
+      const worksTop = (pinSpacer || worksEl).getBoundingClientRect().top + scrollY;
+
+      if (scrollY < aboutTop - vh * 0.4) {
+        setActiveTab("home");
+      } else if (scrollY < worksTop - vh * 0.3) {
+        setActiveTab("about");
+      } else {
+        setActiveTab("works");
+      }
+    };
+
+    window.addEventListener("scroll", updateSpy, { passive: true });
+    updateSpy();
+
+    return () => {
+      window.removeEventListener("scroll", updateSpy);
+    };
   });
 
   const handleLoadingComplete = () => {
     setIsLoading(false);
-    ScrollTrigger.refresh();
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
   };
 
   const scrollToSection = (sectionId: string) => {
     setActiveTab(sectionId);
     if (sectionId === "home") {
       window.scrollTo({ top: 0, behavior: "smooth" });
-    } else if (sectionId === "works") {
-      const el = document.getElementById("works-section") || overlayRef.current;
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-      }
     } else if (sectionId === "about") {
-      const el = document.getElementById("about-section") || document.getElementById("footer-section");
+      const el = document.getElementById("about-section");
       if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
+        const top = el.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: top + 2, behavior: "smooth" });
+      }
+    } else if (sectionId === "works") {
+      const el = document.getElementById("works-stage");
+      if (el) {
+        const pinSpacer = el.closest(".pin-spacer") as HTMLElement | null;
+        const targetEl = pinSpacer || el;
+        const top = targetEl.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: top + 10, behavior: "smooth" });
       }
     }
   };
@@ -76,16 +112,16 @@ export default function Home() {
         className="relative z-20"
       />
 
-      {/* Floating Bottom Navigation Pill */}
+      {/* Floating Top Navigation Pill */}
       {!isLoading && (
         <nav
           aria-label="Main Navigation"
-          className="fixed bottom-8 sm:bottom-10 left-1/2 -translate-x-1/2 z-50 bg-white/95 backdrop-blur-md shadow-[0_12px_40px_rgba(0,0,0,0.18)] border border-black/8 rounded-full p-1.5 flex items-center gap-1 sm:gap-1.5 transition-all duration-300 select-none"
+          className="fixed top-4 sm:top-5 left-1/2 -translate-x-1/2 z-50 bg-white/95 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-black/8 rounded-full p-1 sm:p-1.5 flex items-center gap-1 sm:gap-1.5 transition-all duration-300 select-none"
         >
           <button
             type="button"
             onClick={() => scrollToSection("home")}
-            className={`px-4 sm:px-5 py-2 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+            className={`px-3.5 sm:px-4.5 py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
               activeTab === "home"
                 ? "bg-[#c5eb35] text-[#141b16] shadow-sm scale-[1.02]"
                 : "text-[#5a625b] hover:text-[#141b16] hover:bg-black/5"
@@ -97,7 +133,7 @@ export default function Home() {
           <button
             type="button"
             onClick={() => scrollToSection("works")}
-            className={`px-4 sm:px-5 py-2 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+            className={`px-3.5 sm:px-4.5 py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
               activeTab === "works"
                 ? "bg-[#c5eb35] text-[#141b16] shadow-sm scale-[1.02]"
                 : "text-[#5a625b] hover:text-[#141b16] hover:bg-black/5"
@@ -109,7 +145,7 @@ export default function Home() {
           <button
             type="button"
             onClick={() => scrollToSection("about")}
-            className={`px-4 sm:px-5 py-2 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+            className={`px-3.5 sm:px-4.5 py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
               activeTab === "about"
                 ? "bg-[#c5eb35] text-[#141b16] shadow-sm scale-[1.02]"
                 : "text-[#5a625b] hover:text-[#141b16] hover:bg-black/5"

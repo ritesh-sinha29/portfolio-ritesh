@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, useState } from "react";
+import { InstantImage } from "@/components/media/InstantImage";
 
 const showupSectionSelector = ".showup-cards-sec";
 
@@ -27,7 +28,7 @@ const stageData: StageItem[] = [
     title: "PLAN & SCOPE",
     accentClass: "bg-[#c5eb35] text-[#141b16]",
     accentHex: "197, 235, 53",
-    imgUrl: "/wekraft.png",
+    imgUrl: "/wekraft.webp",
     phase: "PHASE 01",
     desc: "Gathering system requirements, wireframing workflows, and compiling API matrices.",
   },
@@ -37,7 +38,7 @@ const stageData: StageItem[] = [
     title: "STYLING & TOKEN",
     accentClass: "bg-[#F5C86C] text-[#141b16]",
     accentHex: "245, 200, 108",
-    imgUrl: "/clarioo.png",
+    imgUrl: "/clarioo.webp",
     phase: "PHASE 02",
     desc: "Specifying layout structures, fine-grain noise textures, and asymmetric skews.",
   },
@@ -47,7 +48,7 @@ const stageData: StageItem[] = [
     title: "DEVELOP & DEPLOY",
     accentClass: "bg-[#123826] text-[#c5eb35]",
     accentHex: "18, 56, 38",
-    imgUrl: "/looma.png",
+    imgUrl: "/looma.webp",
     phase: "PHASE 03",
     desc: "Compiling optimized route structures, loading counter staggers, and final page builds.",
   },
@@ -310,10 +311,12 @@ export default function ShowUpCardsPage() {
                     </div>
 
                     <div className="inner-img-frame w-full h-[140px] md:h-[180px] border-2 border-[#2a2a2a] relative overflow-hidden rounded-lg bg-zinc-50 my-2 shadow-[2px_2px_0px_#2a2a2a]">
-                      <img
+                      <InstantImage
                         src={stage.imgUrl}
                         alt={stage.title}
-                        className="absolute inset-0 w-full h-full object-cover"
+                        fill
+                        className="object-cover"
+                        containerClassName="absolute inset-0 w-full h-full"
                       />
                     </div>
 
@@ -346,10 +349,12 @@ export default function ShowUpCardsPage() {
                     </div>
 
                     <div className="inner-img-frame w-full h-[140px] md:h-[180px] border-2 border-[#2a2a2a] relative overflow-hidden rounded-lg bg-zinc-50 my-2 shadow-[2px_2px_0px_#2a2a2a]">
-                      <img
+                      <InstantImage
                         src={stage.imgUrl}
                         alt={stage.title}
-                        className="absolute inset-0 w-full h-full object-cover"
+                        fill
+                        className="object-cover"
+                        containerClassName="absolute inset-0 w-full h-full"
                       />
                     </div>
 

@@ -128,6 +128,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           disableRemotePlayback
           className="absolute inset-0 w-full h-full object-cover brightness-[0.85] contrast-[1.05]"
         >
+          <source src="/loading_bg.webm" type="video/webm" />
           <source src="/loading_bg.mp4" type="video/mp4" />
         </video>
 

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { InstantImage } from "@/components/media/InstantImage";
 
 export interface CarouselItem {
   tag?: string;
@@ -247,16 +248,12 @@ export function CoverFlowCarousel({
                 }}
               >
                 {/* Photo */}
-                <img
+                <InstantImage
                   src={item.img}
                   alt={item.titleLine1}
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
+                  fill
+                  className="object-cover"
+                  containerClassName="absolute inset-0 w-full h-full"
                 />
 
                 {/* Dark Vignette Overlay */}

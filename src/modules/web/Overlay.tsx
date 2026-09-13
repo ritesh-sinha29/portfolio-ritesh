@@ -7,6 +7,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { ArrowUpRight } from "lucide-react";
 import Footer from "./Footer";
+import { SmoothVideo } from "@/components/media/SmoothVideo";
+import { InstantImage } from "@/components/media/InstantImage";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -39,7 +41,7 @@ const featuredFlipProjects: FlipProjectItem[] = [
     badge: "AI DEV PLATFORM",
     accentClass: "bg-[#c5eb35] text-[#141b16]",
     accentHex: "#c5eb35",
-    imageUrl: "/wekraft.png",
+    imageUrl: "/wekraft.webp",
     description:
       "AI-powered project execution platform bridging Devs & PMs with bidirectional GitHub sync & third-party MCP integrations.",
     tech: ["LangGraph", "MCP", "Ably"],
@@ -54,7 +56,7 @@ const featuredFlipProjects: FlipProjectItem[] = [
     badge: "CAREER AI ENGINE",
     accentClass: "bg-[#F5C86C] text-[#141b16]",
     accentHex: "#F5C86C",
-    imageUrl: "/clarioo.png",
+    imageUrl: "/clarioo.webp",
     description:
       "Personalized career acceleration platform featuring tailored roadmaps and AI-proctored real-time voice mock interviews.",
     tech: ["Next.js", "Vapi", "Supabase"],
@@ -69,7 +71,7 @@ const featuredFlipProjects: FlipProjectItem[] = [
     badge: "COLLAB CANVAS",
     accentClass: "bg-[#123826] text-[#c5eb35]",
     accentHex: "#123826",
-    imageUrl: "/looma.png",
+    imageUrl: "/looma.webp",
     description:
       "Real-time collaborative canvas enabling teams to sketch, design, and instantly generate live deployable web applications.",
     tech: ["Vercel AI", "Firecrawl", "Liveblocks"],
@@ -417,7 +419,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
           <div className="absolute inset-0 bg-noise opacity-15 pointer-events-none mix-blend-overlay" />
 
           {/* Top/Center: About Me Content */}
-          <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center pt-2 sm:pt-6">
+          <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center pt-14 sm:pt-16 md:pt-18">
             {/* Top Category Badge */}
             <div className="overlay-kicker flex items-center gap-2 px-8 py-1.5 rounded-full bg-white/25 border border-white/10 backdrop-blur-sm mb-5 sm:mb-7">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
@@ -469,23 +471,14 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                 className="group relative cursor-pointer block rounded-full p-[2px] hover:from-white/60 hover:via-white/30 hover:to-white/60 transition-all duration-500 w-full max-w-[720px] sm:max-w-[880px] md:max-w-[1020px] lg:max-w-[900px]"
               >
                 <div className="relative w-full h-[105px] sm:h-[135px] md:h-[200px] lg:h-[245px] rounded-full overflow-hidden flex items-center justify-center bg-[#141b16]">
-                  <video
+                  <SmoothVideo
                     ref={videoRef}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    preload="metadata"
-                    disablePictureInPicture
-                    disableRemotePlayback
+                    webmSrc="/about me.webm"
+                    mp4Src="/about me.mp4"
+                    fallbackSrc="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260622_202655_a7f5aca0-2f80-4bc9-bcb5-96ac95662003.mp4"
                     className="absolute inset-0 w-full h-full object-cover brightness-[0.95] contrast-[1.05] group-hover:scale-106 transition-transform duration-700 ease-out"
-                  >
-                    <source src="/about me.mp4" type="video/mp4" />
-                    <source
-                      src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260622_202655_a7f5aca0-2f80-4bc9-bcb5-96ac95662003.mp4"
-                      type="video/mp4"
-                    />
-                  </video>
+                    containerClassName="absolute inset-0 w-full h-full overflow-hidden"
+                  />
 
                   <div className="absolute inset-0 bg-black/30 group-hover:bg-black/15 transition-colors duration-500 pointer-events-none" />
 
@@ -536,16 +529,16 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
             <div className="absolute inset-0 bg-noise opacity-10 pointer-events-none mix-blend-overlay" />
 
             {/* Header: Centered "Projects" & "Top Loved Works" */}
-            <div className="relative z-10 w-full flex flex-col items-center justify-center pt-8 sm:pt-10 px-4 text-center">
+            <div className="relative z-10 w-full flex flex-col items-center justify-center pt-16 sm:pt-20 md:pt-20 pb-1 sm:pb-2 px-4 text-center shrink-0">
               <h2
                 ref={projectsTitleRef}
-                className="font-sans font-medium tracking-tight text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] leading-none text-[#141b16]"
+                className="font-sans font-extrabold tracking-tight text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] leading-tight text-[#141b16]"
               >
                 Projects
               </h2>
               <p
                 ref={projectsSubtitleRef}
-                className="font-sans text-xs sm:text-sm md:text-base font-normal tracking-tight mt-2 text-[#5a625b]"
+                className="font-sans text-xs sm:text-sm font-medium tracking-tight mt-1 text-[#5a625b]"
               >
                 Top Loved Works • Scroll to Flip & Explore
               </p>
@@ -554,16 +547,16 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
             {/* Tweenlabs FlipCards 3D Showcase Container */}
             <div
               ref={cardsContainerRef}
-              className="relative z-20 w-full max-w-5xl mx-auto flex-1 flex items-center justify-center px-4 sm:px-6 py-2"
+              className="relative z-20 w-full max-w-5xl mx-auto flex-1 flex items-center justify-center px-4 sm:px-6 py-2 min-h-0"
             >
-              <div className="w-full flex flex-wrap sm:flex-nowrap items-center justify-center gap-4 sm:gap-5 md:gap-7 pointer-events-auto">
+              <div className="w-full flex flex-wrap sm:flex-nowrap items-center justify-center gap-3 sm:gap-4 md:gap-6 pointer-events-auto">
                 {featuredFlipProjects.map((stage, index) => (
                   <div
                     key={stage.id}
                     id={`flip-card-${index}`}
                     onMouseMove={handleMouseMove}
                     onMouseLeave={handleMouseLeave}
-                    className="card w-[240px] sm:w-[265px] md:w-[290px] lg:w-[315px] aspect-[5/7] max-h-[445px] sm:max-h-[465px] flex-1 relative transform-gpu"
+                    className="card w-[240px] sm:w-[260px] md:w-[280px] lg:w-[295px] h-[360px] sm:h-[385px] md:h-[405px] max-h-[80vh] flex-1 relative transform-gpu"
                     style={{
                       transformStyle: "preserve-3d",
                       transform: "perspective(1000px) rotateX(0deg) rotateY(0deg)",
@@ -576,38 +569,38 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                       >
                         {/* Front Side Face */}
                         <div
-                          className="flip-card-front absolute inset-0 border-2 sm:border-3 border-[#141b16] shadow-[6px_6px_0px_#141b16] p-4 sm:p-5 bg-white text-[#141b16] rounded-2xl flex flex-col justify-between cursor-pointer select-none"
+                          className="flip-card-front absolute inset-0 border-2 sm:border-[2.5px] border-[#141b16] shadow-[4px_4px_0px_#141b16] p-3.5 sm:p-4 bg-white text-[#141b16] rounded-2xl flex flex-col justify-between cursor-pointer select-none"
                           style={{
                             backfaceVisibility: "hidden",
                             WebkitBackfaceVisibility: "hidden",
                           }}
                         >
                           <div className="flex justify-between items-center">
-                            <span className="font-mono text-[10px] font-bold text-neutral-400">
+                            <span className="font-mono text-[9px] sm:text-[10px] font-bold text-neutral-400">
                               [{stage.phase}]
                             </span>
                             <span
-                              className={`inline-block border border-[#141b16] px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase ${stage.accentClass}`}
+                              className={`inline-block border border-[#141b16] px-2 py-0.5 rounded-full text-[8px] sm:text-[9px] font-mono font-bold uppercase ${stage.accentClass}`}
                             >
                               {stage.badge}
                             </span>
                           </div>
 
-                          <div className="inner-img-frame w-full h-[145px] sm:h-[160px] md:h-[180px] border-2 border-[#141b16] relative overflow-hidden rounded-xl bg-neutral-100 my-2 shadow-[2px_2px_0px_#141b16]">
-                            <img
+                          <div className="inner-img-frame w-full h-[120px] sm:h-[135px] md:h-[150px] border-2 border-[#141b16] relative overflow-hidden rounded-xl bg-neutral-100 my-1.5 shadow-[2px_2px_0px_#141b16]">
+                            <InstantImage
                               src={stage.imageUrl}
                               alt={stage.title}
-                              loading="lazy"
-                              decoding="async"
-                              className="absolute inset-0 w-full h-full object-cover object-top"
+                              fill
+                              className="object-cover object-top"
+                              containerClassName="absolute inset-0 w-full h-full"
                             />
                           </div>
 
-                          <div className="flex justify-between items-center border-t border-neutral-200 pt-2.5">
-                            <h3 className="font-sans font-bold text-sm sm:text-base text-[#141b16]">
+                          <div className="flex justify-between items-center border-t border-neutral-200 pt-2">
+                            <h3 className="font-sans font-bold text-xs sm:text-sm text-[#141b16]">
                               {stage.title}
                             </h3>
-                            <span className="font-mono text-xs text-neutral-400 font-bold">
+                            <span className="font-mono text-[11px] text-neutral-400 font-bold">
                               0{index + 1}
                             </span>
                           </div>
@@ -615,14 +608,14 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
 
                         {/* Back Side Face (Scroll-revealed) */}
                         <div
-                          className="flip-card-back absolute inset-0 border-2 sm:border-3 border-[#141b16] shadow-[6px_6px_0px_#141b16] p-4 sm:p-5 bg-white text-[#141b16] rounded-2xl flex flex-col justify-between cursor-pointer select-none"
+                          className="flip-card-back absolute inset-0 border-2 sm:border-[2.5px] border-[#141b16] shadow-[4px_4px_0px_#141b16] p-3.5 sm:p-4 bg-white text-[#141b16] rounded-2xl flex flex-col justify-between cursor-pointer select-none"
                           style={{
                             transform: "rotateY(180deg)",
                             backfaceVisibility: "hidden",
                             WebkitBackfaceVisibility: "hidden",
                           }}
                         >
-                          <div className="w-full flex justify-between font-mono font-bold text-[10px] uppercase border-b border-neutral-200 pb-2 items-center">
+                          <div className="w-full flex justify-between font-mono font-bold text-[9px] sm:text-[10px] uppercase border-b border-neutral-200 pb-1.5 items-center">
                             <span className="text-[#141b16] font-bold tracking-tight">
                               0{index + 1} // {stage.title}
                             </span>
@@ -631,25 +624,25 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                             />
                           </div>
 
-                          <div className="inner-img-frame w-full h-[115px] sm:h-[130px] md:h-[145px] border-2 border-[#141b16] relative overflow-hidden rounded-lg bg-neutral-100 my-1.5 shadow-[2px_2px_0px_#141b16]">
-                            <img
+                          <div className="inner-img-frame w-full h-[100px] sm:h-[110px] md:h-[120px] border-2 border-[#141b16] relative overflow-hidden rounded-xl bg-neutral-100 my-1 shadow-[2px_2px_0px_#141b16]">
+                            <InstantImage
                               src={stage.imageUrl}
                               alt={stage.title}
-                              loading="lazy"
-                              decoding="async"
-                              className="absolute inset-0 w-full h-full object-cover object-top"
+                              fill
+                              className="object-cover object-top"
+                              containerClassName="absolute inset-0 w-full h-full"
                             />
                           </div>
 
                           <div className="flex-1 flex flex-col justify-center py-1">
-                            <p className="text-[11px] sm:text-xs font-sans text-neutral-700 leading-snug line-clamp-3">
+                            <p className="text-[10.5px] sm:text-[11.5px] font-sans text-neutral-700 leading-snug line-clamp-2 sm:line-clamp-3">
                               {stage.description}
                             </p>
                             <div className="flex flex-wrap gap-1 mt-1.5">
                               {stage.tech.map((t) => (
                                 <span
                                   key={t}
-                                  className="px-2 py-0.5 rounded-full bg-neutral-100 border border-black/10 text-[9px] font-mono text-neutral-800 font-semibold"
+                                  className="px-1.5 py-0.5 rounded-md bg-neutral-100 border border-black/10 text-[8.5px] font-mono text-neutral-800 font-semibold"
                                 >
                                   {t}
                                 </span>
@@ -657,13 +650,13 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                             </div>
                           </div>
 
-                          <div className="flex justify-between items-center border-t border-neutral-200 pt-2.5">
+                          <div className="flex justify-between items-center border-t border-neutral-200 pt-2">
                             {/* Live Link Button */}
                             <a
                               href={stage.liveUrl}
                               target="_blank"
                               rel="noreferrer"
-                              className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-bold text-[10px] sm:text-[11px] shadow-xs hover:scale-105 active:scale-95 transition-all cursor-pointer border border-[#c5eb35]/30"
+                              className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-bold text-[10px] sm:text-[11px] shadow-xs hover:scale-105 active:scale-95 transition-all cursor-pointer border border-[#c5eb35]/40"
                               title={`Visit ${stage.title} Live`}
                             >
                               <span className="w-1.5 h-1.5 rounded-full bg-[#141b16] animate-pulse" />
@@ -676,7 +669,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                               href={stage.githubUrl}
                               target="_blank"
                               rel="noreferrer"
-                              className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-100 hover:bg-neutral-200 text-[#141b16] font-sans font-bold text-[10px] sm:text-[11px] border border-black/10 shadow-xs hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-100 hover:bg-neutral-200 text-[#141b16] font-sans font-bold text-[10px] sm:text-[11px] border border-black/10 shadow-xs hover:scale-105 active:scale-95 transition-all cursor-pointer"
                               title={`View ${stage.title} on GitHub`}
                             >
                               <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -699,13 +692,13 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
             </div>
 
             {/* Bottom "Explore All Works" Navigation Bar */}
-            <div className="relative z-20 pb-8 flex justify-center">
+            <div className="relative z-20 pb-5 sm:pb-6 md:pb-7 pt-1 flex justify-center shrink-0">
               <Link
                 href="/work"
-                className="group px-6 py-2.5 rounded-full bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-semibold text-xs sm:text-sm flex items-center gap-2 transition-all duration-300 shadow-[0_4px_16px_rgba(197,235,53,0.3)] hover:shadow-[0_6px_20px_rgba(197,235,53,0.45)] hover:scale-105 active:scale-95 border border-[#c5eb35]/30"
+                className="group px-6 py-2.5 rounded-full bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-bold text-xs sm:text-sm flex items-center gap-2 transition-all duration-300 shadow-[0_4px_16px_rgba(197,235,53,0.3)] hover:shadow-[0_6px_22px_rgba(197,235,53,0.45)] hover:scale-105 active:scale-95 border border-[#c5eb35]/40"
               >
                 <span>View All 6+ Production Projects</span>
-                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </div>
           </div>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import {
   animate,
   motion,
@@ -28,65 +28,44 @@ function buildGradient(pos: number, colors: string[], textColor: string) {
   if (bandStart >= 100) {
     return `linear-gradient(90deg, ${textColor}, ${textColor})`
   }
-  const n = colors.length
-  const parts: string[] = []
 
-  if (bandStart > 0)
-    parts.push(`${textColor} 0%`, `${textColor} ${bandStart.toFixed(2)}%`)
+  if (bandEnd <= 0) {
+    return `linear-gradient(90deg, ${colors[0]}, ${colors[0]})`
+  }
 
-  colors.forEach((c, i) => {
-    const pct = n === 1 ? pos : bandStart + (i / (n - 1)) * BAND_HALF * 2
-    parts.push(`${c} ${pct.toFixed(2)}%`)
-  })
+  const stops: string[] = []
+  const step = 100 / (colors.length - 1)
 
-  if (bandEnd < 100)
-    parts.push(`transparent ${bandEnd.toFixed(2)}%`, `transparent 100%`)
+  for (let i = 0; i < colors.length; i++) {
+    const p = (i * step * (bandEnd - bandStart)) / 100 + bandStart
+    stops.push(`${colors[i]} ${Math.round(p)}%`)
+  }
 
-  return `linear-gradient(90deg, ${parts.join(", ")})`
+  return `linear-gradient(90deg, ${stops.join(", ")})`
 }
 
-function measureWidths(el: HTMLElement, texts: string[]) {
-  const ghost = el.cloneNode() as HTMLElement
-  Object.assign(ghost.style, {
-    position: "absolute",
-    visibility: "hidden",
-    pointerEvents: "none",
-    width: "auto",
-    whiteSpace: "nowrap",
-  })
-  el.parentElement!.appendChild(ghost)
+function measureWidths(container: HTMLElement, texts: string[]): number[] {
+  const tester = document.createElement("span")
+  tester.style.position = "absolute"
+  tester.style.visibility = "hidden"
+  tester.style.whiteSpace = "nowrap"
+  tester.style.font = window.getComputedStyle(container).font
+  document.body.appendChild(tester)
+
   const widths = texts.map((t) => {
-    ghost.textContent = t
-    return ghost.getBoundingClientRect().width
+    tester.textContent = t
+    return tester.getBoundingClientRect().width
   })
-  ghost.remove()
+
+  document.body.removeChild(tester)
   return widths
 }
 
-/**
- * Props for {@link DiaTextReveal}.
- */
-export interface DiaTextRevealProps extends Omit<
-  HTMLMotionProps<"span">,
-  "ref" | "children" | "style" | "animate" | "transition" | "color"
-> {
-  /**
-   * Text to reveal. Pass multiple strings to rotate when {@link DiaTextRevealProps.repeat} is `true`.
-   */
+export interface DiaTextRevealProps
+  extends Omit<HTMLMotionProps<"span">, "children"> {
   text: string | string[]
-  /**
-   * Colors sampled across the moving gradient band. Defaults to a built-in palette.
-   */
   colors?: string[]
-  /**
-   * CSS color for revealed text after the sweep and for leading/trailing regions during the animation.
-   * @defaultValue `"var(--foreground)"`
-   */
   textColor?: string
-  /**
-   * Duration of one sweep pass, in seconds.
-   * @defaultValue `1.5`
-   */
   duration?: number
   /**
    * Delay before the sweep starts, in seconds.
@@ -152,20 +131,22 @@ export function DiaTextReveal({
     repeatDelay,
     texts,
   })
-  optsRef.current = {
-    colors,
-    textColor,
-    duration,
-    delay,
-    repeat,
-    repeatDelay,
-    texts,
-  }
+
+  useEffect(() => {
+    optsRef.current = {
+      colors,
+      textColor,
+      duration,
+      delay,
+      repeat,
+      repeatDelay,
+      texts,
+    }
+  }, [colors, textColor, duration, delay, repeat, repeatDelay, texts])
 
   const indexRef = useRef(0)
   const hasPlayedRef = useRef(false)
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
-  const playRef = useRef<() => void>(null!)
   const stopRef = useRef<(() => void) | null>(null)
 
   const [activeIndex, setActiveIndex] = useState(0)
@@ -179,34 +160,35 @@ export function DiaTextReveal({
 
   const isInView = useInView(spanRef, { once, amount: 0.1 })
 
+  const textKey = Array.isArray(text) ? text.join("\0") : text
   useEffect(() => {
     const el = spanRef.current
     if (!el || !isMulti) return
     setMeasuredWidths(measureWidths(el, texts))
-  }, [Array.isArray(text) ? text.join("\0") : text])
+  }, [textKey, isMulti, texts])
 
-  playRef.current = () => {
-    const { duration, delay, repeat, repeatDelay, texts } = optsRef.current
+  const play = useCallback(() => {
+    const { duration: dur, delay: del, repeat: rep, repeatDelay: repDel, texts: txts } = optsRef.current
 
     sweepPos.set(SWEEP_START)
 
     const controls = animate(sweepPos, SWEEP_END, {
-      duration,
-      delay,
+      duration: dur,
+      delay: del,
       ease: sweepEase,
       onComplete() {
-        if (!repeat) return
+        if (!rep) return
         timerRef.current = setTimeout(() => {
-          const next = (indexRef.current + 1) % texts.length
+          const next = (indexRef.current + 1) % txts.length
           indexRef.current = next
           setActiveIndex(next)
-          playRef.current()
-        }, repeatDelay * 1000)
+          play()
+        }, repDel * 1000)
       },
     })
 
     stopRef.current = () => controls.stop()
-  }
+  }, [sweepPos])
 
   useEffect(() => {
     if (prefersReducedMotion) {
@@ -216,13 +198,13 @@ export function DiaTextReveal({
     if (startOnView && !isInView) return
     if (once && hasPlayedRef.current) return
     hasPlayedRef.current = true
-    playRef.current()
+    play()
 
     return () => {
       stopRef.current?.()
       clearTimeout(timerRef.current)
     }
-  }, [isInView, startOnView, once, prefersReducedMotion, sweepPos])
+  }, [isInView, startOnView, once, prefersReducedMotion, sweepPos, play])
 
   const fixedW =
     isMulti && fixedWidth && measuredWidths.length > 0

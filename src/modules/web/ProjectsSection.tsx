@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import React, { useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { CoverFlowCarousel, CarouselItem } from "@/components/ui/3-d-coverflow-carousel";

@@ -617,7 +617,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                         >
                           <div className="w-full flex justify-between font-mono font-bold text-[9px] sm:text-[10px] uppercase border-b border-neutral-200 pb-1.5 items-center">
                             <span className="text-[#141b16] font-bold tracking-tight">
-                              0{index + 1} // {stage.title}
+                              0{index + 1} {"//"} {stage.title}
                             </span>
                             <span
                               className={`h-2.5 w-2.5 rounded-full border border-black animate-pulse ${stage.accentClass}`}

@@ -386,7 +386,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
                       <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                     </h3>
                     <p className="text-[11px] text-neutral-500 font-sans">
-                      Ritesh Sinha's Personal Assistant
+                      Ritesh Sinha&apos;s Personal Assistant
                     </p>
                   </div>
                 </div>

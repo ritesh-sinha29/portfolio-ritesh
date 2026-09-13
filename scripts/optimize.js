@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
@@ -49,6 +50,33 @@ for (const v of videos) {
     console.log(`[OK] Created ${path.basename(webm)}`);
   } catch (err) {
     console.error(`[Error WebM] ${v}:`, err.message);
+  }
+}
+
+// 3. Process Heavy SVGs to high-res WebP
+const svgs = ['podium rites bg.svg', 'ritesh standing.svg', 'ritesh mic.svg', 'ritesh podium.svg'];
+for (const s of svgs) {
+  const input = path.join(publicDir, s);
+  if (fs.existsSync(input)) {
+    const webp = path.join(publicDir, s.replace(/\.svg$/, '.webp').replace(/\s+/g, '_'));
+    console.log(`Converting SVG ${s} -> ${path.basename(webp)}...`);
+    try {
+      execSync(`ffmpeg -y -i "${input}" -c:v libwebp -quality 90 "${webp}"`, { stdio: 'inherit' });
+      console.log(`[OK] Created ${path.basename(webp)} (${(fs.statSync(webp).size / 1024).toFixed(1)} KB)`);
+    } catch (err) {
+      console.error(`[Error SVG] ${s}:`, err.message);
+    }
+  }
+}
+
+// 4. Create URL-safe duplicates for space-named videos
+const spacesToUnderscore = ['about me.mp4', 'about me.webm'];
+for (const f of spacesToUnderscore) {
+  const src = path.join(publicDir, f);
+  const dest = path.join(publicDir, f.replace(' ', '_'));
+  if (fs.existsSync(src)) {
+    fs.copyFileSync(src, dest);
+    console.log(`[OK] Created URL-safe copy: ${path.basename(dest)}`);
   }
 }
 

@@ -25,7 +25,7 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(
         ref={ref}
         id="footer-section"
         aria-label="Footer Section"
-        className={`absolute inset-0 w-full h-full min-h-screen overflow-hidden bg-[#1d8fb8] text-white flex flex-col justify-between p-6 sm:p-10 md:p-14 select-none z-10 ${className}`}
+        className={`absolute inset-0 w-full h-full min-h-screen overflow-hidden bg-[#1d8fb8] text-white flex flex-col justify-between pt-12 sm:pt-16 md:pt-18 px-6 sm:px-10 md:px-14 pb-6 sm:pb-8 md:pb-10 select-none z-10 ${className}`}
       >
         {/* Background Alpine Panorama Video & Poster */}
         <div className="absolute inset-0 w-full h-full overflow-hidden bg-[#1d8fb8] z-0">
@@ -51,7 +51,7 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(
         </div>
 
         {/* Top spacer */}
-        <div className="w-full h-8 sm:h-12 relative z-10" />
+        <div className="w-full h-6 sm:h-8 md:h-10 shrink-0 relative z-10" />
 
         {/* Center Stage Content */}
         <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center my-auto px-2">

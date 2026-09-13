@@ -23,7 +23,7 @@ const silkscreen = Silkscreen({
 });
 
 export const metadata: Metadata = {
-  title: "ROX - AI Engineer & Builder",
+  title: "Ritesh Sinha - AI Engineer & Builder",
   description:
     "AI Engineer & Builder architecting intelligent systems and shipping scalable AI agents.",
 };

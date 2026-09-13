@@ -412,7 +412,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
             {/* Center Bold Big About Me */}
             <h1 className="font-sans font-normal tracking-tight text-2xl sm:text-4xl md:text-[2.75rem] lg:text-[3.25rem] xl:text-[3.6rem] leading-[1.12] sm:leading-[1.16] text-center max-w-5xl mx-auto flex flex-col items-center">
               <span className="overlay-headline-line block transition-colors duration-300">
-                I am ROX, an experienced
+                I am Ritesh Sinha, an experienced
               </span>
 
               <span className="overlay-headline-line block transition-colors duration-300">

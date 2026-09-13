@@ -70,8 +70,8 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(
             {/* Overlapping Circle Avatar */}
             <div className="relative z-20 my-[-18px] sm:my-[-26px] md:my-[-34px] w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-[3px] sm:border-4 border-[#F5C86C] shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_24px_rgba(245,200,108,0.35)] bg-neutral-900 transition-transform duration-500 hover:scale-105">
               <Image
-                src="/rox_circle.png"
-                alt="Ritesh"
+                src="/podium rites bg.svg"
+                alt="Ritesh Sinha"
                 fill
                 priority
                 sizes="(max-width: 768px) 112px, 144px"

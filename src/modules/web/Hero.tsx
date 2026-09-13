@@ -36,7 +36,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "assistant",
-      text: "Hey! I'm Roxy, ROX's AI Agent. Ask me anything about his projects, experience, or tech stack!",
+      text: "Hey! I'm Raya, Ritesh Sinha's AI Agent. Ask me anything about his projects, experience, or tech stack!",
     },
   ]);
 
@@ -56,7 +56,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
     setTimeout(() => {
       const lower = userText.toLowerCase();
       let reply =
-        "ROX is a Full-Stack AI Engineer & Builder architecting intelligent distributed systems, high-performance web applications, and real-time AI agents.";
+        "Ritesh Sinha is a Full-Stack AI Engineer & Builder architecting intelligent distributed systems, high-performance web applications, and real-time AI agents.";
 
       if (
         lower.includes("stack") ||
@@ -64,17 +64,17 @@ export default function Hero({ isLoaded = false }: HeroProps) {
         lower.includes("skills")
       ) {
         reply =
-          "ROX works with Next.js, React, TypeScript, Python, PyTorch, LangGraph, GSAP, Tailwind CSS, Three.js, and multi-agent workflows.";
+          "Ritesh Sinha works with Next.js, React, TypeScript, Python, PyTorch, LangGraph, GSAP, Tailwind CSS, Three.js, and multi-agent workflows.";
       } else if (lower.includes("project") || lower.includes("work")) {
         reply =
-          "ROX's top projects include wekraft, clarioo, looma, Aria, Enterprise sales agent, and vocalx. Check out the Works page for more details!";
+          "Ritesh Sinha's top projects include wekraft, clarioo, looma, Aria, Enterprise sales agent, and vocalx. Check out the Works page for more details!";
       } else if (
         lower.includes("contact") ||
         lower.includes("email") ||
         lower.includes("hire")
       ) {
         reply =
-          "You can reach out directly to ROX via email at riteshsinha4146@gmail.com or connect on LinkedIn and GitHub!";
+          "You can reach out directly to Ritesh Sinha via email at riteshsinha4146@gmail.com or connect on LinkedIn and GitHub!";
       }
 
       setMessages([
@@ -223,7 +223,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
       >
         {/* Name / Brand */}
         <span className="font-sans font-semibold text-lg sm:text-xl tracking-tight text-[#141b16]">
-          ROX
+          RITESH SINHA
         </span>
 
         {/* Contact Pill Button */}
@@ -382,11 +382,11 @@ export default function Hero({ isLoaded = false }: HeroProps) {
                   </div>
                   <div>
                     <h3 className="font-sans font-semibold text-sm sm:text-base text-neutral-900 tracking-tight flex items-center gap-2">
-                      Roxy - AI Agent
+                      Raya - AI Agent
                       <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                     </h3>
                     <p className="text-[11px] text-neutral-500 font-sans">
-                      ROX Personal Assistant
+                      Ritesh Sinha's Personal Assistant
                     </p>
                   </div>
                 </div>
@@ -440,7 +440,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
                     type="button"
                     onClick={() => {
                       setInputValue(
-                        "Tell me about ROX's tech stack and experience!",
+                        "Tell me about Ritesh Sinha's tech stack and experience!",
                       );
                     }}
                     className="absolute right-2.5 p-1 text-neutral-400 hover:text-neutral-800 transition-colors cursor-pointer"

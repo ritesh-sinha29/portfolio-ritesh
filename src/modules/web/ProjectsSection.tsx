@@ -202,7 +202,7 @@ const ProjectsSection = React.forwardRef<HTMLDivElement, ProjectsSectionProps>(
 
               <div className="border-t border-black/10 pt-4">
                 <a
-                  href="mailto:contact@rox.ai"
+                  href="mailto:riteshsinha4146@gmail.com"
                   className="w-full py-3 rounded-full bg-[#c5eb35] hover:bg-[#b8e528] text-black font-sans font-semibold text-sm flex items-center justify-center gap-2 transition-all cursor-pointer"
                 >
                   <span>Initiate Contact</span>

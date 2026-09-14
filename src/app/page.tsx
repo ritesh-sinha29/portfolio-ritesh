@@ -39,26 +39,22 @@ export default function Home() {
       const vh = window.innerHeight;
 
       const aboutEl = document.getElementById("about-section");
-      const skillsEl = document.getElementById("skills-section");
-      const worksEl = document.getElementById("works-stage");
+      if (!aboutEl) return;
 
-      if (!aboutEl || !worksEl) return;
+      const pinSpacer = aboutEl.closest(".pin-spacer") as HTMLElement | null;
+      const pinNode = pinSpacer || aboutEl;
+      const stageTop = pinNode.getBoundingClientRect().top + scrollY;
 
-      const aboutTop = aboutEl.getBoundingClientRect().top + scrollY;
-      const skillsPinSpacer = skillsEl?.closest(".pin-spacer") as HTMLElement | null;
-      const skillsNode = skillsPinSpacer || skillsEl;
-      const skillsTop = skillsNode ? skillsNode.getBoundingClientRect().top + scrollY : aboutTop + vh;
-      const worksPinSpacer = worksEl.closest(".pin-spacer") as HTMLElement | null;
-      const worksTop = (worksPinSpacer || worksEl).getBoundingClientRect().top + scrollY;
-
-      if (scrollY < aboutTop - vh * 0.4) {
+      if (scrollY < stageTop - vh * 0.4) {
         setActiveTab("home");
-      } else if (scrollY < skillsTop - vh * 0.3) {
+      } else if (scrollY < stageTop + 1100) {
         setActiveTab("about");
-      } else if (scrollY < worksTop - vh * 0.3) {
+      } else if (scrollY < stageTop + 2250) {
         setActiveTab("skills");
-      } else {
+      } else if (scrollY < stageTop + 3400) {
         setActiveTab("works");
+      } else {
+        setActiveTab("contact");
       }
     };
 
@@ -84,14 +80,30 @@ export default function Home() {
     } else if (sectionId === "about") {
       const el = document.getElementById("about-section");
       if (el) {
-        const top = el.getBoundingClientRect().top + window.scrollY;
+        const pinSpacer = el.closest(".pin-spacer") as HTMLElement | null;
+        const top = (pinSpacer || el).getBoundingClientRect().top + window.scrollY;
         window.scrollTo({ top: top + 2, behavior: "smooth" });
       }
     } else if (sectionId === "skills") {
-      const el = document.getElementById("skills-section");
+      const el = document.getElementById("about-section");
       if (el) {
-        const top = el.getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({ top: top + 2, behavior: "smooth" });
+        const pinSpacer = el.closest(".pin-spacer") as HTMLElement | null;
+        const top = (pinSpacer || el).getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: top + 1200, behavior: "smooth" });
+      }
+    } else if (sectionId === "works") {
+      const el = document.getElementById("about-section");
+      if (el) {
+        const pinSpacer = el.closest(".pin-spacer") as HTMLElement | null;
+        const top = (pinSpacer || el).getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: top + 2400, behavior: "smooth" });
+      }
+    } else if (sectionId === "contact") {
+      const el = document.getElementById("about-section");
+      if (el) {
+        const pinSpacer = el.closest(".pin-spacer") as HTMLElement | null;
+        const top = (pinSpacer || el).getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: top + 3600, behavior: "smooth" });
       }
     }
   };
@@ -142,6 +154,11 @@ export default function Home() {
               id: "works",
               label: "WORKS",
               href: "/work",
+            },
+            {
+              id: "contact",
+              label: "CONTACT",
+              onClick: () => scrollToSection("contact"),
             },
           ]}
         />

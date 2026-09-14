@@ -7,7 +7,7 @@ import { MagneticButton } from "@/components/ui/magnetic-button";
 
 gsap.registerPlugin(useGSAP);
 
-interface SkillTag {
+export interface SkillTag {
   text: string;
   color: string;
   xStart: number;
@@ -15,14 +15,14 @@ interface SkillTag {
   rotate: number;
 }
 
-interface CategoryGroup {
+export interface SkillCategory {
   id: string;
   label: string;
   tabColor: string;
   tags: SkillTag[];
 }
 
-const skillCategories: CategoryGroup[] = [
+export const skillCategories: SkillCategory[] = [
   {
     id: "ai",
     label: "AI / AGENTIC",
@@ -121,11 +121,7 @@ const skillCategories: CategoryGroup[] = [
   },
 ];
 
-interface MagneticSkillTagProps {
-  tag: SkillTag;
-}
-
-const MagneticSkillTag: React.FC<MagneticSkillTagProps> = ({ tag }) => {
+export const MagneticSkillTag: React.FC<{ tag: SkillTag }> = ({ tag }) => {
   const tagRef = useRef<HTMLSpanElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLSpanElement>) => {
@@ -173,7 +169,7 @@ const MagneticSkillTag: React.FC<MagneticSkillTagProps> = ({ tag }) => {
       ref={tagRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={`assembler-tag px-3 xs:px-3.5 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 border-[1.5px] sm:border-2 border-[#141b16] rounded-md sm:rounded-lg font-mono font-black text-[11px] xs:text-xs sm:text-[13px] md:text-sm shadow-[2px_2px_0px_#141b16] sm:shadow-[2.5px_2.5px_0px_#141b16] transform will-change-transform cursor-pointer select-none uppercase tracking-wider transition-shadow hover:shadow-[3.5px_3.5px_0px_#141b16] ${tag.color}`}
+      className={`assembler-tag px-2.5 xs:px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 border-[1.5px] sm:border-2 border-[#141b16] rounded-md sm:rounded-lg font-mono font-black text-[10px] xs:text-[11px] sm:text-[12px] md:text-[13px] shadow-[2px_2px_0px_#141b16] sm:shadow-[2.5px_2.5px_0px_#141b16] transform will-change-transform cursor-pointer select-none uppercase tracking-wider transition-shadow hover:shadow-[3.5px_3.5px_0px_#141b16] ${tag.color}`}
       data-xs={tag.xStart}
       data-ys={tag.yStart}
       data-rot={tag.rotate}
@@ -195,7 +191,7 @@ const SkillsSection = forwardRef<HTMLDivElement, SkillsSectionProps>(
     const currentCategory =
       skillCategories.find((c) => c.id === activeTabId) || skillCategories[0];
 
-    // Fly-in assembler animation triggered on tab click / category change (without scroll)
+    // Fly-in assembler animation triggered on tab click
     useGSAP(
       () => {
         if (!boardRef.current) return;
@@ -232,7 +228,7 @@ const SkillsSection = forwardRef<HTMLDivElement, SkillsSectionProps>(
               duration: 0.6,
               ease: "power2.out",
             },
-            idx * 0.07,
+            idx * 0.06,
           );
         });
       },
@@ -240,27 +236,37 @@ const SkillsSection = forwardRef<HTMLDivElement, SkillsSectionProps>(
     );
 
     return (
-      <section
+      <div
         ref={ref}
-        id="skills-section"
-        aria-label="Skills & Technologies Section"
-        className={`relative w-full min-h-screen flex items-center justify-center select-none bg-background text-[#141b16] py-12 sm:py-16 md:py-20 px-3 sm:px-5 border-y-2 border-[#141b16]/10 overflow-hidden ${className}`}
+        className={`w-full h-full flex flex-col justify-between p-6 sm:p-10 md:p-14 ${className}`}
       >
-        {/* Film grain noise overlay */}
-        <div className="absolute inset-0 bg-noise opacity-10 pointer-events-none mix-blend-overlay" />
+        {/* Top Header Bar */}
+        <div className="relative z-20 w-full max-w-5xl mx-auto flex items-center justify-between">
+          <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-black/[0.05] backdrop-blur-xl border border-black/10 shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-[#0c9367] animate-pulse" />
+            <span className="font-mono text-[9px] sm:text-[10px] md:text-xs font-bold text-[#141b16] uppercase tracking-widest">
+              03 // SKILLS &amp; TECHNOLOGIES
+            </span>
+          </div>
 
-        <div className="relative z-10 w-full max-w-3xl mx-auto flex flex-col items-center justify-center gap-3.5 sm:gap-4.5">
-          {/* Top Heading */}
+          <span className="font-mono text-[10px] sm:text-xs font-semibold text-[#141b16]/50 tracking-widest uppercase">
+            02 // 03
+          </span>
+        </div>
+
+        {/* Center Skills Box */}
+        <div className="relative z-10 w-full max-w-3xl mx-auto flex flex-col items-center justify-center gap-2.5 sm:gap-3.5 my-auto py-2">
+          {/* Heading */}
           <div className="flex flex-col items-center text-center">
             <h2 className="font-sans font-extrabold tracking-tight text-xl xs:text-2xl sm:text-3xl md:text-4xl text-[#141b16] leading-tight">
               Skills &amp; Technologies
             </h2>
-            <p className="font-sans text-[11px] sm:text-xs font-medium text-[#141b16]/65 mt-0.5 sm:mt-1 text-center max-w-md">
+            <p className="font-sans text-[10.5px] sm:text-xs font-medium text-[#141b16]/65 mt-0.5 sm:mt-1 text-center max-w-md">
               Click any category tab below to explore the dedicated toolset &amp; technical stack
             </p>
           </div>
 
-          {/* Interactive Category Tabs Bar (Strictly Single Line) */}
+          {/* Interactive Category Tabs Bar */}
           <div className="w-full max-w-3xl flex flex-nowrap items-center justify-center gap-1 xs:gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5 px-1">
             {skillCategories.map((category) => {
               const isActive = category.id === activeTabId;
@@ -270,7 +276,7 @@ const SkillsSection = forwardRef<HTMLDivElement, SkillsSectionProps>(
                   onClick={() => setActiveTabId(category.id)}
                   magneticStrength={0.2}
                   scaleOnHover={1.04}
-                  className={`whitespace-nowrap shrink-0 px-2 xs:px-2.5 sm:px-3 py-1 rounded-md sm:rounded-lg font-mono font-bold text-[9px] xs:text-[10px] sm:text-[11px] border-[1.5px] border-[#141b16] transition-all duration-150 cursor-pointer uppercase tracking-wider ${
+                  className={`whitespace-nowrap shrink-0 px-2 xs:px-2.5 sm:px-3 py-1 rounded-md sm:rounded-lg font-mono font-bold text-[8.5px] xs:text-[9.5px] sm:text-[11px] border-[1.5px] border-[#141b16] transition-all duration-150 cursor-pointer uppercase tracking-wider ${
                     isActive
                       ? `${category.tabColor} shadow-[2px_2px_0px_#141b16] scale-105 z-10`
                       : "bg-white text-[#141b16]/70 hover:text-[#141b16] hover:bg-zinc-50 shadow-[1px_1px_0px_#141b16]"
@@ -286,14 +292,20 @@ const SkillsSection = forwardRef<HTMLDivElement, SkillsSectionProps>(
           {/* Brutalist DOM Board Collider Box */}
           <div
             ref={boardRef}
-            className="w-full max-w-3xl min-h-[200px] sm:min-h-[230px] md:min-h-[250px] border-2 sm:border-[2.5px] border-[#141b16] rounded-[18px] sm:rounded-[24px] bg-white p-5 sm:p-7 md:p-8 flex flex-wrap gap-2.5 sm:gap-3.5 md:gap-4 items-center justify-center relative overflow-hidden shadow-[inset_3px_3px_8px_rgba(0,0,0,0.03)]"
+            className="w-full max-w-3xl min-h-[175px] xs:min-h-[195px] sm:min-h-[220px] md:min-h-[240px] border-2 sm:border-[2.5px] border-[#141b16] rounded-[16px] sm:rounded-[22px] bg-white p-4 sm:p-6 md:p-7 flex flex-wrap gap-2 sm:gap-3 md:gap-3.5 items-center justify-center relative overflow-hidden shadow-[inset_3px_3px_8px_rgba(0,0,0,0.03)]"
           >
             {currentCategory.tags.map((tag) => (
               <MagneticSkillTag key={tag.text} tag={tag} />
             ))}
           </div>
         </div>
-      </section>
+
+        {/* Bottom Footer Status */}
+        <div className="relative z-20 w-full max-w-5xl mx-auto flex justify-between font-mono text-[9px] sm:text-[10px] uppercase tracking-wider text-[#141b16]/60">
+          <span>SCROLL OR CLICK TO NAVIGATE</span>
+          <span>/ MODULE-02 / SKILLS</span>
+        </div>
+      </div>
     );
   },
 );
@@ -301,4 +313,3 @@ const SkillsSection = forwardRef<HTMLDivElement, SkillsSectionProps>(
 SkillsSection.displayName = "SkillsSection";
 
 export default SkillsSection;
-

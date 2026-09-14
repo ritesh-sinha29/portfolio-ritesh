@@ -26,7 +26,7 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(
         ref={ref}
         id="footer-section"
         aria-label="Footer Section"
-        className={`absolute inset-0 w-full h-full min-h-screen overflow-hidden bg-[#1d8fb8] text-white flex flex-col justify-between pt-12 sm:pt-16 md:pt-18 px-6 sm:px-10 md:px-14 pb-6 sm:pb-8 md:pb-10 select-none z-10 ${className}`}
+        className={`relative w-full h-full min-h-screen overflow-hidden bg-[#1d8fb8] text-white flex flex-col justify-between pt-10 sm:pt-14 md:pt-16 px-6 sm:px-10 md:px-14 pb-5 sm:pb-7 md:pb-8 select-none z-10 ${className}`}
       >
         {/* Background Alpine Panorama Video & Poster */}
         <div className="absolute inset-0 w-full h-full overflow-hidden bg-[#1d8fb8] z-0">
@@ -52,46 +52,46 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(
         </div>
 
         {/* Top spacer */}
-        <div className="w-full h-6 sm:h-8 md:h-10 shrink-0 relative z-10" />
+        <div className="w-full h-4 sm:h-6 md:h-8 shrink-0 relative z-10" />
 
         {/* Center Stage Content */}
         <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center my-auto px-2">
           {/* Main Headline with Centered Circle Photo */}
           <div className="relative flex flex-col items-center w-full">
             {/* Top Line: White */}
-            <h2 className="font-sans font-medium text-2xl xs:text-3xl sm:text-6xl md:text-7xl lg:text-[5.5rem] tracking-tight text-white leading-none drop-shadow-[0_4px_24px_rgba(0,0,0,0.75)]">
+            <h2 className="font-sans font-medium text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-white leading-none drop-shadow-[0_4px_24px_rgba(0,0,0,0.75)]">
               YOU FOUND <span className="font-serif italic font-light">ME.</span>
             </h2>
 
             {/* Overlapping Circle Avatar */}
-            <div className="relative z-20 my-[-10px] xs:my-[-14px] sm:my-[-26px] md:my-[-34px] w-14 h-14 xs:w-18 xs:h-18 sm:w-28 sm:h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-2 sm:border-4 border-[#F5C86C] shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_24px_rgba(245,200,108,0.35)] bg-neutral-900 transition-transform duration-500 hover:scale-105 shrink-0">
+            <div className="relative z-20 my-[-8px] xs:my-[-12px] sm:my-[-22px] md:my-[-28px] w-14 h-14 xs:w-16 xs:h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-2 sm:border-4 border-[#F5C86C] shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_24px_rgba(245,200,108,0.35)] bg-neutral-900 transition-transform duration-500 hover:scale-105 shrink-0">
               <Image
                 src="/podium_rites_bg.webp"
                 alt="Ritesh Sinha"
                 fill
                 priority
-                sizes="(max-width: 640px) 72px, (max-width: 768px) 112px, 144px"
+                sizes="(max-width: 640px) 64px, (max-width: 768px) 96px, 128px"
                 className="object-cover object-center"
               />
             </div>
 
             {/* Bottom Line: Warm Alpine Sunset Gold */}
-            <h2 className="font-sans font-medium text-2xl xs:text-3xl sm:text-6xl md:text-7xl lg:text-[5.5rem] tracking-tight text-[#F5C86C] leading-none drop-shadow-[0_4px_28px_rgba(0,0,0,0.85)]">
+            <h2 className="font-sans font-medium text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-[#F5C86C] leading-none drop-shadow-[0_4px_28px_rgba(0,0,0,0.85)]">
               NOW LET’S <span className="font-serif italic font-light">BUILD SOMETHING.</span>
             </h2>
           </div>
 
           {/* Email Drop Pill */}
-          <div className="flex flex-col items-center mt-5 xs:mt-6 sm:mt-12 md:mt-14 w-full px-2">
-            <span className="font-sans text-[11px] sm:text-sm text-neutral-300 font-normal tracking-wide drop-shadow-sm">
+          <div className="flex flex-col items-center mt-4 xs:mt-5 sm:mt-8 md:mt-10 w-full px-2">
+            <span className="font-sans text-[11px] sm:text-xs md:text-sm text-neutral-300 font-normal tracking-wide drop-shadow-sm">
               Drop me an email:
             </span>
 
             {/* Email Pill Dock */}
-            <div className="flex items-center gap-2 sm:gap-3 mt-2 sm:mt-3 p-1 sm:p-1.5 rounded-full bg-black/60 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.5)] max-w-full">
+            <div className="flex items-center gap-2 sm:gap-3 mt-2 sm:mt-2.5 p-1 sm:p-1.5 rounded-full bg-black/60 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.5)] max-w-full">
               <a
                 href={`mailto:${email}`}
-                className="font-sans font-bold text-xs xs:text-sm sm:text-base md:text-xl text-white hover:text-[#F5C86C] transition-colors tracking-tight truncate px-3 sm:px-4"
+                className="font-sans font-bold text-xs xs:text-sm sm:text-base md:text-lg text-white hover:text-[#F5C86C] transition-colors tracking-tight truncate px-3 sm:px-4"
               >
                 {email}
               </a>
@@ -119,7 +119,7 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(
         </div>
 
         {/* Bottom Bar: ©2026 on Left, Social Icons Pill Dock on Right */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2.5 sm:gap-0 pt-4 sm:pt-6 pb-2 text-xs sm:text-sm text-neutral-300">
+        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2.5 sm:gap-0 pt-3 sm:pt-4 pb-2 text-xs sm:text-sm text-neutral-300">
           {/* Left: Copyright */}
           <div className="font-sans tracking-wide text-[11px] sm:text-xs">
             ©2026 RITESH SINHA

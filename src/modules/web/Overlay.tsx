@@ -1,16 +1,13 @@
 "use client";
 
-import Link from "next/link";
-import React, { forwardRef, useEffect, useRef } from "react";
+import React, { forwardRef, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { ArrowUpRight } from "lucide-react";
-import Footer from "./Footer";
-import SkillsSection from "./SkillsSection";
-import { SmoothVideo } from "@/components/media/SmoothVideo";
 import { InstantImage } from "@/components/media/InstantImage";
-import { MagneticButton } from "@/components/ui/magnetic-button";
+import SkillsSection from "./SkillsSection";
+import ProjectsSection from "./ProjectsSection";
+import Footer from "./Footer";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -19,88 +16,22 @@ interface OverlayProps {
   onVideoClick?: () => void;
 }
 
-interface FlipProjectItem {
-  id: string;
-  number: string;
-  title: string;
-  phase: string;
-  badge: string;
-  accentClass: string;
-  accentHex: string;
-  imageUrl: string;
-  description: string;
-  tech: string[];
-  liveUrl: string;
-  githubUrl: string;
-}
-
-const featuredFlipProjects: FlipProjectItem[] = [
-  {
-    id: "wekraft",
-    number: "01",
-    title: "WEKRAFT",
-    phase: "PHASE 01",
-    badge: "AI DEV PLATFORM",
-    accentClass: "bg-primary text-primary-foreground",
-    accentHex: "#c5eb35",
-    imageUrl: "/wekraft.webp",
-    description:
-      "AI-powered project execution platform bridging Devs & PMs with bidirectional GitHub sync & third-party MCP integrations.",
-    tech: ["LangGraph", "MCP", "Ably"],
-    liveUrl: "https://wekraft.vercel.app",
-    githubUrl: "https://github.com/ritesh-sinha29/wekraft",
-  },
-  {
-    id: "clarioo",
-    number: "02",
-    title: "CLARIOO",
-    phase: "PHASE 02",
-    badge: "CAREER AI ENGINE",
-    accentClass: "bg-secondary text-secondary-foreground",
-    accentHex: "#F5C86C",
-    imageUrl: "/clarioo.webp",
-    description:
-      "Personalized career acceleration platform featuring tailored roadmaps and AI-proctored real-time voice mock interviews.",
-    tech: ["Next.js", "Vapi", "Supabase"],
-    liveUrl: "https://clarioo.vercel.app",
-    githubUrl: "https://github.com/ritesh-sinha29/clarioo",
-  },
-  {
-    id: "looma",
-    number: "03",
-    title: "LOOMA",
-    phase: "PHASE 03",
-    badge: "COLLAB CANVAS",
-    accentClass: "bg-accent text-accent-foreground",
-    accentHex: "#123826",
-    imageUrl: "/looma.webp",
-    description:
-      "Real-time collaborative canvas enabling teams to sketch, design, and instantly generate live deployable web applications.",
-    tech: ["Vercel AI", "Firecrawl", "Liveblocks"],
-    liveUrl: "https://looma.vercel.app",
-    githubUrl: "https://github.com/ritesh-sinha29/looma",
-  },
+const navStages = [
+  { id: "about", label: "ABOUT" },
+  { id: "skills", label: "SKILLS" },
+  { id: "projects", label: "PROJECTS" },
+  { id: "footer", label: "FOOTER" },
 ];
 
 const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
-  ({ className = "", onVideoClick }, ref) => {
-    const sectionRef = useRef<HTMLDivElement>(null);
-    const videoRef = useRef<HTMLVideoElement>(null);
-
-    // Projects & Curtain Lift elements
-    const stageContainerRef = useRef<HTMLDivElement>(null);
-    const projectsPanelRef = useRef<HTMLDivElement>(null);
-    const stageBgRef = useRef<HTMLDivElement>(null);
-    const projectsTitleRef = useRef<HTMLHeadingElement>(null);
-    const projectsSubtitleRef = useRef<HTMLParagraphElement>(null);
-    const cardsContainerRef = useRef<HTMLDivElement>(null);
-
-    // Footer underlying element
-    const footerRef = useRef<HTMLDivElement>(null);
+  ({ className = "" }, ref) => {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const scrollSectionRef = useRef<HTMLDivElement>(null);
+    const tlRef = useRef<gsap.core.Timeline | null>(null);
 
     // Combine forwarded ref and internal ref
     const setRefs = (node: HTMLDivElement | null) => {
-      sectionRef.current = node;
+      containerRef.current = node;
       if (typeof ref === "function") {
         ref(node);
       } else if (ref) {
@@ -108,599 +39,437 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
       }
     };
 
-    // Ensure video plays muted, loops smoothly, and plays only when in view to save resources
-    useEffect(() => {
-      const vid = videoRef.current;
-      if (!vid) return;
-
-      vid.muted = true;
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              vid.play().catch(() => {});
-            } else {
-              vid.pause();
-            }
-          });
-        },
-        { rootMargin: "200px" }
-      );
-
-      observer.observe(vid);
-      return () => observer.disconnect();
-    }, []);
-
-    // 1. GSAP animation: About Me text highlights line by line & reveals right image
+    // Master 3D Stacked Card Parallax Transition Timeline across 4 panels:
+    // Panel 0: About -> Panel 1: Skills -> Panel 2: Projects -> Panel 3: Footer
     useGSAP(
       () => {
-        if (!sectionRef.current) return;
+        if (!scrollSectionRef.current || !containerRef.current) return;
 
-        const lines = gsap.utils.toArray<HTMLElement>(
-          ".overlay-headline-line",
-          sectionRef.current,
-        );
+        const container = containerRef.current;
+        const scrollSection = scrollSectionRef.current;
 
-        // Initial state: subtle dimming and offsets
-        gsap.set(lines, {
-          opacity: 0.35,
-          y: 10,
-        });
-        gsap.set(".overlay-kicker", { autoAlpha: 0, y: 10 });
-        gsap.set(".overlay-subtext", { autoAlpha: 0, y: 14 });
-        gsap.set(".overlay-card-wrapper", {
-          autoAlpha: 0,
-          scale: 0.95,
-          x: 20,
-        });
-
-        const textTl = gsap.timeline({ paused: true });
-
-        textTl.to(".overlay-kicker", {
+        // Set initial states for all 4 panels and their parallax contents
+        gsap.set(".panel-0", {
+          y: "0vh",
+          scale: 1,
+          rotateX: 0,
           autoAlpha: 1,
-          y: 0,
-          duration: 0.45,
-          ease: "power2.out",
         });
 
-        textTl.to(
-          lines,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.55,
-            stagger: 0.22,
-            ease: "power2.out",
-          },
-          "-=0.15",
-        );
-
-        textTl.to(
-          ".overlay-subtext",
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.6,
-            ease: "power2.out",
-          },
-          "-=0.2",
-        );
-
-        textTl.to(
-          ".overlay-card-wrapper",
-          {
-            autoAlpha: 1,
-            scale: 1,
-            x: 0,
-            duration: 0.75,
-            ease: "power3.out",
-          },
-          "-=0.45",
-        );
-
-        let hasPlayed = false;
-
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top 75%",
-          onEnter: () => {
-            if (!hasPlayed) {
-              hasPlayed = true;
-              textTl.play();
-            }
-          },
-          onLeaveBack: () => {
-            hasPlayed = false;
-            textTl.reverse();
-          },
+        gsap.set(".panel-1, .panel-2, .panel-3", {
+          y: "100vh",
+          scale: 1,
+          rotateX: 0,
+          autoAlpha: 0,
         });
 
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting && !hasPlayed) {
-                hasPlayed = true;
-                textTl.play();
-              }
-            });
-          },
-          { threshold: 0.2 },
-        );
-
-        observer.observe(sectionRef.current);
-
-        return () => {
-          observer.disconnect();
-        };
-      },
-      { scope: sectionRef },
-    );
-
-    // 2. GSAP animation: Butter-Smooth Tweenlabs FlipCards transition in Projects Stage + Curtain Lift
-    useGSAP(
-      () => {
-        if (
-          !stageContainerRef.current ||
-          !projectsPanelRef.current ||
-          !stageBgRef.current
-        )
-          return;
-
-        const stage = stageContainerRef.current;
-        const panel = projectsPanelRef.current;
-        const bg = stageBgRef.current;
-        const title = projectsTitleRef.current;
-        const subtitle = projectsSubtitleRef.current;
-
-        // Set initial states with theme colors
-        gsap.set(bg, { backgroundColor: "var(--background)" });
-        gsap.set(title, { color: "var(--foreground)" });
-        gsap.set(subtitle, { color: "var(--muted-foreground)" });
-        gsap.set(panel, { yPercent: 0 });
-
-        featuredFlipProjects.forEach((_, index) => {
-          const cardId = `#flip-card-${index}`;
-          const innerCard = stage.querySelector(`${cardId} .flip-card-inner`);
-          gsap.set(cardId, {
-            opacity: 0,
-            yPercent: -120,
-            scale: 0.35,
-            xPercent: index === 0 ? 70 : index === 1 ? 0 : -70,
-            rotationZ: index === 0 ? -6 : index === 1 ? 0 : 6,
-            transformPerspective: 1200,
-            willChange: "transform, opacity",
-          });
-          if (innerCard) {
-            gsap.set(innerCard, {
-              rotationY: 0,
-              transformStyle: "preserve-3d",
-              willChange: "transform",
-            });
-          }
+        gsap.set(".panel-1-content, .panel-2-content, .panel-3-content", {
+          y: "15vh",
         });
 
-        // Master pinned scrubbed timeline with smooth momentum
-        const masterTl = gsap.timeline({
+        // Master pinned scroll timeline with smooth scrub
+        const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: stage,
+            trigger: scrollSection,
             start: "top top",
-            end: "+=3200",
+            end: "+=4500",
             pin: true,
-            scrub: 1.4,
+            scrub: 0.6,
             anticipatePin: 1,
             invalidateOnRefresh: true,
+            onUpdate: (self) => {
+              const progress = self.progress;
+              // Map progress across the 4 stages: [about, skills, projects, footer]
+              const stageIdx = Math.min(
+                Math.floor(progress * 3.8),
+                navStages.length - 1,
+              );
+
+              navStages.forEach((item, idx) => {
+                const el = container.querySelector(
+                  `#nav-${item.id}`,
+                ) as HTMLElement | null;
+                if (el) {
+                  if (idx === stageIdx) {
+                    el.classList.add(
+                      "shadow-[3px_3px_0px_#141b16]",
+                      "scale-105",
+                      "!rotate-[-2deg]",
+                      "bg-[#c5eb35]",
+                      "text-[#141b16]",
+                      "opacity-100",
+                    );
+                    el.classList.remove(
+                      "opacity-60",
+                      "rotate-[2deg]",
+                      "bg-white",
+                    );
+                  } else {
+                    el.classList.remove(
+                      "shadow-[3px_3px_0px_#141b16]",
+                      "scale-105",
+                      "!rotate-[-2deg]",
+                      "bg-[#c5eb35]",
+                      "text-[#141b16]",
+                      "opacity-100",
+                    );
+                    el.classList.add(
+                      "opacity-60",
+                      "rotate-[2deg]",
+                      "bg-white",
+                    );
+                  }
+                }
+              });
+            },
           },
         });
 
-        // Phase 2: Smooth card drop-in & scaling
-        featuredFlipProjects.forEach((_, index) => {
-          const cardId = `#flip-card-${index}`;
-          masterTl.to(
-            cardId,
-            {
-              opacity: 1,
-              yPercent: 0,
-              scale: 0.85,
-              duration: 1.3,
-              ease: "power2.out",
-            },
-            `start+=${0.2 + index * 0.15}`,
-          );
+        tlRef.current = tl;
+
+        // Label 0: ABOUT (Hold for initial reading)
+        tl.addLabel("about", 0);
+        tl.to({}, { duration: 0.15 });
+
+        /*
+         * PREMIUM 3D STACKED + PARALLAX TRANSITIONS:
+         *
+         *  TRANSITION 1: ABOUT (Panel 0) → SKILLS (Panel 1)
+         *  - Panel 1 slides up from y: 100vh → 0vh (power3.out)
+         *  - Panel 1 inner content glides up from y: 15vh → 0vh in sync (parallax depth)
+         *  - Panel 0 tilts back (rotateX: 12), scales down to 0.85, and dims (opacity: 0.4)
+         */
+        tl.set(".panel-1", {
+          y: "100vh",
+          rotateX: 0,
+          scale: 1,
+          autoAlpha: 1,
+        });
+        tl.set(".panel-1-content", { y: "15vh" });
+
+        tl.to(".panel-1", {
+          y: "0vh",
+          duration: 1.4,
+          ease: "power3.out",
         });
 
-        // Phase 3: Fan out cards to full width
-        featuredFlipProjects.forEach((_, index) => {
-          const cardId = `#flip-card-${index}`;
-          masterTl.to(
-            cardId,
-            {
-              xPercent: 0,
-              rotationZ: 0,
-              scale: 1,
-              duration: 1.1,
-              ease: "power2.inOut",
-            },
-            `fan+=${index * 0.1}`,
-          );
-        });
-
-        // Phase 4: Cascading 3D 180° Flip reveal
-        featuredFlipProjects.forEach((_, index) => {
-          const innerCard = stage.querySelector(
-            `#flip-card-${index} .flip-card-inner`,
-          );
-          if (innerCard) {
-            masterTl.to(
-              innerCard,
-              {
-                rotationY: 180,
-                duration: 1.4,
-                ease: "power2.inOut",
-              },
-              `flip+=${index * 0.22}`,
-            );
-          }
-        });
-
-        // Phase 5: Smooth reading hold
-        masterTl.to({}, { duration: 0.7 });
-
-        // Phase 6: Smooth curtain lift reveal of footer
-        masterTl.to(
-          panel,
+        tl.to(
+          ".panel-1-content",
           {
-            yPercent: -100,
-            duration: 1.8,
-            ease: "power2.inOut",
+            y: "0vh",
+            duration: 1.4,
+            ease: "power3.out",
           },
-          "curtain",
+          "<",
         );
+
+        tl.to(
+          ".panel-0",
+          {
+            scale: 0.85,
+            y: "-8vh",
+            rotateX: 12,
+            opacity: 0.4,
+            transformOrigin: "center 30%",
+            duration: 1.4,
+            ease: "power3.out",
+          },
+          "<",
+        );
+
+        tl.addLabel("skills");
+        tl.to({}, { duration: 0.15 });
+
+        /*
+         *  TRANSITION 2: SKILLS (Panel 1) → PROJECTS (Panel 2)
+         *  - Panel 2 slides up from y: 100vh → 0vh (power3.out)
+         *  - Panel 2 inner content glides up from y: 15vh → 0vh in sync (parallax depth)
+         *  - Panel 1 tilts back (rotateX: 12), scales down to 0.85, and dims (opacity: 0.4)
+         *  - Panel 0 fades out completely (autoAlpha: 0)
+         */
+        tl.set(".panel-2", {
+          y: "100vh",
+          rotateX: 0,
+          scale: 1,
+          autoAlpha: 1,
+        });
+        tl.set(".panel-2-content", { y: "15vh" });
+
+        tl.to(".panel-2", {
+          y: "0vh",
+          duration: 1.4,
+          ease: "power3.out",
+        });
+
+        tl.to(
+          ".panel-2-content",
+          {
+            y: "0vh",
+            duration: 1.4,
+            ease: "power3.out",
+          },
+          "<",
+        );
+
+        tl.to(
+          ".panel-1",
+          {
+            scale: 0.85,
+            y: "-8vh",
+            rotateX: 12,
+            opacity: 0.4,
+            transformOrigin: "center 30%",
+            duration: 1.4,
+            ease: "power3.out",
+          },
+          "<",
+        );
+
+        tl.to(
+          ".panel-0",
+          {
+            autoAlpha: 0,
+            duration: 0.5,
+            ease: "power3.out",
+          },
+          "<",
+        );
+
+        tl.addLabel("projects");
+        tl.to({}, { duration: 0.15 });
+
+        /*
+         *  TRANSITION 3: PROJECTS (Panel 2) → FOOTER (Panel 3)
+         *  - Panel 3 (Footer) slides up from y: 100vh → 0vh (power3.out)
+         *  - Panel 3 inner content glides up from y: 15vh → 0vh in sync (parallax depth)
+         *  - Panel 2 tilts back (rotateX: 12), scales down to 0.85, and dims (opacity: 0.4)
+         *  - Panel 1 fades out completely (autoAlpha: 0)
+         */
+        tl.set(".panel-3", {
+          y: "100vh",
+          rotateX: 0,
+          scale: 1,
+          autoAlpha: 1,
+        });
+        tl.set(".panel-3-content", { y: "15vh" });
+
+        tl.to(".panel-3", {
+          y: "0vh",
+          duration: 1.4,
+          ease: "power3.out",
+        });
+
+        tl.to(
+          ".panel-3-content",
+          {
+            y: "0vh",
+            duration: 1.4,
+            ease: "power3.out",
+          },
+          "<",
+        );
+
+        tl.to(
+          ".panel-2",
+          {
+            scale: 0.85,
+            y: "-8vh",
+            rotateX: 12,
+            opacity: 0.4,
+            transformOrigin: "center 30%",
+            duration: 1.4,
+            ease: "power3.out",
+          },
+          "<",
+        );
+
+        tl.to(
+          ".panel-1",
+          {
+            autoAlpha: 0,
+            duration: 0.5,
+            ease: "power3.out",
+          },
+          "<",
+        );
+
+        tl.addLabel("footer");
+        tl.to({}, { duration: 0.2 });
 
         ScrollTrigger.refresh();
       },
-      { scope: sectionRef },
+      { scope: containerRef },
     );
 
-    // Smooth Mouse tilt on cards when pointer hovers
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-      const card = e.currentTarget;
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 6;
-      const rotateX = -((y - rect.height / 2) / (rect.height / 2)) * 6;
-
-      gsap.to(card, {
-        rotateX: rotateX,
-        rotateY: rotateY,
-        transformPerspective: 1000,
-        ease: "power2.out",
-        duration: 0.4,
-        overwrite: "auto",
-      });
-    };
-
-    const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-      const card = e.currentTarget;
-      gsap.to(card, {
-        rotateX: 0,
-        rotateY: 0,
-        ease: "power2.out",
-        duration: 0.6,
-        overwrite: "auto",
-      });
+    // Smooth Navigation Click for Right Floating Indicator
+    const handleNavClick = (label: string) => {
+      const tl = tlRef.current;
+      if (tl?.scrollTrigger) {
+        const scrollPos = tl.scrollTrigger.labelToScroll(label);
+        window.scrollTo({
+          top: scrollPos,
+          behavior: "smooth",
+        });
+      }
     };
 
     return (
-      <section
+      <div
         ref={setRefs}
-        aria-label="Overlay Section — About, Projects & Footer"
-        className={`relative w-full select-none ${className}`}
+        className={`relative w-full overflow-hidden select-none bg-background ${className}`}
       >
-        {/* ==================================================================== */}
-        {/* STAGE 1: ABOUT ME — CLEAN HERO-STYLE WITH RIGHT GROUNDED IMAGE       */}
-        {/* ==================================================================== */}
+        {/* Main Pinned Scroll Section Container — perspective + preserve-3d enables rotateX fall-back */}
         <div
+          ref={scrollSectionRef}
           id="about-section"
-          className="relative min-h-screen w-full flex flex-col justify-between px-4 sm:px-6 md:px-12 py-10 sm:py-16 md:py-20 overflow-hidden bg-[#eae7e1] text-[#141b16] z-20"
+          className="scroll-viewport h-screen w-full relative overflow-hidden"
+          style={{
+            perspective: "1400px",
+            perspectiveOrigin: "50% 40%",
+            transformStyle: "preserve-3d",
+          }}
         >
-          {/* Subtle Warm Ambient Lighting (No dots, pure atmospheric gradient) */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                "radial-gradient(ellipse 70% 60% at 85% 75%, rgba(235,94,40,0.06) 0%, transparent 65%), radial-gradient(ellipse 60% 50% at 20% 25%, rgba(245,200,108,0.08) 0%, transparent 60%)",
-            }}
-          />
+          {/* Tactile Noise Overlay */}
+          <div className="absolute inset-0 bg-noise opacity-10 pointer-events-none mix-blend-overlay z-40" />
 
-          {/* Film grain noise overlay */}
-          <div className="absolute inset-0 bg-noise opacity-15 pointer-events-none mix-blend-multiply" />
+          {/* Floating Right Indicator — inside pinned viewport */}
+          <div className="absolute right-4 sm:right-6 md:right-8 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col gap-3">
+            {navStages.map((item, idx) => (
+              <button
+                key={item.id}
+                id={`nav-${item.id}`}
+                onClick={() => handleNavClick(item.id)}
+                className={`w-28 text-left border-2 border-[#141b16] px-3 py-1.5 font-mono font-bold text-[10px] uppercase rounded-lg shadow-[2px_2px_0px_#141b16] cursor-pointer transform transition-all duration-200 hover:scale-105 ${
+                  idx === 0
+                    ? "bg-[#c5eb35] text-[#141b16] shadow-[3px_3px_0px_#141b16] scale-105 rotate-[-2deg] opacity-100"
+                    : "bg-white text-[#141b16] opacity-60 rotate-[2deg] hover:opacity-100"
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
 
-          {/* Top Stage Header / Kicker */}
-          <div className="relative z-20 w-full max-w-7xl mx-auto flex items-center justify-between">
-            <div className="overlay-kicker inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/[0.05] backdrop-blur-xl border border-black/10 shadow-xs">
-              <span className="w-2 h-2 rounded-full bg-[#eb5e28] animate-pulse" />
-              <span className="font-mono text-[10px] sm:text-xs font-bold text-[#141b16] uppercase tracking-widest">
-                02 // ABOUT ME
+          {/* ================================================================== */}
+          {/* PANEL 0: ABOUT ME SECTION                                          */}
+          {/* ================================================================== */}
+          <section className="panel-item panel-0 absolute inset-0 w-full h-full bg-[#eae7e1] text-[#141b16] flex flex-col justify-between p-6 sm:p-10 md:p-14 z-10 select-none overflow-hidden will-change-transform">
+            {/* Warm Ambient Lighting */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background:
+                  "radial-gradient(ellipse 70% 60% at 85% 75%, rgba(235,94,40,0.06) 0%, transparent 65%), radial-gradient(ellipse 60% 50% at 20% 25%, rgba(245,200,108,0.08) 0%, transparent 60%)",
+              }}
+            />
+
+            {/* Top Bar */}
+            <div className="relative z-20 w-full max-w-6xl mx-auto flex items-center justify-between">
+              <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-black/[0.05] backdrop-blur-xl border border-black/10 shadow-xs">
+                <span className="w-2 h-2 rounded-full bg-[#eb5e28] animate-pulse" />
+                <span className="font-mono text-[9px] sm:text-[10px] md:text-xs font-bold text-[#141b16] uppercase tracking-widest">
+                  02 // ABOUT ME
+                </span>
+              </div>
+
+              <span className="font-mono text-[10px] sm:text-xs font-semibold text-[#141b16]/50 tracking-widest uppercase">
+                01 // 04
               </span>
             </div>
 
-            <span className="font-mono text-xs font-semibold text-[#141b16]/50 tracking-widest hidden sm:inline-block">
-              FULL-STACK AI ENGINEER
-            </span>
-          </div>
+            {/* Center Content Area */}
+            <div className="relative w-full flex-1 max-w-6xl mx-auto z-20 flex flex-col justify-center my-auto py-4 sm:py-6">
+              <div className="max-w-xl lg:max-w-2xl">
+                {/* Big Headline */}
+                <h1 className="font-sans font-normal tracking-tight text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-[38px] xl:text-[42px] leading-[1.2] text-[#141b16]">
+                  <span className="block">
+                    I am Ritesh Sinha, an experienced
+                  </span>
+                  <span className="block">
+                    <span className="font-serif italic font-normal text-inherit tracking-normal">
+                      Full-Stack AI Engineer
+                    </span>{" "}
+                    who
+                  </span>
+                  <span className="block">
+                    architects intelligent systems,
+                  </span>
+                  <span className="block">
+                    builds at scale, ships relentlessly,
+                  </span>
+                  <span className="block">
+                    breaks boundaries, and builds again.
+                  </span>
+                </h1>
 
-          {/* Center Stage: Hero-Style Typography & Content (Left Quadrant) */}
-          <div className="relative w-full flex-1 max-w-7xl mx-auto z-20 flex flex-col justify-center my-auto py-6 sm:py-8">
-            <div className="max-w-xl lg:max-w-2xl">
-              {/* Big About Me Headline */}
-              <h1 className="font-sans font-normal tracking-tight text-2xl sm:text-3xl md:text-4xl lg:text-[40px] xl:text-[44px] leading-[1.2] text-[#141b16]">
-                <span className="overlay-headline-line block transition-colors duration-300">
-                  I am Ritesh Sinha, an experienced
-                </span>
-
-                <span className="overlay-headline-line block transition-colors duration-300">
-                  <span className="font-serif italic font-normal text-inherit tracking-normal">
-                    Full-Stack AI Engineer
-                  </span>{" "}
-                  who
-                </span>
-
-                <span className="overlay-headline-line block transition-colors duration-300">
-                  architects intelligent systems,
-                </span>
-
-                <span className="overlay-headline-line block transition-colors duration-300">
-                  builds at scale, ships relentlessly,
-                </span>
-
-                <span className="overlay-headline-line block transition-colors duration-300">
-                  breaks boundaries, and builds again.
-                </span>
-              </h1>
-
-              {/* Subtext below it */}
-              <p className="overlay-subtext font-sans text-xs sm:text-sm md:text-[14px] text-[#141b16]/75 font-normal max-w-lg leading-relaxed mt-4 sm:mt-5">
-                I work across AI/ML, LLMs, RAG, multi-agent systems, MCP,
-                distributed architectures, cloud infrastructure, and full-stack
-                engineering — turning ambitious ideas into production-grade
-                systems built to scale.
-              </p>
+                {/* Subtext */}
+                <p className="font-sans text-xs sm:text-sm md:text-[14px] text-[#141b16]/75 font-normal max-w-lg leading-relaxed mt-3.5 sm:mt-5">
+                  I work across AI/ML, LLMs, RAG, multi-agent systems, MCP,
+                  distributed architectures, cloud infrastructure, and full-stack
+                  engineering — turning ambitious ideas into production-grade
+                  systems built to scale.
+                </p>
+              </div>
             </div>
-          </div>
 
-          {/* Right Side Grounded Character / Silhouette Image (Like Hero Section) */}
-          <div className="overlay-card-wrapper absolute bottom-0 right-0 sm:right-[2%] md:right-[4%] lg:right-[6%] z-10 w-[65vw] sm:w-[42vw] md:w-[38vw] max-w-[320px] sm:max-w-[400px] md:max-w-[460px] lg:max-w-[500px] h-[60vh] sm:h-[72vh] md:h-[78vh] lg:h-[82vh] flex items-end justify-center pointer-events-none will-change-transform">
-            <div className="relative w-full h-full">
-              <InstantImage
-                src="/ritesh mic.svg"
-                alt="Ritesh Sinha"
-                fill
-                priority
-                className="object-contain object-bottom select-none drop-shadow-[0_16px_36px_rgba(0,0,0,0.15)]"
-                containerClassName="absolute inset-0 w-full h-full"
-              />
+            {/* Right Side Grounded Character Image */}
+            <div className="absolute bottom-0 right-0 sm:right-[2%] md:right-[4%] lg:right-[6%] z-10 w-[60vw] sm:w-[38vw] md:w-[34vw] max-w-[280px] sm:max-w-[360px] md:max-w-[420px] lg:max-w-[460px] h-[55vh] sm:h-[68vh] md:h-[74vh] lg:h-[78vh] flex items-end justify-center pointer-events-none will-change-transform">
+              <div className="relative w-full h-full">
+                <InstantImage
+                  src="/ritesh mic.svg"
+                  alt="Ritesh Sinha"
+                  fill
+                  priority
+                  className="object-contain object-bottom select-none drop-shadow-[0_16px_36px_rgba(0,0,0,0.12)]"
+                  containerClassName="absolute inset-0 w-full h-full"
+                />
+              </div>
             </div>
-          </div>
-        </div>
 
-        {/* ==================================================================== */}
-        {/* STAGE 2: PINNED CONTAINER: TWEENLABS SCROLLTAGS SKILLS COLLIDER      */}
-        {/* ==================================================================== */}
-        <SkillsSection />
+            {/* Bottom Footer Status */}
+            <div className="relative z-20 w-full max-w-6xl mx-auto flex justify-between font-mono text-[9px] sm:text-[10px] uppercase tracking-wider text-[#141b16]/60">
+              <span>SCROLL OR CLICK TO NAVIGATE</span>
+              <span>/ MODULE-01 / ABOUT</span>
+            </div>
+          </section>
 
-        {/* ==================================================================== */}
-        {/* STAGE 3: PINNED CONTAINER: TWEENLABS FLIPCARDS + CURTAIN LIFT        */}
-        {/* ==================================================================== */}
-        <div
-          ref={stageContainerRef}
-          id="works-stage"
-          className="relative w-full h-screen overflow-hidden select-none z-20"
-        >
-          {/* Layer 0 (Underneath): Footer Section */}
-          <Footer ref={footerRef} />
-
-          {/* Layer 1 (On Top): Projects Panel — Slides UPWARD on scroll! */}
-          <div
-            ref={projectsPanelRef}
-            className="absolute inset-0 w-full h-full z-20 overflow-hidden rounded-b-xl sm:rounded-b-2xl will-change-transform flex flex-col justify-between"
+          {/* ================================================================== */}
+          {/* PANEL 1: SKILLS & TECHNOLOGIES SECTION                             */}
+          {/* ================================================================== */}
+          <section
+            id="skills-section"
+            className="panel-item panel-1 absolute inset-0 w-full h-full bg-[#faf8f5] text-[#141b16] z-[12] select-none overflow-hidden will-change-transform"
           >
-            {/* Stage Background */}
-            <div
-              ref={stageBgRef}
-              className="absolute inset-0 w-full h-full bg-background"
-            />
-
-            {/* Film grain noise overlay */}
-            <div className="absolute inset-0 bg-noise opacity-10 pointer-events-none mix-blend-overlay" />
-
-            {/* Header: Centered "Projects" & "Top Loved Works" */}
-            <div className="relative z-10 w-full flex flex-col items-center justify-center pt-14 xs:pt-16 sm:pt-20 md:pt-20 pb-1 sm:pb-2 px-4 text-center shrink-0">
-              <h2
-                ref={projectsTitleRef}
-                className="font-sans font-extrabold tracking-tight text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] leading-tight text-foreground"
-              >
-                Projects
-              </h2>
-              <p
-                ref={projectsSubtitleRef}
-                className="font-sans text-[11px] sm:text-sm font-medium tracking-tight mt-0.5 sm:mt-1 text-muted-foreground"
-              >
-                Top Loved Works • Scroll to Flip &amp; Explore
-              </p>
+            <div className="panel-1-content h-full w-full will-change-transform origin-bottom-left">
+              <SkillsSection />
             </div>
+          </section>
 
-            {/* Tweenlabs FlipCards 3D Showcase Container */}
-            <div
-              ref={cardsContainerRef}
-              className="relative z-20 w-full max-w-5xl mx-auto flex-1 flex items-center justify-center px-2 sm:px-6 py-1 sm:py-2 min-h-0"
-            >
-              <div className="w-full flex flex-nowrap items-center justify-center gap-1.5 xs:gap-2 sm:gap-4 md:gap-6 pointer-events-auto">
-                {featuredFlipProjects.map((stage, index) => (
-                  <div
-                    key={stage.id}
-                    id={`flip-card-${index}`}
-                    onMouseMove={handleMouseMove}
-                    onMouseLeave={handleMouseLeave}
-                    className="card w-[108px] xs:w-[124px] sm:w-[260px] md:w-[280px] lg:w-[295px] h-[260px] xs:h-[295px] sm:h-[385px] md:h-[405px] max-h-[75vh] sm:max-h-[80vh] flex-1 relative transform-gpu"
-                    style={{
-                      transformStyle: "preserve-3d",
-                      transform: "perspective(1000px) rotateX(0deg) rotateY(0deg)",
-                    }}
-                  >
-                    <div className="card-wrapper w-full h-full transform-gpu">
-                      <div
-                        className="flip-card-inner w-full h-full relative"
-                        style={{ transformStyle: "preserve-3d" }}
-                      >
-                        {/* Front Side Face */}
-                        <div
-                          className="flip-card-front absolute inset-0 border-[1.5px] sm:border-[2.5px] border-[#141b16] shadow-[2px_2px_0px_#141b16] sm:shadow-[4px_4px_0px_#141b16] p-2 xs:p-2.5 sm:p-4 bg-white text-[#141b16] rounded-xl sm:rounded-2xl flex flex-col justify-between cursor-pointer select-none"
-                          style={{
-                            backfaceVisibility: "hidden",
-                            WebkitBackfaceVisibility: "hidden",
-                          }}
-                        >
-                          <div className="flex justify-between items-center">
-                            <span className="font-mono text-[8px] sm:text-[10px] font-bold text-neutral-400">
-                              [{stage.phase}]
-                            </span>
-                            <span
-                              className={`inline-block border border-[#141b16] shadow-[1.5px_1.5px_0px_#141b16] px-1.5 sm:px-2 py-0.5 rounded-full text-[7px] xs:text-[8px] sm:text-[9px] font-mono font-bold uppercase ${stage.accentClass}`}
-                            >
-                              {stage.badge}
-                            </span>
-                          </div>
-
-                          <div className="inner-img-frame w-full h-[85px] xs:h-[105px] sm:h-[135px] md:h-[150px] border sm:border-2 border-[#141b16] relative overflow-hidden rounded-lg sm:rounded-xl bg-neutral-100 my-1 sm:my-1.5 shadow-[1px_1px_0px_#141b16] sm:shadow-[2px_2px_0px_#141b16]">
-                            <InstantImage
-                              src={stage.imageUrl}
-                              alt={stage.title}
-                              fill
-                              className="object-cover object-top"
-                              containerClassName="absolute inset-0 w-full h-full"
-                            />
-                          </div>
-
-                          <div className="flex justify-between items-center border-t border-neutral-200 pt-1.5 sm:pt-2">
-                            <h3 className="font-sans font-bold text-[10px] xs:text-xs sm:text-sm text-[#141b16] truncate">
-                              {stage.title}
-                            </h3>
-                            <span className="font-mono text-[9px] sm:text-[11px] text-neutral-400 font-bold ml-1">
-                              0{index + 1}
-                            </span>
-                          </div>
-                        </div>
-
-                        {/* Back Side Face (Scroll-revealed) */}
-                        <div
-                          className="flip-card-back absolute inset-0 border-[1.5px] sm:border-[2.5px] border-[#141b16] shadow-[2px_2px_0px_#141b16] sm:shadow-[4px_4px_0px_#141b16] p-2 xs:p-2.5 sm:p-4 bg-white text-[#141b16] rounded-xl sm:rounded-2xl flex flex-col justify-between cursor-pointer select-none"
-                          style={{
-                            transform: "rotateY(180deg)",
-                            backfaceVisibility: "hidden",
-                            WebkitBackfaceVisibility: "hidden",
-                          }}
-                        >
-                          <div className="w-full flex justify-between font-mono font-bold text-[8px] sm:text-[10px] uppercase border-b border-neutral-200 pb-1 sm:pb-1.5 items-center">
-                            <span className="text-[#141b16] font-bold tracking-tight truncate">
-                              0{index + 1} // {stage.title}
-                            </span>
-                            <span
-                              className={`h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full border border-black shrink-0 ${stage.accentClass}`}
-                            />
-                          </div>
-
-                          <div className="inner-img-frame w-full h-[65px] xs:h-[80px] sm:h-[110px] md:h-[120px] border sm:border-2 border-[#141b16] relative overflow-hidden rounded-lg sm:rounded-xl bg-neutral-100 my-0.5 sm:my-1 shadow-[1px_1px_0px_#141b16] sm:shadow-[2px_2px_0px_#141b16]">
-                            <InstantImage
-                              src={stage.imageUrl}
-                              alt={stage.title}
-                              fill
-                              className="object-cover object-top"
-                              containerClassName="absolute inset-0 w-full h-full"
-                            />
-                          </div>
-
-                          <div className="flex-1 flex flex-col justify-center py-0.5 sm:py-1">
-                            <p className="text-[8px] xs:text-[9.5px] sm:text-[11.5px] font-sans text-neutral-700 leading-tight sm:leading-snug line-clamp-2 sm:line-clamp-3">
-                              {stage.description}
-                            </p>
-                            <div className="flex flex-wrap gap-0.5 sm:gap-1 mt-1 sm:mt-1.5">
-                              {stage.tech.map((t) => (
-                                <MagneticButton
-                                  key={t}
-                                  magneticStrength={0.25}
-                                  scaleOnHover={1.08}
-                                  className="px-1 sm:px-1.5 py-0.5 rounded bg-neutral-100 hover:bg-neutral-200 border border-black/10 text-[7px] xs:text-[8px] sm:text-[8.5px] font-mono text-neutral-800 font-semibold transition-colors"
-                                >
-                                  {t}
-                                </MagneticButton>
-                              ))}
-                            </div>
-                          </div>
-
-                          <div className="w-full pt-1.5 sm:pt-2 border-t border-neutral-200">
-                            <div className="bg-white/95 backdrop-blur-md border border-black/10 shadow-xs rounded-full p-0.5 sm:p-1 flex items-center justify-between gap-1">
-                              {/* Live Link Button */}
-                              <MagneticButton
-                                href={stage.liveUrl}
-                                target="_blank"
-                                rel="noreferrer"
-                                magneticStrength={0.45}
-                                scaleOnHover={1.06}
-                                className="flex-1 flex items-center justify-center gap-0.5 sm:gap-1 px-1.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-white hover:bg-neutral-50 text-primary font-sans font-bold text-[8px] xs:text-[9px] sm:text-[11px] border border-[#141b16] shadow-xs uppercase tracking-wider transition-colors duration-150"
-                                title={`Visit ${stage.title} Live`}
-                              >
-                                <span>Check Live</span>
-                                <ArrowUpRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 stroke-[2.5] text-primary" />
-                              </MagneticButton>
-
-                              {/* GitHub Button */}
-                              <MagneticButton
-                                href={stage.githubUrl}
-                                target="_blank"
-                                rel="noreferrer"
-                                magneticStrength={0.45}
-                                scaleOnHover={1.06}
-                                className="flex items-center gap-1 px-1.5 sm:px-2.5 py-1 sm:py-1.5 rounded-full text-[#141b16] hover:bg-neutral-100 font-sans font-bold text-[8px] xs:text-[9px] sm:text-[11px] transition-colors duration-150"
-                                title={`View ${stage.title} on GitHub`}
-                              >
-                                <svg className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 fill-current" viewBox="0 0 24 24">
-                                  <path
-                                    fillRule="evenodd"
-                                    clipRule="evenodd"
-                                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                                  />
-                                </svg>
-                              </MagneticButton>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+          {/* ================================================================== */}
+          {/* PANEL 2: FEATURED PROJECTS SECTION                                 */}
+          {/* ================================================================== */}
+          <section
+            id="works-stage"
+            className="panel-item panel-2 absolute inset-0 w-full h-full bg-[#eae7e1] text-[#141b16] z-[14] select-none overflow-hidden will-change-transform"
+          >
+            <div className="panel-2-content h-full w-full will-change-transform origin-bottom-left">
+              <ProjectsSection />
             </div>
+          </section>
 
-            {/* Bottom "Explore All Works" Navigation Bar (Pill Dock Style) */}
-            <div className="relative z-20 pb-5 sm:pb-6 md:pb-7 pt-1 flex justify-center shrink-0">
-              <div className="inline-flex items-center p-1 sm:p-1.5 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-[0_6px_24px_rgba(0,0,0,0.08)] gap-1">
-                <MagneticButton
-                  href="/work"
-                  magneticStrength={0.45}
-                  scaleOnHover={1.06}
-                  className="px-5 sm:px-7 py-2 sm:py-2.5 rounded-full bg-primary hover:opacity-90 text-primary-foreground font-sans font-bold text-xs sm:text-sm flex items-center gap-2 shadow-xs transition-opacity duration-150 uppercase tracking-wider"
-                >
-                  <span>View All 6+ Production Projects</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
-                </MagneticButton>
-              </div>
+          {/* ================================================================== */}
+          {/* PANEL 3: FOOTER SECTION                                            */}
+          {/* ================================================================== */}
+          <section
+            id="footer-stage"
+            className="panel-item panel-3 absolute inset-0 w-full h-full z-[16] select-none overflow-hidden will-change-transform"
+          >
+            <div className="panel-3-content h-full w-full will-change-transform origin-bottom-left">
+              <Footer />
             </div>
-          </div>
+          </section>
         </div>
-      </section>
+      </div>
     );
   },
 );

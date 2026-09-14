@@ -3,6 +3,7 @@ import "./globals.css";
 import { Outfit, Merriweather, Fira_Code, Silkscreen } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { SmoothCursor } from "@/components/ui/smooth-cursor";
+import SmoothScroll from "@/components/providers/SmoothScroll";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -54,8 +55,10 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
-        <SmoothCursor />
-        {children}
+        <SmoothScroll>
+          <SmoothCursor />
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   );

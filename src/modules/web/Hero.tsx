@@ -232,9 +232,16 @@ export default function Hero({ isLoaded = false }: HeroProps) {
         <div className="p-1 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-xs inline-flex items-center">
           <MagneticButton
             onClick={() => {
+              const lenis = (window as unknown as { lenis?: { scrollTo: (target: number | string | HTMLElement, options?: Record<string, unknown>) => void } }).lenis;
               const aboutEl = document.getElementById("about-section");
               if (aboutEl) {
-                aboutEl.scrollIntoView({ behavior: "smooth" });
+                const pinSpacer = aboutEl.closest(".pin-spacer") as HTMLElement | null;
+                const top = (pinSpacer || aboutEl).getBoundingClientRect().top + window.scrollY;
+                if (lenis) {
+                  lenis.scrollTo(top + 2590, { duration: 1.2 });
+                } else {
+                  window.scrollTo({ top: top + 2590, behavior: "smooth" });
+                }
               }
             }}
             className="group bg-primary hover:opacity-90 text-primary-foreground font-sans font-bold text-xs sm:text-sm px-4 sm:px-5 py-1.5 sm:py-2 rounded-full flex items-center gap-2 transition-all duration-150 shadow-xs"

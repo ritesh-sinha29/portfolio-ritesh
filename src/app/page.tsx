@@ -21,15 +21,17 @@ export default function Home() {
   useGSAP(() => {
     if (!heroContentRef.current || !overlayRef.current) return;
 
-    // Hero gently glides down as the overlay scrolls up over it
+    // Hero gently scales and fades into depth as the About overlay glides up over it
     gsap.to(heroContentRef.current, {
-      y: 75,
-      ease: "none",
+      y: 90,
+      scale: 0.95,
+      opacity: 0.35,
+      ease: "power1.out",
       scrollTrigger: {
         trigger: overlayRef.current,
         start: "top bottom",
         end: "top top",
-        scrub: true,
+        scrub: 0.5,
       },
     });
 
@@ -75,36 +77,40 @@ export default function Home() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveTab(sectionId);
-    if (sectionId === "home") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else if (sectionId === "about") {
-      const el = document.getElementById("about-section");
-      if (el) {
-        const pinSpacer = el.closest(".pin-spacer") as HTMLElement | null;
-        const top = (pinSpacer || el).getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({ top: top + 2, behavior: "smooth" });
+    const lenis = (
+      window as unknown as {
+        lenis?: {
+          scrollTo: (
+            target: number | string | HTMLElement,
+            options?: Record<string, unknown>,
+          ) => void;
+        };
       }
-    } else if (sectionId === "skills") {
+    ).lenis;
+
+    const getTargetPos = () => {
+      if (sectionId === "home") return 0;
       const el = document.getElementById("about-section");
-      if (el) {
-        const pinSpacer = el.closest(".pin-spacer") as HTMLElement | null;
-        const top = (pinSpacer || el).getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({ top: top + 900, behavior: "smooth" });
-      }
-    } else if (sectionId === "works") {
-      const el = document.getElementById("about-section");
-      if (el) {
-        const pinSpacer = el.closest(".pin-spacer") as HTMLElement | null;
-        const top = (pinSpacer || el).getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({ top: top + 1750, behavior: "smooth" });
-      }
-    } else if (sectionId === "contact") {
-      const el = document.getElementById("about-section");
-      if (el) {
-        const pinSpacer = el.closest(".pin-spacer") as HTMLElement | null;
-        const top = (pinSpacer || el).getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({ top: top + 2590, behavior: "smooth" });
-      }
+      if (!el) return 0;
+      const pinSpacer = el.closest(".pin-spacer") as HTMLElement | null;
+      const top = (pinSpacer || el).getBoundingClientRect().top + window.scrollY;
+
+      if (sectionId === "about") return top + 2;
+      if (sectionId === "skills") return top + 900;
+      if (sectionId === "works") return top + 1750;
+      if (sectionId === "contact") return top + 2590;
+      return top;
+    };
+
+    const targetPos = getTargetPos();
+
+    if (lenis) {
+      lenis.scrollTo(targetPos, {
+        duration: 1.15,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+    } else {
+      window.scrollTo({ top: targetPos, behavior: "smooth" });
     }
   };
 

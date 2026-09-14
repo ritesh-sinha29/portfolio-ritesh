@@ -22,8 +22,10 @@ export interface MagneticDockProps {
 
 const defaultDockItems: DockItem[] = [
   { id: "home", label: "HOME" },
-  { id: "works", label: "WORKS" },
   { id: "about", label: "ABOUT" },
+  { id: "skills", label: "SKILLS" },
+  { id: "works", label: "WORKS" },
+  { id: "contact", label: "CONTACT" },
 ];
 
 export function MagneticDock({

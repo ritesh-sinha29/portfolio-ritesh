@@ -1,9 +1,9 @@
 "use client";
 
 import React, { forwardRef } from "react";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import gsap from "gsap";
-import { InstantImage } from "@/components/media/InstantImage";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 
 export interface ProjectCardItem {
@@ -111,7 +111,7 @@ const ProjectsSection = forwardRef<HTMLDivElement, ProjectsSectionProps>(
         {/* Center Content: Header & 3 Projects Cards */}
         <div className="relative z-20 w-full max-w-5xl mx-auto flex-1 flex flex-col justify-center items-center my-auto min-h-0 py-2 sm:py-4">
           {/* Heading */}
-          <div className="text-center mb-4 sm:mb-6 md:mb-7">
+          <div className="projects-header text-center mb-4 sm:mb-6 md:mb-7 will-change-transform">
             <h2 className="font-sans font-extrabold tracking-tight text-xl xs:text-2xl sm:text-3xl md:text-4xl text-[#141b16] leading-tight">
               Featured Projects
             </h2>
@@ -127,7 +127,7 @@ const ProjectsSection = forwardRef<HTMLDivElement, ProjectsSectionProps>(
                 key={project.id}
                 onMouseMove={handleCardMouseMove}
                 onMouseLeave={handleCardMouseLeave}
-                className="w-[108px] xs:w-[124px] sm:w-[240px] md:w-[265px] lg:w-[285px] h-[260px] xs:h-[285px] sm:h-[365px] md:h-[385px] max-h-[70vh] flex-1 relative transform-gpu rounded-xl sm:rounded-2xl border-[1.5px] sm:border-[2.5px] border-[#141b16] shadow-[2.5px_2.5px_0px_#141b16] sm:shadow-[4px_4px_0px_#141b16] p-2 xs:p-2.5 sm:p-4 bg-white text-[#141b16] flex flex-col justify-between cursor-pointer select-none transition-shadow hover:shadow-[5px_5px_0px_#141b16]"
+                className="project-card-item w-[108px] xs:w-[124px] sm:w-[240px] md:w-[265px] lg:w-[285px] h-[260px] xs:h-[285px] sm:h-[365px] md:h-[385px] max-h-[70vh] flex-1 relative transform-gpu rounded-xl sm:rounded-2xl border-[1.5px] sm:border-[2.5px] border-[#141b16] shadow-[2.5px_2.5px_0px_#141b16] sm:shadow-[4px_4px_0px_#141b16] p-2 xs:p-2.5 sm:p-4 bg-white text-[#141b16] flex flex-col justify-between cursor-pointer select-none transition-shadow hover:shadow-[5px_5px_0px_#141b16] will-change-transform"
                 style={{
                   transformStyle: "preserve-3d",
                   transform: "perspective(1000px) rotateX(0deg) rotateY(0deg)",
@@ -147,12 +147,14 @@ const ProjectsSection = forwardRef<HTMLDivElement, ProjectsSectionProps>(
 
                 {/* Image Frame */}
                 <div className="w-full h-[78px] xs:h-[95px] sm:h-[125px] md:h-[135px] border sm:border-2 border-[#141b16] relative overflow-hidden rounded-lg sm:rounded-xl bg-neutral-100 my-1 sm:my-1.5 shadow-[1px_1px_0px_#141b16] sm:shadow-[2px_2px_0px_#141b16]">
-                  <InstantImage
+                  <Image
                     src={project.imageUrl}
                     alt={project.title}
                     fill
-                    className="object-cover object-top"
-                    containerClassName="absolute inset-0 w-full h-full"
+                    priority
+                    loading="eager"
+                    sizes="(max-width: 640px) 33vw, 285px"
+                    className="object-cover object-top select-none"
                   />
                 </div>
 
@@ -225,15 +227,17 @@ const ProjectsSection = forwardRef<HTMLDivElement, ProjectsSectionProps>(
           </div>
 
           {/* View All Works CTA */}
-          <div className="mt-4 sm:mt-6 md:mt-7 flex justify-center">
+          <div className="projects-cta mt-4 sm:mt-6 md:mt-7 flex justify-center will-change-transform">
             <MagneticButton
               href="/work"
               magneticStrength={0.35}
-              scaleOnHover={1.05}
-              className="px-4 sm:px-6 py-1.5 sm:py-2 rounded-full bg-primary hover:opacity-90 text-primary-foreground font-sans font-bold text-[10px] sm:text-xs flex items-center gap-1.5 shadow-xs uppercase tracking-wider transition-opacity"
+              scaleOnHover={1.06}
+              className="group px-5 sm:px-7 py-2 sm:py-2.5 rounded-full bg-primary text-primary-foreground border-[1.5px] sm:border-2 border-[#141b16] shadow-[2.5px_2.5px_0px_#141b16] hover:shadow-[4px_4px_0px_#141b16] font-sans font-extrabold text-[11px] sm:text-xs md:text-[13px] flex items-center gap-2 uppercase tracking-wider transition-all duration-200"
             >
               <span>View All Projects</span>
-              <ArrowUpRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 stroke-[2.5]" />
+              <span className="w-5 h-5 sm:w-5.5 sm:h-5.5 rounded-full bg-black/15 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:bg-black/25 transition-all duration-200">
+                <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5] text-primary-foreground" />
+              </span>
             </MagneticButton>
           </div>
         </div>

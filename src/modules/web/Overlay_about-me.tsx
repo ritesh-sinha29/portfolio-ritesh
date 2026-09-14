@@ -48,13 +48,18 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
         const stage = stageContainerRef.current;
         const scrollStage = scrollStageRef.current;
 
-        // Set initial states for panels and parallax content
+        // Set initial states for panels, parallax content, and inner elements
         gsap.set(".panel-0", {
           y: "0vh",
           scale: 1,
           rotateX: 0,
           autoAlpha: 1,
         });
+
+        gsap.set(".about-title", { y: -25, autoAlpha: 0 });
+        gsap.set(".about-headline-line", { y: 35, autoAlpha: 0 });
+        gsap.set(".about-subtext", { y: 25, autoAlpha: 0 });
+        gsap.set(".about-image", { y: 80, scale: 0.95, autoAlpha: 0 });
 
         gsap.set(".panel-1, .panel-2", {
           y: "100vh",
@@ -64,10 +69,56 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
         });
 
         gsap.set(".panel-1-content, .panel-2-content", {
-          y: "15vh",
+          y: "12vh",
         });
 
+        gsap.set(".skills-header", { y: 35, autoAlpha: 0 });
+        gsap.set(".skills-tabs", { y: 25, scale: 0.95, autoAlpha: 0 });
+        gsap.set(".skills-board", { y: 40, scale: 0.96, autoAlpha: 0 });
+
+        gsap.set(".projects-header", { y: 35, autoAlpha: 0 });
+        gsap.set(".project-card-item", { y: 65, scale: 0.92, autoAlpha: 0 });
+        gsap.set(".projects-cta", { y: 25, scale: 0.9, autoAlpha: 0 });
+
         gsap.set(scrollStage, { yPercent: 0 });
+
+        // Entrance animation for Panel 0 (About) as Overlay enters from Hero
+        const aboutEntranceTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: stage,
+            start: "top 80%",
+            end: "top top",
+            scrub: 0.4,
+          },
+        });
+
+        aboutEntranceTl
+          .to(".about-title", {
+            y: 0,
+            autoAlpha: 1,
+            duration: 0.8,
+            ease: "power2.out",
+          }, 0)
+          .to(".about-headline-line", {
+            y: 0,
+            autoAlpha: 1,
+            duration: 1.0,
+            stagger: 0.08,
+            ease: "power3.out",
+          }, 0.1)
+          .to(".about-subtext", {
+            y: 0,
+            autoAlpha: 1,
+            duration: 0.9,
+            ease: "power2.out",
+          }, 0.25)
+          .to(".about-image", {
+            y: 0,
+            scale: 1,
+            autoAlpha: 1,
+            duration: 1.2,
+            ease: "power2.out",
+          }, 0.15);
 
         // Master pinned scroll timeline with smooth, responsive scrub
         const tl = gsap.timeline({
@@ -138,7 +189,8 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
          *
          *  TRANSITION 1: ABOUT (Panel 0) → SKILLS (Panel 1)
          *  - Panel 1 slides up from y: 100vh → 0vh (power2.out)
-         *  - Panel 1 inner content glides up from y: 15vh → 0vh in sync (parallax depth)
+         *  - Panel 1 inner content glides up from y: 12vh → 0vh in sync
+         *  - Skills inner elements reveal with choreographed stagger
          *  - Panel 0 tilts back (rotateX: 12), scales down to 0.85, and dims (opacity: 0.4)
          */
         tl.set(".panel-1", {
@@ -147,7 +199,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
           scale: 1,
           autoAlpha: 1,
         });
-        tl.set(".panel-1-content", { y: "15vh" });
+        tl.set(".panel-1-content", { y: "12vh" });
 
         tl.to(".panel-1", {
           y: "0vh",
@@ -163,6 +215,41 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
             ease: "power2.out",
           },
           "<",
+        );
+
+        tl.to(
+          ".skills-header",
+          {
+            y: 0,
+            autoAlpha: 1,
+            duration: 0.85,
+            ease: "power2.out",
+          },
+          "<0.1",
+        );
+
+        tl.to(
+          ".skills-tabs",
+          {
+            y: 0,
+            scale: 1,
+            autoAlpha: 1,
+            duration: 0.85,
+            ease: "back.out(1.2)",
+          },
+          "<0.1",
+        );
+
+        tl.to(
+          ".skills-board",
+          {
+            y: 0,
+            scale: 1,
+            autoAlpha: 1,
+            duration: 0.95,
+            ease: "power2.out",
+          },
+          "<0.1",
         );
 
         tl.to(
@@ -185,7 +272,8 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
         /*
          *  TRANSITION 2: SKILLS (Panel 1) → PROJECTS (Panel 2)
          *  - Panel 2 slides up from y: 100vh → 0vh (power2.out)
-         *  - Panel 2 inner content glides up from y: 15vh → 0vh in sync (parallax depth)
+         *  - Panel 2 inner content glides up from y: 12vh → 0vh in sync
+         *  - Projects elements reveal with choreographed stagger (header, 3 cards, cta)
          *  - Panel 1 tilts back (rotateX: 12), scales down to 0.85, and dims (opacity: 0.4)
          *  - Panel 0 fades out completely (autoAlpha: 0)
          */
@@ -195,7 +283,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
           scale: 1,
           autoAlpha: 1,
         });
-        tl.set(".panel-2-content", { y: "15vh" });
+        tl.set(".panel-2-content", { y: "12vh" });
 
         tl.to(".panel-2", {
           y: "0vh",
@@ -211,6 +299,42 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
             ease: "power2.out",
           },
           "<",
+        );
+
+        tl.to(
+          ".projects-header",
+          {
+            y: 0,
+            autoAlpha: 1,
+            duration: 0.85,
+            ease: "power2.out",
+          },
+          "<0.1",
+        );
+
+        tl.to(
+          ".project-card-item",
+          {
+            y: 0,
+            scale: 1,
+            autoAlpha: 1,
+            duration: 0.95,
+            stagger: 0.08,
+            ease: "power3.out",
+          },
+          "<0.1",
+        );
+
+        tl.to(
+          ".projects-cta",
+          {
+            y: 0,
+            scale: 1,
+            autoAlpha: 1,
+            duration: 0.8,
+            ease: "back.out(1.4)",
+          },
+          "<0.15",
         );
 
         tl.to(
@@ -345,39 +469,39 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
             />
 
             {/* Top Center Title */}
-            <div className="relative z-20 w-full flex justify-center items-center pt-2 sm:pt-4">
+            <div className="about-title relative z-20 w-full flex justify-center items-center pt-8 sm:pt-12 md:pt-14 will-change-transform">
               <h2 className="font-sans font-extrabold tracking-tight text-xl xs:text-2xl sm:text-3xl md:text-4xl text-[#141b16] leading-tight text-center">
                 About Me
               </h2>
             </div>
 
             {/* Center Stage: Hero-Style Typography & Content (Left Quadrant) */}
-            <div className="relative w-full flex-1 max-w-6xl mx-auto z-20 flex flex-col justify-center my-auto py-4 sm:py-6">
+            <div className="relative w-full flex-1 max-w-6xl mx-auto z-20 flex flex-col justify-center my-auto py-2 sm:py-4">
               <div className="max-w-xl lg:max-w-2xl">
                 {/* Big About Me Headline */}
                 <h1 className="font-sans font-normal tracking-tight text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-[38px] xl:text-[42px] leading-[1.2] text-[#141b16]">
-                  <span className="block">
+                  <span className="about-headline-line block will-change-transform">
                     I am Ritesh Sinha, an experienced
                   </span>
-                  <span className="block">
+                  <span className="about-headline-line block will-change-transform">
                     <span className="font-serif italic font-normal text-inherit tracking-normal">
                       Full-Stack AI Engineer
                     </span>{" "}
                     who
                   </span>
-                  <span className="block">
+                  <span className="about-headline-line block will-change-transform">
                     architects intelligent systems,
                   </span>
-                  <span className="block">
+                  <span className="about-headline-line block will-change-transform">
                     builds at scale, ships relentlessly,
                   </span>
-                  <span className="block">
+                  <span className="about-headline-line block will-change-transform">
                     breaks boundaries, and builds again.
                   </span>
                 </h1>
 
                 {/* Subtext */}
-                <p className="font-sans text-xs sm:text-sm md:text-[14px] text-[#141b16]/75 font-normal max-w-lg leading-relaxed mt-3.5 sm:mt-5">
+                <p className="about-subtext font-sans text-xs sm:text-sm md:text-[14px] text-[#141b16]/75 font-normal max-w-lg leading-relaxed mt-3.5 sm:mt-5 will-change-transform">
                   I work across AI/ML, LLMs, RAG, multi-agent systems, MCP,
                   distributed architectures, cloud infrastructure, and full-stack
                   engineering — turning ambitious ideas into production-grade
@@ -387,7 +511,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
             </div>
 
             {/* Right Side Grounded Character Image */}
-            <div className="absolute bottom-0 right-0 sm:right-[2%] md:right-[4%] lg:right-[6%] z-10 w-[60vw] sm:w-[38vw] md:w-[34vw] max-w-[280px] sm:max-w-[360px] md:max-w-[420px] lg:max-w-[460px] h-[55vh] sm:h-[68vh] md:h-[74vh] lg:h-[78vh] flex items-end justify-center pointer-events-none will-change-transform">
+            <div className="about-image absolute bottom-0 right-0 sm:right-[2%] md:right-[4%] lg:right-[6%] z-10 w-[60vw] sm:w-[38vw] md:w-[34vw] max-w-[280px] sm:max-w-[360px] md:max-w-[420px] lg:max-w-[460px] h-[55vh] sm:h-[68vh] md:h-[74vh] lg:h-[78vh] flex items-end justify-center pointer-events-none will-change-transform">
               <div className="relative w-full h-full">
                 <Image
                   src="/ritesh mic.svg"

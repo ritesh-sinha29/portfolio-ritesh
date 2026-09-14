@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Check, Copy, Eye, Sparkles } from "lucide-react";
 import { InstantImage } from "@/components/media/InstantImage";
+import Header from "@/modules/web/Header";
 import MagneticDock from "@/components/tweenlabs/MagneticDock";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 
@@ -189,54 +190,11 @@ export default function WorkPage() {
       {/* Film grain noise overlay */}
       <div className="fixed inset-0 bg-noise opacity-10 pointer-events-none mix-blend-overlay z-0" />
 
-      {/* Top Universal Header Bar */}
-      <header className="relative z-30 w-full flex justify-between items-center max-w-7xl mx-auto px-6 py-6">
-        {/* Left: Name / Brand */}
-        <Link
-          href="/"
-          className="font-sans font-semibold text-lg sm:text-xl tracking-tight text-foreground hover:opacity-80 transition-opacity"
-        >
-          RITESH SINHA
-        </Link>
-
-        {/* Right: Contact Pill Button inside dock */}
-        <div className="p-1 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-xs inline-flex items-center">
-          <MagneticButton
-            href={`mailto:${email}`}
-            className="group bg-primary hover:opacity-90 text-primary-foreground font-sans font-bold text-xs sm:text-sm px-4 sm:px-5 py-1.5 sm:py-2 rounded-full flex items-center gap-2 transition-all duration-150 shadow-xs"
-          >
-            <span>Contact</span>
-            <span className="w-5 h-5 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:bg-primary-foreground/20 transition-colors">
-              <ArrowUpRight className="w-3.5 h-3.5 text-primary-foreground group-hover:text-primary-foreground transition-colors stroke-[2.5]" />
-            </span>
-          </MagneticButton>
-        </div>
-      </header>
-
-      {/* Universal Floating Top Navigation Pill with Magnetic Dock physics */}
-      <MagneticDock
-        activeId="works"
-        items={[
-          {
-            id: "home",
-            label: "HOME",
-            href: "/",
-          },
-          {
-            id: "works",
-            label: "WORKS",
-            onClick: () => window.scrollTo({ top: 0, behavior: "smooth" }),
-          },
-          {
-            id: "about",
-            label: "ABOUT",
-            href: "/#about-section",
-          },
-        ]}
-      />
+      {/* Universal Fixed Header */}
+      <Header activeTab="works" />
 
       {/* Hero Header Area */}
-      <section className="relative z-10 pt-14 sm:pt-20 md:pt-24 pb-8 sm:pb-12 px-4 sm:px-8 max-w-7xl mx-auto text-center flex flex-col items-center">
+      <section className="relative z-10 pt-28 sm:pt-36 md:pt-40 lg:pt-44 pb-8 sm:pb-12 px-4 sm:px-8 max-w-7xl mx-auto text-center flex flex-col items-center">
         {/* Big Headline */}
         <h1 className="font-serif italic font-light text-5xl sm:text-7xl md:text-8xl tracking-tight text-foreground leading-none">
           Selected <span className="font-sans font-bold not-italic text-foreground">Works.</span>

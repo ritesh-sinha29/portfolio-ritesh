@@ -243,7 +243,7 @@ const SkillsSection = forwardRef<HTMLDivElement, SkillsSectionProps>(
         {/* Center Skills Box */}
         <div className="relative z-10 w-full max-w-3xl mx-auto flex flex-col items-center justify-center my-auto py-2">
           {/* Heading */}
-          <div className="flex flex-col items-center text-center mb-6 sm:mb-8 md:mb-10">
+          <div className="skills-header flex flex-col items-center text-center mb-6 sm:mb-8 md:mb-10 will-change-transform">
             <h2 className="font-sans font-extrabold tracking-tight text-xl xs:text-2xl sm:text-3xl md:text-4xl text-[#141b16] leading-tight">
               Skills &amp; Technologies
             </h2>
@@ -253,7 +253,7 @@ const SkillsSection = forwardRef<HTMLDivElement, SkillsSectionProps>(
           </div>
 
           {/* Interactive Category Tabs Bar */}
-          <div className="w-full max-w-3xl flex flex-nowrap items-center justify-center gap-1.5 xs:gap-2 sm:gap-2.5 overflow-x-auto no-scrollbar py-1 px-1 mb-4 sm:mb-6">
+          <div className="skills-tabs w-full max-w-3xl flex flex-nowrap items-center justify-center gap-1.5 xs:gap-2 sm:gap-2.5 overflow-x-auto no-scrollbar py-1 px-1 mb-4 sm:mb-6 will-change-transform">
             {skillCategories.map((category) => {
               const isActive = category.id === activeTabId;
               return (
@@ -278,7 +278,7 @@ const SkillsSection = forwardRef<HTMLDivElement, SkillsSectionProps>(
           {/* Brutalist DOM Board Collider Box */}
           <div
             ref={boardRef}
-            className="w-full max-w-3xl min-h-[175px] xs:min-h-[195px] sm:min-h-[220px] md:min-h-[240px] border-2 sm:border-[2.5px] border-[#141b16] rounded-[16px] sm:rounded-[22px] bg-white p-4 sm:p-6 md:p-7 flex flex-wrap gap-2 sm:gap-3 md:gap-3.5 items-center justify-center relative overflow-hidden shadow-[inset_3px_3px_8px_rgba(0,0,0,0.03)]"
+            className="skills-board w-full max-w-3xl min-h-[175px] xs:min-h-[195px] sm:min-h-[220px] md:min-h-[240px] border-2 sm:border-[2.5px] border-[#141b16] rounded-[16px] sm:rounded-[22px] bg-white p-4 sm:p-6 md:p-7 flex flex-wrap gap-2 sm:gap-3 md:gap-3.5 items-center justify-center relative overflow-hidden shadow-[inset_3px_3px_8px_rgba(0,0,0,0.03)] will-change-transform"
           >
             {currentCategory.tags.map((tag) => (
               <MagneticSkillTag key={tag.text} tag={tag} />

@@ -6,9 +6,9 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Hero from "@/modules/web/Hero";
-import Overlay from "@/modules/web/Overlay";
+import Overlay from "@/modules/web/Overlay_about-me";
 import LoadingScreen from "@/modules/web/LoadingScreen";
-import MagneticDock from "@/components/tweenlabs/MagneticDock";
+import Header from "@/modules/web/Header";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -102,6 +102,11 @@ export default function Home() {
       return top;
     };
 
+    if (sectionId === "works") {
+      window.location.href = "/work";
+      return;
+    }
+
     const targetPos = getTargetPos();
 
     if (lenis) {
@@ -116,6 +121,13 @@ export default function Home() {
 
   return (
     <main className="relative w-full bg-background text-foreground">
+      {/* Universal Fixed Header */}
+      <Header
+        activeTab={activeTab}
+        onTabClick={scrollToSection}
+        isLoading={isLoading}
+      />
+
       {/* Loading Screen */}
       <LoadingScreen onComplete={handleLoadingComplete} />
 
@@ -134,41 +146,6 @@ export default function Home() {
         ref={overlayRef}
         className="relative z-20"
       />
-
-      {/* Floating Top Navigation Pill with Magnetic Dock physics */}
-      {!isLoading && (
-        <MagneticDock
-          activeId={activeTab}
-          onItemClick={(id) => scrollToSection(id)}
-          items={[
-            {
-              id: "home",
-              label: "HOME",
-              onClick: () => scrollToSection("home"),
-            },
-            {
-              id: "about",
-              label: "ABOUT",
-              onClick: () => scrollToSection("about"),
-            },
-            {
-              id: "skills",
-              label: "SKILLS",
-              onClick: () => scrollToSection("skills"),
-            },
-            {
-              id: "works",
-              label: "WORKS",
-              href: "/work",
-            },
-            {
-              id: "contact",
-              label: "CONTACT",
-              onClick: () => scrollToSection("contact"),
-            },
-          ]}
-        />
-      )}
     </main>
   );
 }

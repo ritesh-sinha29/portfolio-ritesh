@@ -237,18 +237,6 @@ export default function WorkPage() {
 
       {/* Hero Header Area */}
       <section className="relative z-10 pt-14 sm:pt-20 md:pt-24 pb-8 sm:pb-12 px-4 sm:px-8 max-w-7xl mx-auto text-center flex flex-col items-center">
-        {/* Top Badge */}
-        <MagneticButton
-          magneticStrength={0.25}
-          scaleOnHover={1.05}
-          className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-card border border-border shadow-xs mb-4 sm:mb-5"
-        >
-          <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-          <span className="font-mono text-[10px] sm:text-xs text-muted-foreground font-bold tracking-wider uppercase">
-            6+ Production Applications &amp; AI Systems
-          </span>
-        </MagneticButton>
-
         {/* Big Headline */}
         <h1 className="font-serif italic font-light text-5xl sm:text-7xl md:text-8xl tracking-tight text-foreground leading-none">
           Selected <span className="font-sans font-bold not-italic text-foreground">Works.</span>

@@ -20,18 +20,17 @@ const navStages = [
   { id: "about", label: "ABOUT" },
   { id: "skills", label: "SKILLS" },
   { id: "projects", label: "PROJECTS" },
-  { id: "footer", label: "FOOTER" },
 ];
 
 const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
   ({ className = "" }, ref) => {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const scrollSectionRef = useRef<HTMLDivElement>(null);
+    const stageContainerRef = useRef<HTMLDivElement>(null);
+    const scrollStageRef = useRef<HTMLDivElement>(null);
     const tlRef = useRef<gsap.core.Timeline | null>(null);
 
     // Combine forwarded ref and internal ref
     const setRefs = (node: HTMLDivElement | null) => {
-      containerRef.current = node;
+      stageContainerRef.current = node;
       if (typeof ref === "function") {
         ref(node);
       } else if (ref) {
@@ -39,16 +38,17 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
       }
     };
 
-    // Master 3D Stacked Card Parallax Transition Timeline across 4 panels:
-    // Panel 0: About -> Panel 1: Skills -> Panel 2: Projects -> Panel 3: Footer
+    // Master Timeline:
+    // 1. 3D Stacked Card Parallax Transition: About -> Skills -> Projects
+    // 2. Curtain Lift: Projects Stage slides up (yPercent: -100) to reveal Footer underneath
     useGSAP(
       () => {
-        if (!scrollSectionRef.current || !containerRef.current) return;
+        if (!stageContainerRef.current || !scrollStageRef.current) return;
 
-        const container = containerRef.current;
-        const scrollSection = scrollSectionRef.current;
+        const stage = stageContainerRef.current;
+        const scrollStage = scrollStageRef.current;
 
-        // Set initial states for all 4 panels and their parallax contents
+        // Set initial states for panels and parallax content
         gsap.set(".panel-0", {
           y: "0vh",
           scale: 1,
@@ -56,37 +56,39 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
           autoAlpha: 1,
         });
 
-        gsap.set(".panel-1, .panel-2, .panel-3", {
+        gsap.set(".panel-1, .panel-2", {
           y: "100vh",
           scale: 1,
           rotateX: 0,
           autoAlpha: 0,
         });
 
-        gsap.set(".panel-1-content, .panel-2-content, .panel-3-content", {
+        gsap.set(".panel-1-content, .panel-2-content", {
           y: "15vh",
         });
+
+        gsap.set(scrollStage, { yPercent: 0 });
 
         // Master pinned scroll timeline with smooth scrub
         const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: scrollSection,
+            trigger: stage,
             start: "top top",
-            end: "+=4500",
+            end: "+=4000",
             pin: true,
             scrub: 0.6,
             anticipatePin: 1,
             invalidateOnRefresh: true,
             onUpdate: (self) => {
               const progress = self.progress;
-              // Map progress across the 4 stages: [about, skills, projects, footer]
+              // Map progress across the 3 stages before curtain
               const stageIdx = Math.min(
-                Math.floor(progress * 3.8),
+                Math.floor(progress * 3),
                 navStages.length - 1,
               );
 
               navStages.forEach((item, idx) => {
-                const el = container.querySelector(
+                const el = stage.querySelector(
                   `#nav-${item.id}`,
                 ) as HTMLElement | null;
                 if (el) {
@@ -236,69 +238,25 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
         );
 
         tl.addLabel("projects");
-        tl.to({}, { duration: 0.15 });
+        tl.to({}, { duration: 0.3 }); // reading hold for projects
 
         /*
-         *  TRANSITION 3: PROJECTS (Panel 2) → FOOTER (Panel 3)
-         *  - Panel 3 (Footer) slides up from y: 100vh → 0vh (power3.out)
-         *  - Panel 3 inner content glides up from y: 15vh → 0vh in sync (parallax depth)
-         *  - Panel 2 tilts back (rotateX: 12), scales down to 0.85, and dims (opacity: 0.4)
-         *  - Panel 1 fades out completely (autoAlpha: 0)
+         *  TRANSITION 3: AFTER PROJECTS → CURTAIN LIFT REVEAL OF FOOTER
+         *  The stacked stage slides upward (yPercent: -100) to reveal the underlying Footer
          */
-        tl.set(".panel-3", {
-          y: "100vh",
-          rotateX: 0,
-          scale: 1,
-          autoAlpha: 1,
-        });
-        tl.set(".panel-3-content", { y: "15vh" });
-
-        tl.to(".panel-3", {
-          y: "0vh",
-          duration: 1.4,
-          ease: "power3.out",
-        });
-
         tl.to(
-          ".panel-3-content",
+          scrollStage,
           {
-            y: "0vh",
-            duration: 1.4,
-            ease: "power3.out",
+            yPercent: -100,
+            duration: 1.8,
+            ease: "power2.inOut",
           },
-          "<",
+          "curtain",
         );
-
-        tl.to(
-          ".panel-2",
-          {
-            scale: 0.85,
-            y: "-8vh",
-            rotateX: 12,
-            opacity: 0.4,
-            transformOrigin: "center 30%",
-            duration: 1.4,
-            ease: "power3.out",
-          },
-          "<",
-        );
-
-        tl.to(
-          ".panel-1",
-          {
-            autoAlpha: 0,
-            duration: 0.5,
-            ease: "power3.out",
-          },
-          "<",
-        );
-
-        tl.addLabel("footer");
-        tl.to({}, { duration: 0.2 });
 
         ScrollTrigger.refresh();
       },
-      { scope: containerRef },
+      { scope: stageContainerRef },
     );
 
     // Smooth Navigation Click for Right Floating Indicator
@@ -314,15 +272,21 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
     };
 
     return (
-      <div
+      <section
         ref={setRefs}
-        className={`relative w-full overflow-hidden select-none bg-background ${className}`}
+        id="about-section"
+        aria-label="Portfolio Flow — About, Skills, Projects & Footer"
+        className={`relative w-full h-screen overflow-hidden select-none ${className}`}
       >
-        {/* Main Pinned Scroll Section Container — perspective + preserve-3d enables rotateX fall-back */}
+        {/* Layer 0 (Underneath): Footer Section */}
+        <div className="absolute inset-0 w-full h-full z-10">
+          <Footer />
+        </div>
+
+        {/* Layer 1 (On Top): Pinned 3D Viewport — Slides upward on curtain lift */}
         <div
-          ref={scrollSectionRef}
-          id="about-section"
-          className="scroll-viewport h-screen w-full relative overflow-hidden"
+          ref={scrollStageRef}
+          className="scroll-viewport absolute inset-0 w-full h-full z-20 overflow-hidden will-change-transform bg-background"
           style={{
             perspective: "1400px",
             perspectiveOrigin: "50% 40%",
@@ -363,24 +327,17 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
               }}
             />
 
-            {/* Top Bar */}
-            <div className="relative z-20 w-full max-w-6xl mx-auto flex items-center justify-between">
-              <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-black/[0.05] backdrop-blur-xl border border-black/10 shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-[#eb5e28] animate-pulse" />
-                <span className="font-mono text-[9px] sm:text-[10px] md:text-xs font-bold text-[#141b16] uppercase tracking-widest">
-                  02 // ABOUT ME
-                </span>
-              </div>
-
-              <span className="font-mono text-[10px] sm:text-xs font-semibold text-[#141b16]/50 tracking-widest uppercase">
-                01 // 04
-              </span>
+            {/* Top Center Title */}
+            <div className="relative z-20 w-full flex justify-center items-center pt-2 sm:pt-4">
+              <h2 className="font-sans font-extrabold tracking-tight text-xl xs:text-2xl sm:text-3xl md:text-4xl text-[#141b16] leading-tight text-center">
+                About Me
+              </h2>
             </div>
 
-            {/* Center Content Area */}
+            {/* Center Stage: Hero-Style Typography & Content (Left Quadrant) */}
             <div className="relative w-full flex-1 max-w-6xl mx-auto z-20 flex flex-col justify-center my-auto py-4 sm:py-6">
               <div className="max-w-xl lg:max-w-2xl">
-                {/* Big Headline */}
+                {/* Big About Me Headline */}
                 <h1 className="font-sans font-normal tracking-tight text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-[38px] xl:text-[42px] leading-[1.2] text-[#141b16]">
                   <span className="block">
                     I am Ritesh Sinha, an experienced
@@ -425,12 +382,6 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                 />
               </div>
             </div>
-
-            {/* Bottom Footer Status */}
-            <div className="relative z-20 w-full max-w-6xl mx-auto flex justify-between font-mono text-[9px] sm:text-[10px] uppercase tracking-wider text-[#141b16]/60">
-              <span>SCROLL OR CLICK TO NAVIGATE</span>
-              <span>/ MODULE-01 / ABOUT</span>
-            </div>
           </section>
 
           {/* ================================================================== */}
@@ -456,20 +407,8 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
               <ProjectsSection />
             </div>
           </section>
-
-          {/* ================================================================== */}
-          {/* PANEL 3: FOOTER SECTION                                            */}
-          {/* ================================================================== */}
-          <section
-            id="footer-stage"
-            className="panel-item panel-3 absolute inset-0 w-full h-full z-[16] select-none overflow-hidden will-change-transform"
-          >
-            <div className="panel-3-content h-full w-full will-change-transform origin-bottom-left">
-              <Footer />
-            </div>
-          </section>
         </div>
-      </div>
+      </section>
     );
   },
 );

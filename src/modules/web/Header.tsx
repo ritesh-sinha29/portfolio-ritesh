@@ -20,7 +20,6 @@ export const defaultNavItems: DockItem[] = [
   { id: "about", label: "ABOUT" },
   { id: "skills", label: "SKILLS" },
   { id: "works", label: "WORKS" },
-  { id: "contact", label: "CONTACT" },
 ];
 
 export default function Header({
@@ -168,12 +167,6 @@ export default function Header({
                 label: "WORKS",
                 href: isHomePage ? "/work" : undefined,
                 onClick: !isHomePage ? () => handleTabAction("works") : undefined,
-              },
-              {
-                id: "contact",
-                label: "CONTACT",
-                href: isHomePage ? undefined : "/#footer-section",
-                onClick: isHomePage ? () => handleTabAction("contact") : undefined,
               },
             ]}
           />

@@ -75,10 +75,29 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
         gsap.set(".skills-header", { y: 35, autoAlpha: 0 });
         gsap.set(".skills-tabs", { y: 25, scale: 0.95, autoAlpha: 0 });
         gsap.set(".skills-board", { y: 40, scale: 0.96, autoAlpha: 0 });
-
-        gsap.set(".projects-header", { y: 35, autoAlpha: 0 });
-        gsap.set(".project-card-item", { y: 65, scale: 0.92, autoAlpha: 0 });
-        gsap.set(".projects-cta", { y: 25, scale: 0.9, autoAlpha: 0 });
+        gsap.set(".projects-header", { y: -30, autoAlpha: 0 });
+        gsap.set(".project-card-item-0", {
+          y: -100,
+          x: 60,
+          rotate: -6,
+          scale: 0.75,
+          autoAlpha: 0,
+        });
+        gsap.set(".project-card-item-1", {
+          y: -130,
+          x: 0,
+          rotate: 0,
+          scale: 0.75,
+          autoAlpha: 0,
+        });
+        gsap.set(".project-card-item-2", {
+          y: -100,
+          x: -60,
+          rotate: 6,
+          scale: 0.75,
+          autoAlpha: 0,
+        });
+        gsap.set(".projects-cta", { y: 30, scale: 0.85, autoAlpha: 0 });
 
         gsap.set(scrollStage, { yPercent: 0 });
 
@@ -313,14 +332,16 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
         );
 
         tl.to(
-          ".project-card-item",
+          [".project-card-item-0", ".project-card-item-1", ".project-card-item-2"],
           {
             y: 0,
+            x: 0,
+            rotate: 0,
             scale: 1,
             autoAlpha: 1,
-            duration: 0.95,
-            stagger: 0.08,
-            ease: "power3.out",
+            duration: 1.0,
+            stagger: 0.1,
+            ease: "power2.out",
           },
           "<0.1",
         );

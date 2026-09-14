@@ -127,7 +127,7 @@ const ProjectsSection = forwardRef<HTMLDivElement, ProjectsSectionProps>(
                 key={project.id}
                 onMouseMove={handleCardMouseMove}
                 onMouseLeave={handleCardMouseLeave}
-                className="project-card-item w-[108px] xs:w-[124px] sm:w-[240px] md:w-[265px] lg:w-[285px] h-[260px] xs:h-[285px] sm:h-[365px] md:h-[385px] max-h-[70vh] flex-1 relative transform-gpu rounded-xl sm:rounded-2xl border-[1.5px] sm:border-[2.5px] border-[#141b16] shadow-[2.5px_2.5px_0px_#141b16] sm:shadow-[4px_4px_0px_#141b16] p-2 xs:p-2.5 sm:p-4 bg-white text-[#141b16] flex flex-col justify-between cursor-pointer select-none transition-shadow hover:shadow-[5px_5px_0px_#141b16] will-change-transform"
+                className={`project-card-item project-card-item-${index} w-[108px] xs:w-[124px] sm:w-[240px] md:w-[265px] lg:w-[285px] h-[260px] xs:h-[285px] sm:h-[365px] md:h-[385px] max-h-[70vh] flex-1 relative transform-gpu rounded-xl sm:rounded-2xl border-[1.5px] sm:border-[2.5px] border-[#141b16] shadow-[2.5px_2.5px_0px_#141b16] sm:shadow-[4px_4px_0px_#141b16] p-2 xs:p-2.5 sm:p-4 bg-white text-[#141b16] flex flex-col justify-between cursor-pointer select-none transition-shadow hover:shadow-[5px_5px_0px_#141b16] will-change-transform`}
                 style={{
                   transformStyle: "preserve-3d",
                   transform: "perspective(1000px) rotateX(0deg) rotateY(0deg)",

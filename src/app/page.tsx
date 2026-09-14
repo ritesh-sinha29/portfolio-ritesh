@@ -53,10 +53,8 @@ export default function Home() {
         setActiveTab("about");
       } else if (scrollY < stageTop + 1450) {
         setActiveTab("skills");
-      } else if (scrollY < stageTop + 2150) {
-        setActiveTab("works");
       } else {
-        setActiveTab("contact");
+        setActiveTab("works");
       }
     };
 

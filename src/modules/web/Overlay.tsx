@@ -131,7 +131,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
       return () => observer.disconnect();
     }, []);
 
-    // 1. GSAP animation: About Me text highlights line by line
+    // 1. GSAP animation: About Me text highlights line by line & reveals right image
     useGSAP(
       () => {
         if (!sectionRef.current) return;
@@ -141,18 +141,17 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
           sectionRef.current,
         );
 
-        // Initial state: dim/translucent text and subtle offsets
+        // Initial state: subtle dimming and offsets
         gsap.set(lines, {
-          color: "rgba(255, 255, 255, 0.22)",
           opacity: 0.35,
-          y: 8,
+          y: 10,
         });
         gsap.set(".overlay-kicker", { autoAlpha: 0, y: 10 });
-        gsap.set(".overlay-subtext", { autoAlpha: 0, y: 16 });
-        gsap.set(".overlay-video-capsule-wrapper", {
+        gsap.set(".overlay-subtext", { autoAlpha: 0, y: 14 });
+        gsap.set(".overlay-card-wrapper", {
           autoAlpha: 0,
           scale: 0.95,
-          y: 20,
+          x: 20,
         });
 
         const textTl = gsap.timeline({ paused: true });
@@ -167,11 +166,10 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
         textTl.to(
           lines,
           {
-            color: "#ffffff",
             opacity: 1,
             y: 0,
-            duration: 0.6,
-            stagger: 0.28,
+            duration: 0.55,
+            stagger: 0.22,
             ease: "power2.out",
           },
           "-=0.15",
@@ -182,22 +180,22 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
           {
             autoAlpha: 1,
             y: 0,
-            duration: 0.7,
+            duration: 0.6,
             ease: "power2.out",
           },
-          "-=0.25",
+          "-=0.2",
         );
 
         textTl.to(
-          ".overlay-video-capsule-wrapper",
+          ".overlay-card-wrapper",
           {
             autoAlpha: 1,
             scale: 1,
-            y: 0,
-            duration: 0.8,
+            x: 0,
+            duration: 0.75,
             ease: "power3.out",
           },
-          "-=0.4",
+          "-=0.45",
         );
 
         let hasPlayed = false;
@@ -398,103 +396,97 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
       <section
         ref={setRefs}
         aria-label="Overlay Section — About, Projects & Footer"
-        className={`relative w-full bg-[#123826] text-white select-none ${className}`}
+        className={`relative w-full select-none ${className}`}
       >
         {/* ==================================================================== */}
-        {/* STAGE 1: ABOUT ME & VIDEO CAPSULE                                    */}
+        {/* STAGE 1: ABOUT ME — CLEAN HERO-STYLE WITH RIGHT GROUNDED IMAGE       */}
         {/* ==================================================================== */}
         <div
           id="about-section"
-          className="relative min-h-screen w-full flex flex-col justify-between items-center px-4 sm:px-6 md:px-12 py-12 sm:py-16 md:py-20 overflow-hidden bg-[#123826] rounded-t-none z-20"
+          className="relative min-h-screen w-full flex flex-col justify-between px-4 sm:px-6 md:px-12 py-10 sm:py-16 md:py-20 overflow-hidden bg-[#eae7e1] text-[#141b16] z-20"
         >
-          {/* Subtle radial emerald background ambient glow */}
+          {/* Subtle Warm Ambient Lighting (No dots, pure atmospheric gradient) */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                "radial-gradient(ellipse 75% 45% at 50% 25%, rgba(34, 110, 72, 0.35) 0%, rgba(18, 56, 38, 0) 100%)",
+                "radial-gradient(ellipse 70% 60% at 85% 75%, rgba(235,94,40,0.06) 0%, transparent 65%), radial-gradient(ellipse 60% 50% at 20% 25%, rgba(245,200,108,0.08) 0%, transparent 60%)",
             }}
           />
 
           {/* Film grain noise overlay */}
-          <div className="absolute inset-0 bg-noise opacity-15 pointer-events-none mix-blend-overlay" />
+          <div className="absolute inset-0 bg-noise opacity-15 pointer-events-none mix-blend-multiply" />
 
-          {/* Top/Center: About Me Content */}
-          <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center pt-14 sm:pt-16 md:pt-18">
-            {/* Top Category Badge */}
-            <div className="overlay-kicker flex items-center gap-2 px-8 py-1.5 rounded-full bg-white/25 border border-white/10 backdrop-blur-sm mb-5 sm:mb-7">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+          {/* Top Stage Header / Kicker */}
+          <div className="relative z-20 w-full max-w-7xl mx-auto flex items-center justify-between">
+            <div className="overlay-kicker inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/[0.05] backdrop-blur-xl border border-black/10 shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-[#eb5e28] animate-pulse" />
+              <span className="font-mono text-[10px] sm:text-xs font-bold text-[#141b16] uppercase tracking-widest">
+                02 // ABOUT ME
+              </span>
             </div>
 
-            {/* Center Bold Big About Me */}
-            <h1 className="font-sans font-normal tracking-tight text-xl xs:text-2xl sm:text-4xl md:text-[2.75rem] lg:text-[3.25rem] xl:text-[3.6rem] leading-[1.18] sm:leading-[1.16] text-center max-w-5xl mx-auto flex flex-col items-center px-1">
-              <span className="overlay-headline-line block transition-colors duration-300">
-                I am Ritesh Sinha, an experienced
-              </span>
-
-              <span className="overlay-headline-line block transition-colors duration-300">
-                <span className="font-serif italic font-normal text-inherit tracking-normal px-1">
-                  Full-Stack AI Engineer
-                </span>{" "}
-                who
-              </span>
-
-              <span className="overlay-headline-line block transition-colors duration-300">
-                architects intelligent systems,
-              </span>
-
-              <span className="overlay-headline-line block transition-colors duration-300">
-                builds at scale, ships relentlessly,
-              </span>
-
-              <span className="overlay-headline-line block transition-colors duration-300">
-                breaks boundaries, and builds again.
-              </span>
-            </h1>
-
-            {/* Subtext below it */}
-            <p className="overlay-subtext font-sans text-xs xs:text-[13px] sm:text-sm md:text-[15px] lg:text-base text-neutral-300 font-normal max-w-2xl sm:max-w-3xl mx-auto leading-relaxed mt-4 sm:mt-12 px-2 sm:px-4">
-              I work across AI/ML, LLMs, RAG, multi-agent systems, MCP,
-              distributed architectures, cloud infrastructure, and full-stack
-              engineering — turning ambitious ideas into production-grade
-              systems built to scale.
-            </p>
+            <span className="font-mono text-xs font-semibold text-[#141b16]/50 tracking-widest hidden sm:inline-block">
+              FULL-STACK AI ENGINEER
+            </span>
           </div>
 
-          {/* Bottom: Wide Video Capsule */}
-          <div className="relative z-10 w-full flex flex-col items-center mt-auto pt-8 sm:pt-18 md:pt-22 pb-2 sm:pb-4">
-            <div className="overlay-video-capsule-wrapper w-full flex justify-center px-2 sm:px-4">
-              <button
-                type="button"
-                onClick={onVideoClick}
-                aria-label="Know more about me reel"
-                className="group relative cursor-pointer block rounded-full p-[2px] hover:from-white/60 hover:via-white/30 hover:to-white/60 transition-all duration-500 w-full max-w-[720px] sm:max-w-[880px] md:max-w-[1020px] lg:max-w-[900px]"
-              >
-                <div className="relative w-full h-[70px] xs:h-[90px] sm:h-[135px] md:h-[200px] lg:h-[245px] rounded-full overflow-hidden flex items-center justify-center bg-[#141b16]">
-                  <SmoothVideo
-                    ref={videoRef}
-                    webmSrc="/about me.webm"
-                    mp4Src="/about me.mp4"
-                    fallbackSrc="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260622_202655_a7f5aca0-2f80-4bc9-bcb5-96ac95662003.mp4"
-                    className="absolute inset-0 w-full h-full object-cover brightness-[0.95] contrast-[1.05] group-hover:scale-106 transition-transform duration-700 ease-out"
-                    containerClassName="absolute inset-0 w-full h-full overflow-hidden"
-                  />
+          {/* Center Stage: Hero-Style Typography & Content (Left Quadrant) */}
+          <div className="relative w-full flex-1 max-w-7xl mx-auto z-20 flex flex-col justify-center my-auto py-6 sm:py-8">
+            <div className="max-w-xl lg:max-w-2xl">
+              {/* Big About Me Headline */}
+              <h1 className="font-sans font-normal tracking-tight text-2xl sm:text-3xl md:text-4xl lg:text-[40px] xl:text-[44px] leading-[1.2] text-[#141b16]">
+                <span className="overlay-headline-line block transition-colors duration-300">
+                  I am Ritesh Sinha, an experienced
+                </span>
 
-                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/15 transition-colors duration-500 pointer-events-none" />
+                <span className="overlay-headline-line block transition-colors duration-300">
+                  <span className="font-serif italic font-normal text-inherit tracking-normal">
+                    Full-Stack AI Engineer
+                  </span>{" "}
+                  who
+                </span>
 
-                  <div className="relative z-10 flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 pointer-events-none select-none">
-                    <span className="font-serif font-semibold text-white text-xs xs:text-sm sm:text-2xl md:text-3xl lg:text-4xl tracking-[0.10em] sm:tracking-[0.16em] uppercase drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)] transition-transform duration-300 group-hover:scale-102">
-                      Know more about me
-                    </span>
-                  </div>
-                </div>
-              </button>
+                <span className="overlay-headline-line block transition-colors duration-300">
+                  architects intelligent systems,
+                </span>
+
+                <span className="overlay-headline-line block transition-colors duration-300">
+                  builds at scale, ships relentlessly,
+                </span>
+
+                <span className="overlay-headline-line block transition-colors duration-300">
+                  breaks boundaries, and builds again.
+                </span>
+              </h1>
+
+              {/* Subtext below it */}
+              <p className="overlay-subtext font-sans text-xs sm:text-sm md:text-[14px] text-[#141b16]/75 font-normal max-w-lg leading-relaxed mt-4 sm:mt-5">
+                I work across AI/ML, LLMs, RAG, multi-agent systems, MCP,
+                distributed architectures, cloud infrastructure, and full-stack
+                engineering — turning ambitious ideas into production-grade
+                systems built to scale.
+              </p>
+            </div>
+          </div>
+
+          {/* Right Side Grounded Character / Silhouette Image (Like Hero Section) */}
+          <div className="overlay-card-wrapper absolute bottom-0 right-0 sm:right-[2%] md:right-[4%] lg:right-[6%] z-10 w-[65vw] sm:w-[42vw] md:w-[38vw] max-w-[320px] sm:max-w-[400px] md:max-w-[460px] lg:max-w-[500px] h-[60vh] sm:h-[72vh] md:h-[78vh] lg:h-[82vh] flex items-end justify-center pointer-events-none will-change-transform">
+            <div className="relative w-full h-full">
+              <InstantImage
+                src="/ritesh mic.svg"
+                alt="Ritesh Sinha"
+                fill
+                priority
+                className="object-contain object-bottom select-none drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+                containerClassName="absolute inset-0 w-full h-full"
+              />
             </div>
           </div>
         </div>
 
         {/* ==================================================================== */}
-        {/* STAGE 2 & 3 PINNED CONTAINER: TWEENLABS FLIPCARDS + CURTAIN LIFT     */}
+        {/* STAGE 2: PINNED CONTAINER: TWEENLABS FLIPCARDS + CURTAIN LIFT        */}
         {/* ==================================================================== */}
         <div
           ref={stageContainerRef}
@@ -513,15 +505,6 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
             <div
               ref={stageBgRef}
               className="absolute inset-0 w-full h-full bg-background"
-            />
-
-            {/* Tactile dot matrix background */}
-            <div
-              className="absolute inset-0 pointer-events-none opacity-20"
-              style={{
-                backgroundImage: "radial-gradient(var(--foreground) 1px, transparent 1px)",
-                backgroundSize: "24px 24px",
-              }}
             />
 
             {/* Film grain noise overlay */}

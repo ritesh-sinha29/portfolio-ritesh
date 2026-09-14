@@ -186,15 +186,6 @@ export default function WorkPage() {
 
   return (
     <main className="relative min-h-screen w-full bg-background text-foreground selection:bg-primary selection:text-primary-foreground select-none">
-      {/* Universal Tactile Dot Matrix Background */}
-      <div
-        className="fixed inset-0 pointer-events-none opacity-20 z-0"
-        style={{
-          backgroundImage: "radial-gradient(var(--foreground) 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-        }}
-      />
-
       {/* Film grain noise overlay */}
       <div className="fixed inset-0 bg-noise opacity-10 pointer-events-none mix-blend-overlay z-0" />
 

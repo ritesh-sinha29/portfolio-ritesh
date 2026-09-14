@@ -241,14 +241,7 @@ export default function ShowUpCardsPage() {
       className="relative min-h-[280vh] bg-background text-foreground selection:bg-primary selection:text-primary-foreground overflow-x-hidden font-sans"
       ref={containerRef}
     >
-      {/* Tactile Grid Backgrounds */}
-      <div
-        className="absolute inset-0 pointer-events-none z-0 opacity-15"
-        style={{
-          backgroundImage: "radial-gradient(var(--foreground) 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-        }}
-      />
+      {/* Subtle Noise Background */}
       <div
         className="absolute inset-0 pointer-events-none z-10 opacity-[0.035]"
         style={{
@@ -262,13 +255,6 @@ export default function ShowUpCardsPage() {
         ref={showupSectionRef}
         className="showup-cards-sec relative w-full h-screen flex flex-col justify-center items-center bg-background border-b border-border overflow-hidden"
       >
-        <div
-          className="absolute inset-0 opacity-15"
-          style={{
-            backgroundImage: "radial-gradient(var(--foreground) 1px, transparent 1px)",
-            backgroundSize: "24px 24px",
-          }}
-        />
 
         <div className="cards-container w-full max-w-4xl flex items-center justify-center gap-6 md:gap-8 px-4 pointer-events-auto">
           {stageData.map((stage) => (

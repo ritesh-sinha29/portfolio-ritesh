@@ -75,9 +75,14 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(
               />
             </div>
 
-            {/* Bottom Line: Warm Alpine Sunset Gold */}
-            <h2 className="font-sans font-medium text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-[#F5C86C] leading-none drop-shadow-[0_4px_28px_rgba(0,0,0,0.85)]">
-              NOW LET’S <span className="font-serif italic font-light">BUILD SOMETHING.</span>
+            {/* Bottom Lines: Warm Alpine Sunset Gold */}
+            <h2 className="font-sans font-medium text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-[#F5C86C] leading-none drop-shadow-[0_4px_28px_rgba(0,0,0,0.85)] flex flex-col items-center">
+              <span>
+                NOW LET’S <span className="font-serif italic font-light">BUILD</span>
+              </span>
+              <span className="font-serif italic font-light mt-1 sm:mt-2">
+                SOMETHING.
+              </span>
             </h2>
           </div>
 

@@ -47,11 +47,11 @@ export default function Home() {
 
       if (scrollY < stageTop - vh * 0.4) {
         setActiveTab("home");
-      } else if (scrollY < stageTop + 1100) {
+      } else if (scrollY < stageTop + 650) {
         setActiveTab("about");
-      } else if (scrollY < stageTop + 2250) {
+      } else if (scrollY < stageTop + 1450) {
         setActiveTab("skills");
-      } else if (scrollY < stageTop + 3400) {
+      } else if (scrollY < stageTop + 2150) {
         setActiveTab("works");
       } else {
         setActiveTab("contact");
@@ -89,21 +89,21 @@ export default function Home() {
       if (el) {
         const pinSpacer = el.closest(".pin-spacer") as HTMLElement | null;
         const top = (pinSpacer || el).getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({ top: top + 1200, behavior: "smooth" });
+        window.scrollTo({ top: top + 900, behavior: "smooth" });
       }
     } else if (sectionId === "works") {
       const el = document.getElementById("about-section");
       if (el) {
         const pinSpacer = el.closest(".pin-spacer") as HTMLElement | null;
         const top = (pinSpacer || el).getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({ top: top + 2400, behavior: "smooth" });
+        window.scrollTo({ top: top + 1750, behavior: "smooth" });
       }
     } else if (sectionId === "contact") {
       const el = document.getElementById("about-section");
       if (el) {
         const pinSpacer = el.closest(".pin-spacer") as HTMLElement | null;
         const top = (pinSpacer || el).getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({ top: top + 3600, behavior: "smooth" });
+        window.scrollTo({ top: top + 2590, behavior: "smooth" });
       }
     }
   };

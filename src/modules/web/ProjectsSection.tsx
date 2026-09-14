@@ -109,19 +109,19 @@ const ProjectsSection = forwardRef<HTMLDivElement, ProjectsSectionProps>(
         className={`w-full h-full flex flex-col justify-center items-center p-4 sm:p-8 md:p-12 ${className}`}
       >
         {/* Center Content: Header & 3 Projects Cards */}
-        <div className="relative z-20 w-full max-w-5xl mx-auto flex-1 flex flex-col justify-center items-center my-auto min-h-0 py-1">
+        <div className="relative z-20 w-full max-w-5xl mx-auto flex-1 flex flex-col justify-center items-center my-auto min-h-0 py-2 sm:py-4">
           {/* Heading */}
-          <div className="text-center mb-2 sm:mb-3">
+          <div className="text-center mb-4 sm:mb-6 md:mb-7">
             <h2 className="font-sans font-extrabold tracking-tight text-xl xs:text-2xl sm:text-3xl md:text-4xl text-[#141b16] leading-tight">
               Featured Projects
             </h2>
-            <p className="font-sans text-[10.5px] sm:text-xs font-medium text-[#141b16]/65 mt-0.5">
+            <p className="font-sans text-[11px] sm:text-xs md:text-[13px] font-medium text-[#141b16]/65 mt-1 sm:mt-2">
               Top Loved Works • Interactive 3D Showcase
             </p>
           </div>
 
           {/* 3 Featured Cards Grid */}
-          <div className="w-full flex flex-nowrap items-center justify-center gap-2 xs:gap-2.5 sm:gap-4 md:gap-5 pointer-events-auto">
+          <div className="w-full flex flex-nowrap items-center justify-center gap-2.5 xs:gap-3 sm:gap-4 md:gap-6 pointer-events-auto">
             {projects.map((project, index) => (
               <div
                 key={project.id}
@@ -134,7 +134,7 @@ const ProjectsSection = forwardRef<HTMLDivElement, ProjectsSectionProps>(
                 }}
               >
                 {/* Top Badge Row */}
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center pb-0.5">
                   <span className="font-mono text-[8px] sm:text-[10px] font-bold text-neutral-400">
                     [{project.phase}]
                   </span>
@@ -157,7 +157,7 @@ const ProjectsSection = forwardRef<HTMLDivElement, ProjectsSectionProps>(
                 </div>
 
                 {/* Project Info */}
-                <div className="flex-1 flex flex-col justify-between py-0.5">
+                <div className="flex-1 flex flex-col justify-between py-0.5 sm:py-1">
                   <div>
                     <div className="flex justify-between items-center">
                       <h3 className="font-sans font-bold text-[10px] xs:text-xs sm:text-sm text-[#141b16] truncate">
@@ -173,7 +173,7 @@ const ProjectsSection = forwardRef<HTMLDivElement, ProjectsSectionProps>(
                   </div>
 
                   {/* Tech Badges */}
-                  <div className="flex flex-wrap gap-0.5 sm:gap-1 mt-1">
+                  <div className="flex flex-wrap gap-0.5 sm:gap-1 mt-1.5">
                     {project.tech.map((t) => (
                       <span
                         key={t}
@@ -186,7 +186,7 @@ const ProjectsSection = forwardRef<HTMLDivElement, ProjectsSectionProps>(
                 </div>
 
                 {/* Action Buttons */}
-                <div className="w-full pt-1.5 sm:pt-2 border-t border-neutral-200">
+                <div className="w-full pt-2 sm:pt-2.5 border-t border-neutral-200">
                   <div className="flex items-center justify-between gap-1">
                     <MagneticButton
                       href={project.liveUrl}
@@ -225,7 +225,7 @@ const ProjectsSection = forwardRef<HTMLDivElement, ProjectsSectionProps>(
           </div>
 
           {/* View All Works CTA */}
-          <div className="mt-3 sm:mt-4 flex justify-center">
+          <div className="mt-4 sm:mt-6 md:mt-7 flex justify-center">
             <MagneticButton
               href="/work"
               magneticStrength={0.35}

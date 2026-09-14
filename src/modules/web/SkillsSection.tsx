@@ -241,19 +241,19 @@ const SkillsSection = forwardRef<HTMLDivElement, SkillsSectionProps>(
         className={`w-full h-full flex flex-col justify-center items-center p-6 sm:p-10 md:p-14 ${className}`}
       >
         {/* Center Skills Box */}
-        <div className="relative z-10 w-full max-w-3xl mx-auto flex flex-col items-center justify-center gap-2.5 sm:gap-3.5 my-auto py-2">
+        <div className="relative z-10 w-full max-w-3xl mx-auto flex flex-col items-center justify-center my-auto py-2">
           {/* Heading */}
-          <div className="flex flex-col items-center text-center">
+          <div className="flex flex-col items-center text-center mb-6 sm:mb-8 md:mb-10">
             <h2 className="font-sans font-extrabold tracking-tight text-xl xs:text-2xl sm:text-3xl md:text-4xl text-[#141b16] leading-tight">
               Skills &amp; Technologies
             </h2>
-            <p className="font-sans text-[10.5px] sm:text-xs font-medium text-[#141b16]/65 mt-0.5 sm:mt-1 text-center max-w-md">
+            <p className="font-sans text-[11px] sm:text-xs md:text-[13px] font-medium text-[#141b16]/65 mt-2 sm:mt-3 text-center max-w-md">
               Click any category tab below to explore the dedicated toolset &amp; technical stack
             </p>
           </div>
 
           {/* Interactive Category Tabs Bar */}
-          <div className="w-full max-w-3xl flex flex-nowrap items-center justify-center gap-1 xs:gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5 px-1">
+          <div className="w-full max-w-3xl flex flex-nowrap items-center justify-center gap-1.5 xs:gap-2 sm:gap-2.5 overflow-x-auto no-scrollbar py-1 px-1 mb-4 sm:mb-6">
             {skillCategories.map((category) => {
               const isActive = category.id === activeTabId;
               return (

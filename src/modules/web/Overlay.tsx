@@ -69,21 +69,21 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
 
         gsap.set(scrollStage, { yPercent: 0 });
 
-        // Master pinned scroll timeline with smooth scrub
+        // Master pinned scroll timeline with smooth, responsive scrub
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: stage,
             start: "top top",
-            end: "+=4000",
+            end: "+=2600",
             pin: true,
-            scrub: 0.6,
+            scrub: 0.5,
             anticipatePin: 1,
             invalidateOnRefresh: true,
             onUpdate: (self) => {
               const progress = self.progress;
               // Map progress across the 3 stages before curtain
               const stageIdx = Math.min(
-                Math.floor(progress * 3),
+                Math.floor(progress * 3.2),
                 navStages.length - 1,
               );
 
@@ -131,13 +131,13 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
 
         // Label 0: ABOUT (Hold for initial reading)
         tl.addLabel("about", 0);
-        tl.to({}, { duration: 0.15 });
+        tl.to({}, { duration: 0.05 });
 
         /*
          * PREMIUM 3D STACKED + PARALLAX TRANSITIONS:
          *
          *  TRANSITION 1: ABOUT (Panel 0) → SKILLS (Panel 1)
-         *  - Panel 1 slides up from y: 100vh → 0vh (power3.out)
+         *  - Panel 1 slides up from y: 100vh → 0vh (power2.out)
          *  - Panel 1 inner content glides up from y: 15vh → 0vh in sync (parallax depth)
          *  - Panel 0 tilts back (rotateX: 12), scales down to 0.85, and dims (opacity: 0.4)
          */
@@ -151,16 +151,16 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
 
         tl.to(".panel-1", {
           y: "0vh",
-          duration: 1.4,
-          ease: "power3.out",
+          duration: 1.0,
+          ease: "power2.out",
         });
 
         tl.to(
           ".panel-1-content",
           {
             y: "0vh",
-            duration: 1.4,
-            ease: "power3.out",
+            duration: 1.0,
+            ease: "power2.out",
           },
           "<",
         );
@@ -173,18 +173,18 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
             rotateX: 12,
             opacity: 0.4,
             transformOrigin: "center 30%",
-            duration: 1.4,
-            ease: "power3.out",
+            duration: 1.0,
+            ease: "power2.out",
           },
           "<",
         );
 
         tl.addLabel("skills");
-        tl.to({}, { duration: 0.15 });
+        tl.to({}, { duration: 0.05 });
 
         /*
          *  TRANSITION 2: SKILLS (Panel 1) → PROJECTS (Panel 2)
-         *  - Panel 2 slides up from y: 100vh → 0vh (power3.out)
+         *  - Panel 2 slides up from y: 100vh → 0vh (power2.out)
          *  - Panel 2 inner content glides up from y: 15vh → 0vh in sync (parallax depth)
          *  - Panel 1 tilts back (rotateX: 12), scales down to 0.85, and dims (opacity: 0.4)
          *  - Panel 0 fades out completely (autoAlpha: 0)
@@ -199,16 +199,16 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
 
         tl.to(".panel-2", {
           y: "0vh",
-          duration: 1.4,
-          ease: "power3.out",
+          duration: 1.0,
+          ease: "power2.out",
         });
 
         tl.to(
           ".panel-2-content",
           {
             y: "0vh",
-            duration: 1.4,
-            ease: "power3.out",
+            duration: 1.0,
+            ease: "power2.out",
           },
           "<",
         );
@@ -221,8 +221,8 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
             rotateX: 12,
             opacity: 0.4,
             transformOrigin: "center 30%",
-            duration: 1.4,
-            ease: "power3.out",
+            duration: 1.0,
+            ease: "power2.out",
           },
           "<",
         );
@@ -231,14 +231,13 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
           ".panel-0",
           {
             autoAlpha: 0,
-            duration: 0.5,
-            ease: "power3.out",
+            duration: 0.4,
+            ease: "power2.out",
           },
           "<",
         );
 
         tl.addLabel("projects");
-        tl.to({}, { duration: 0.3 }); // reading hold for projects
 
         /*
          *  TRANSITION 3: AFTER PROJECTS → CURTAIN LIFT REVEAL OF FOOTER
@@ -248,10 +247,10 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
           scrollStage,
           {
             yPercent: -100,
-            duration: 1.8,
-            ease: "power2.inOut",
+            duration: 0.85,
+            ease: "power1.inOut",
           },
-          "curtain",
+          "+=0.04",
         );
 
         ScrollTrigger.refresh();

@@ -274,9 +274,11 @@ export default function Hero({ isLoaded = false }: HeroProps) {
             </span>
           </p>
 
-          <div className="inline-flex flex-row items-center p-1 sm:p-1.5 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-[0_6px_24px_rgba(0,0,0,0.06)] gap-1 mt-3 sm:mt-7 max-w-full">
+          <div className="inline-flex items-center p-1 sm:p-1.5 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-[0_6px_24px_rgba(0,0,0,0.06)] gap-1 mt-3.5 sm:mt-6 max-w-full">
             <MagneticButton
-              className="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-sans font-bold text-foreground hover:bg-muted flex items-center justify-center gap-1.5 sm:gap-2 transition-colors duration-150"
+              magneticStrength={0.45}
+              scaleOnHover={1.06}
+              className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-sans font-bold text-foreground hover:bg-muted flex items-center justify-center gap-2 transition-colors duration-150"
             >
               <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-foreground" />
               <span>Download CV</span>
@@ -284,10 +286,12 @@ export default function Hero({ isLoaded = false }: HeroProps) {
 
             <MagneticButton
               href="/work"
-              className="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-sans font-bold bg-primary hover:opacity-90 text-primary-foreground shadow-xs flex items-center justify-center gap-1.5 sm:gap-2 transition-opacity duration-150"
+              magneticStrength={0.45}
+              scaleOnHover={1.06}
+              className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-sans font-bold bg-white hover:bg-neutral-50 text-primary border border-border shadow-xs flex items-center justify-center gap-2 transition-colors duration-150"
             >
               <span>Explore Works</span>
-              <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary-foreground stroke-[2.5]" />
+              <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary stroke-[2.5]" />
             </MagneticButton>
           </div>
         </div>

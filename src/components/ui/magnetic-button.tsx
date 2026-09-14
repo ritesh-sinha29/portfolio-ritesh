@@ -27,8 +27,8 @@ export const MagneticButton = forwardRef<HTMLElement, MagneticButtonProps>(
     {
       children,
       className = "",
-      magneticStrength = 0.4,
-      scaleOnHover = 1.07,
+      magneticStrength = 0.45,
+      scaleOnHover = 1.06,
       squashOnClick = true,
       href,
       target,
@@ -70,8 +70,8 @@ export const MagneticButton = forwardRef<HTMLElement, MagneticButtonProps>(
         x: pullX,
         y: pullY,
         scale: scaleOnHover,
-        rotation: pullX * 0.08,
-        duration: 0.28,
+        rotation: pullX * 0.05,
+        duration: 0.22,
         ease: "power2.out",
         overwrite: "auto",
       });
@@ -87,7 +87,7 @@ export const MagneticButton = forwardRef<HTMLElement, MagneticButtonProps>(
         y: 0,
         scale: 1,
         rotation: 0,
-        duration: 0.7,
+        duration: 0.75,
         ease: "elastic.out(1.2, 0.35)",
         overwrite: "auto",
       });

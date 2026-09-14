@@ -658,6 +658,8 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                                 href={stage.liveUrl}
                                 target="_blank"
                                 rel="noreferrer"
+                                magneticStrength={0.45}
+                                scaleOnHover={1.06}
                                 className="flex-1 flex items-center justify-center gap-0.5 sm:gap-1 px-1.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-white hover:bg-neutral-50 text-primary font-sans font-bold text-[8px] xs:text-[9px] sm:text-[11px] border border-[#141b16] shadow-xs uppercase tracking-wider transition-colors duration-150"
                                 title={`Visit ${stage.title} Live`}
                               >
@@ -670,6 +672,8 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                                 href={stage.githubUrl}
                                 target="_blank"
                                 rel="noreferrer"
+                                magneticStrength={0.45}
+                                scaleOnHover={1.06}
                                 className="flex items-center gap-1 px-1.5 sm:px-2.5 py-1 sm:py-1.5 rounded-full text-[#141b16] hover:bg-neutral-100 font-sans font-bold text-[8px] xs:text-[9px] sm:text-[11px] transition-colors duration-150"
                                 title={`View ${stage.title} on GitHub`}
                               >
@@ -696,6 +700,8 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
               <div className="inline-flex items-center p-1 sm:p-1.5 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-[0_6px_24px_rgba(0,0,0,0.08)] gap-1">
                 <MagneticButton
                   href="/work"
+                  magneticStrength={0.45}
+                  scaleOnHover={1.06}
                   className="px-5 sm:px-7 py-2 sm:py-2.5 rounded-full bg-primary hover:opacity-90 text-primary-foreground font-sans font-bold text-xs sm:text-sm flex items-center gap-2 shadow-xs transition-opacity duration-150 uppercase tracking-wider"
                 >
                   <span>View All 6+ Production Projects</span>

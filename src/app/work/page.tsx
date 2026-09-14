@@ -374,7 +374,8 @@ export default function WorkPage() {
                     href={project.liveUrl}
                     target="_blank"
                     rel="noreferrer"
-                    magneticStrength={0.35}
+                    magneticStrength={0.45}
+                    scaleOnHover={1.06}
                     className="flex-1 flex items-center justify-center gap-1.5 py-1.5 sm:py-2 px-3 sm:px-4 rounded-full bg-white hover:bg-neutral-50 text-primary font-sans font-bold text-xs sm:text-[12.5px] border-2 border-[#141b16] transition-colors duration-150"
                   >
                     <span>Launch App</span>
@@ -386,7 +387,8 @@ export default function WorkPage() {
                     href={project.liveUrl}
                     target="_blank"
                     rel="noreferrer"
-                    magneticStrength={0.3}
+                    magneticStrength={0.45}
+                    scaleOnHover={1.06}
                     className="flex items-center justify-center gap-1 py-1.5 sm:py-2 px-3 rounded-full bg-white hover:bg-neutral-100 text-[#141b16] font-sans font-bold text-xs sm:text-[12.5px] border-2 border-[#141b16] transition-colors duration-150"
                     title={`View ${project.title}`}
                   >
@@ -399,7 +401,8 @@ export default function WorkPage() {
                     href={project.githubUrl}
                     target="_blank"
                     rel="noreferrer"
-                    magneticStrength={0.3}
+                    magneticStrength={0.45}
+                    scaleOnHover={1.06}
                     className="flex items-center justify-center gap-1 py-1.5 sm:py-2 px-3 rounded-full bg-white hover:bg-neutral-100 text-[#141b16] font-sans font-bold text-xs sm:text-[12.5px] border-2 border-[#141b16] transition-colors duration-150"
                     title={`View ${project.title} GitHub Source Code`}
                   >
@@ -440,6 +443,8 @@ export default function WorkPage() {
 
             <MagneticButton
               onClick={handleCopyEmail}
+              magneticStrength={0.45}
+              scaleOnHover={1.06}
               ariaLabel="Copy email address"
               className="px-3 py-1.5 rounded-full border border-border hover:bg-muted text-foreground font-sans font-bold text-xs flex items-center gap-1.5 transition-colors duration-150"
             >
@@ -461,6 +466,8 @@ export default function WorkPage() {
           <div className="mt-5 inline-flex items-center p-1 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-xs gap-1">
             <MagneticButton
               href="/"
+              magneticStrength={0.45}
+              scaleOnHover={1.06}
               className="px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-sans font-bold text-foreground hover:bg-muted flex items-center gap-1.5 transition-colors duration-150 uppercase tracking-wider"
             >
               <ArrowLeft className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -469,6 +476,8 @@ export default function WorkPage() {
 
             <MagneticButton
               href={`mailto:${email}`}
+              magneticStrength={0.45}
+              scaleOnHover={1.06}
               className="px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-sans font-bold bg-primary hover:opacity-90 text-primary-foreground shadow-xs flex items-center gap-1.5 transition-opacity duration-150 uppercase tracking-wider"
             >
               <span>Hire Me</span>

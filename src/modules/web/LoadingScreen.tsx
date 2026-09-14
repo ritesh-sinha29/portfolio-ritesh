@@ -44,6 +44,21 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
       vid.muted = true;
       vid.play().catch(() => {});
     }
+
+    // Warm browser memory cache for critical assets ahead of time
+    const criticalImages = [
+      "/ritesh mic.svg",
+      "/ritesh standing.svg",
+      "/wekraft.webp",
+      "/clarioo.webp",
+      "/looma.webp",
+      "/podium_rites_bg.webp",
+    ];
+
+    criticalImages.forEach((src) => {
+      const img = new window.Image();
+      img.src = src;
+    });
   }, []);
 
   useGSAP(
@@ -115,7 +130,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
       className="fixed inset-0 z-50 w-full h-screen text-white flex flex-col justify-between p-8 sm:p-12 md:p-16 select-none overflow-hidden bg-[#0c1319]"
       style={{ willChange: "transform" }}
     >
-      {/* Fullscreen Video Background with Male Character */}
+      {/* Fullscreen Video Background with Floating Island Character */}
       <div className="absolute inset-0 w-full h-full overflow-hidden z-0 bg-[#0c1319]">
         <video
           ref={videoRef}
@@ -126,38 +141,35 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           preload="auto"
           disablePictureInPicture
           disableRemotePlayback
-          className="absolute inset-0 w-full h-full object-cover brightness-[0.85] contrast-[1.05]"
+          className="absolute inset-0 w-full h-full object-cover brightness-[0.92] contrast-[1.04]"
         >
-          <source src="/loading_bg.webm" type="video/webm" />
-          <source src="/loading_bg.mp4" type="video/mp4" />
+          <source src="/loading_video.webm" type="video/webm" />
+          <source src="/loading_video.mp4" type="video/mp4" />
         </video>
 
-        {/* Subtle cinematic gradient overlay for high contrast */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/50 pointer-events-none" />
+        {/* Subtle cinematic gradient overlay for high contrast at top and bottom */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/15 to-black/65 pointer-events-none" />
       </div>
 
-      {/* Top spacer */}
-      <div className="w-full h-8 relative z-10" />
-
-      {/* Center Section: "Hey I'm Ritesh" */}
+      {/* Top Section: "Hey I'm Ritesh" placed elegantly in the upper cloudscape */}
       <main
         ref={centerContentRef}
-        className="relative z-10 my-auto flex flex-col items-center justify-center text-center px-4"
+        className="relative z-10 mt-6 xs:mt-10 sm:mt-14 md:mt-16 mb-auto flex flex-col items-center justify-start text-center px-4"
       >
         <div className="flex items-center justify-center flex-wrap">
-          <h1 className="font-serif italic text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] tracking-tight text-white leading-none drop-shadow-[0_10px_35px_rgba(0,0,0,0.85)]">
+          <h1 className="font-serif italic text-4xl xs:text-5xl sm:text-7xl md:text-8xl lg:text-[5.5rem] xl:text-[6.2rem] tracking-tight text-white leading-none drop-shadow-[0_8px_30px_rgba(0,0,0,0.9)]">
             {typedText}
           </h1>
 
           {/* Typewriter cursor */}
           <span
-            className="inline-block w-2.5 h-12 sm:w-3.5 sm:h-16 md:w-4 sm:h-20 lg:w-5 lg:h-24 bg-[#F5C86C] animate-[pulse_0.75s_infinite] ml-2 shadow-[0_0_15px_#F5C86C]"
+            className="inline-block w-2 xs:w-2.5 h-8 xs:h-10 sm:h-14 md:h-16 lg:h-20 bg-[#F5C86C] animate-[pulse_0.75s_infinite] ml-2 shadow-[0_0_15px_#F5C86C]"
             style={{ verticalAlign: "middle" }}
           />
         </div>
 
         {/* Subtitle */}
-        <p className="font-sans font-semibold text-xs sm:text-sm md:text-base text-[#F5C86C] mt-6 tracking-[0.25em] uppercase drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+        <p className="font-sans font-semibold text-[11px] xs:text-xs sm:text-sm md:text-base text-[#F5C86C] mt-3 sm:mt-4 tracking-[0.25em] uppercase drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
           AI Engineer &amp; Builder
         </p>
       </main>

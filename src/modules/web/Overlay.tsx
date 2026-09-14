@@ -1,10 +1,10 @@
 "use client";
 
 import React, { forwardRef, useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { InstantImage } from "@/components/media/InstantImage";
 import SkillsSection from "./SkillsSection";
 import ProjectsSection from "./ProjectsSection";
 import Footer from "./Footer";
@@ -263,10 +263,28 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
       const tl = tlRef.current;
       if (tl?.scrollTrigger) {
         const scrollPos = tl.scrollTrigger.labelToScroll(label);
-        window.scrollTo({
-          top: scrollPos,
-          behavior: "smooth",
-        });
+        const lenis = (
+          window as unknown as {
+            lenis?: {
+              scrollTo: (
+                target: number | string | HTMLElement,
+                options?: Record<string, unknown>,
+              ) => void;
+            };
+          }
+        ).lenis;
+
+        if (lenis) {
+          lenis.scrollTo(scrollPos, {
+            duration: 1.15,
+            easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          });
+        } else {
+          window.scrollTo({
+            top: scrollPos,
+            behavior: "smooth",
+          });
+        }
       }
     };
 
@@ -371,13 +389,14 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
             {/* Right Side Grounded Character Image */}
             <div className="absolute bottom-0 right-0 sm:right-[2%] md:right-[4%] lg:right-[6%] z-10 w-[60vw] sm:w-[38vw] md:w-[34vw] max-w-[280px] sm:max-w-[360px] md:max-w-[420px] lg:max-w-[460px] h-[55vh] sm:h-[68vh] md:h-[74vh] lg:h-[78vh] flex items-end justify-center pointer-events-none will-change-transform">
               <div className="relative w-full h-full">
-                <InstantImage
+                <Image
                   src="/ritesh mic.svg"
                   alt="Ritesh Sinha"
                   fill
                   priority
+                  loading="eager"
+                  sizes="(max-width: 640px) 60vw, (max-width: 1024px) 38vw, 460px"
                   className="object-contain object-bottom select-none drop-shadow-[0_16px_36px_rgba(0,0,0,0.12)]"
-                  containerClassName="absolute inset-0 w-full h-full"
                 />
               </div>
             </div>

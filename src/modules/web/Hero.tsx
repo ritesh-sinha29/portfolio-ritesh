@@ -462,12 +462,17 @@ export default function Hero({ isLoaded = false }: HeroProps) {
         {/* Bottom Left: Spinning Text Scroll Indicator */}
         <div ref={bottomArrowRef}>
           <MagneticButton
-            onClick={() =>
-              window.scrollTo({
-                top: window.innerHeight,
-                behavior: "smooth",
-              })
-            }
+            onClick={() => {
+              const lenis = (window as unknown as { lenis?: { scrollTo: (target: number | string | HTMLElement, options?: Record<string, unknown>) => void } }).lenis;
+              if (lenis) {
+                lenis.scrollTo(window.innerHeight, { duration: 1.2 });
+              } else {
+                window.scrollTo({
+                  top: window.innerHeight,
+                  behavior: "smooth",
+                });
+              }
+            }}
             className="relative flex items-center justify-center select-none group w-14 h-14 sm:w-16 sm:h-16 rounded-full"
             ariaLabel="Scroll down"
           >

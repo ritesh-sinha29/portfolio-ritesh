@@ -232,7 +232,7 @@ const ProjectsSection = forwardRef<HTMLDivElement, ProjectsSectionProps>(
               scaleOnHover={1.05}
               className="px-4 sm:px-6 py-1.5 sm:py-2 rounded-full bg-primary hover:opacity-90 text-primary-foreground font-sans font-bold text-[10px] sm:text-xs flex items-center gap-1.5 shadow-xs uppercase tracking-wider transition-opacity"
             >
-              <span>View All 6+ Projects</span>
+              <span>View All Projects</span>
               <ArrowUpRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 stroke-[2.5]" />
             </MagneticButton>
           </div>

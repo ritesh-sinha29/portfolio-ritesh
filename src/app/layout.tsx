@@ -54,6 +54,10 @@ export default function RootLayout({
         silkscreen.variable
       )}
     >
+      <head>
+        <link rel="preload" href="/ritesh standing.svg" as="image" type="image/svg+xml" />
+        <link rel="preload" href="/ritesh mic.svg" as="image" type="image/svg+xml" />
+      </head>
       <body className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
         <SmoothScroll>
           <SmoothCursor />

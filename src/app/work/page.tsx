@@ -285,15 +285,15 @@ export default function WorkPage() {
       </section>
 
       {/* Projects Grid Section (3 Columns on Large Screens) */}
-      <section className="relative z-10 px-4 sm:px-6 lg:px-8 pb-20 max-w-[1360px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-6 lg:gap-6">
+      <section className="relative z-10 px-4 sm:px-6 lg:px-8 pb-20 max-w-[1160px] mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-5 lg:gap-5.5">
           {filteredProjects.map((project) => (
             <article
               key={project.id}
-              className="group relative rounded-2xl sm:rounded-3xl bg-card border border-border shadow-md hover:shadow-lg overflow-hidden transition-all duration-300 flex flex-col justify-between hover:-translate-y-0.5"
+              className="group relative rounded-xl sm:rounded-2xl bg-white border-2 sm:border-[2.5px] border-[#141b16] shadow-[3.5px_3.5px_0px_#141b16] hover:shadow-[5px_5px_0px_#141b16] overflow-hidden transition-all duration-300 flex flex-col justify-between hover:-translate-y-0.5"
             >
               {/* Image Preview Banner */}
-              <div className="relative w-full h-[180px] sm:h-[200px] lg:h-[210px] bg-muted overflow-hidden border-b border-border">
+              <div className="relative w-full h-[145px] sm:h-[160px] lg:h-[165px] bg-neutral-100 overflow-hidden border-b-2 border-[#141b16]">
                 <InstantImage
                   src={project.imageUrl}
                   alt={project.title}
@@ -303,18 +303,18 @@ export default function WorkPage() {
                 />
 
                 {/* Badge Pills */}
-                <div className="absolute top-3 left-3 right-3 flex justify-between items-center pointer-events-auto z-10">
+                <div className="absolute top-2.5 left-2.5 right-2.5 flex justify-between items-center pointer-events-auto z-10">
                   <MagneticButton
                     magneticStrength={0.2}
                     scaleOnHover={1.08}
-                    className="font-mono text-[9.5px] sm:text-[11px] font-bold text-foreground bg-card/90 border border-border shadow-xs px-2.5 py-0.5 rounded-full"
+                    className="font-mono text-[9px] sm:text-[10px] font-bold text-[#141b16] bg-white border border-[#141b16] shadow-[1.5px_1.5px_0px_#141b16] px-2 py-0.5 rounded-full"
                   >
                     #{project.number}
                   </MagneticButton>
                   <MagneticButton
                     magneticStrength={0.2}
                     scaleOnHover={1.08}
-                    className={`font-mono text-[9px] sm:text-[10.5px] font-bold uppercase px-2.5 py-0.5 rounded-full border border-border shadow-xs ${project.accentClass}`}
+                    className={`font-mono text-[8.5px] sm:text-[9.5px] font-bold uppercase px-2 py-0.5 rounded-full border border-[#141b16] shadow-[1.5px_1.5px_0px_#141b16] ${project.accentClass}`}
                   >
                     {project.badge}
                   </MagneticButton>
@@ -322,44 +322,44 @@ export default function WorkPage() {
               </div>
 
               {/* Card Body */}
-              <div className="p-4 sm:p-5 lg:p-5.5 flex-1 flex flex-col justify-between">
+              <div className="p-3.5 sm:p-4 lg:p-4.5 flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex justify-between items-start gap-2">
                     <div>
-                      <h2 className="font-sans font-extrabold text-xl sm:text-2xl text-foreground tracking-tight">
+                      <h2 className="font-sans font-extrabold text-lg sm:text-xl text-[#141b16] tracking-tight">
                         {project.title}
                       </h2>
-                      <p className="font-sans text-[11px] sm:text-xs text-muted-foreground mt-0.5 font-semibold line-clamp-1">
+                      <p className="font-sans text-[10.5px] sm:text-[11px] text-[#5a625b] mt-0.5 font-semibold line-clamp-1">
                         {project.subtitle}
                       </p>
                     </div>
                   </div>
 
-                  <p className="font-sans text-xs text-muted-foreground mt-2.5 leading-relaxed font-normal line-clamp-3">
+                  <p className="font-sans text-[11.5px] sm:text-xs text-neutral-700 mt-2 leading-relaxed font-normal line-clamp-2">
                     {project.description}
                   </p>
 
                   {/* Highlights Bullet Points */}
-                  <div className="mt-3 space-y-1">
+                  <div className="mt-2.5 space-y-1">
                     {project.highlights.slice(0, 3).map((highlight, hIdx) => (
                       <div
                         key={hIdx}
-                        className="flex items-start gap-1.5 text-[11px] sm:text-xs text-foreground font-sans"
+                        className="flex items-start gap-1.5 text-[10.5px] sm:text-[11px] text-neutral-800 font-sans"
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1 shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#141b16] mt-1 shrink-0" />
                         <span className="font-medium truncate">{highlight}</span>
                       </div>
                     ))}
                   </div>
 
                   {/* Tech Badges */}
-                  <div className="flex flex-wrap gap-1 mt-3.5">
+                  <div className="flex flex-wrap gap-1 mt-2.5">
                     {project.tech.map((t) => (
                       <MagneticButton
                         key={t}
                         magneticStrength={0.25}
                         scaleOnHover={1.08}
-                        className="px-2 py-0.5 rounded bg-muted hover:bg-accent border border-border text-[9.5px] sm:text-[10px] font-mono font-bold text-foreground transition-colors"
+                        className="px-1.5 py-0.5 rounded bg-neutral-100 hover:bg-neutral-200 border border-black/10 text-[9px] sm:text-[9.5px] font-mono font-bold text-neutral-800 transition-colors"
                       >
                         {t}
                       </MagneticButton>
@@ -368,17 +368,17 @@ export default function WorkPage() {
                 </div>
 
                 {/* Footer Action Pill Buttons */}
-                <div className="pt-4 mt-4 border-t border-border flex items-center justify-between gap-2">
-                  {/* Launch App Button */}
+                <div className="pt-3 mt-3 border-t border-neutral-200/80 flex items-center justify-between gap-1.5">
+                  {/* Launch App Button - White background, border-2, and primary colored text */}
                   <MagneticButton
                     href={project.liveUrl}
                     target="_blank"
                     rel="noreferrer"
                     magneticStrength={0.35}
-                    className="flex-1 flex items-center justify-center gap-1.5 py-2 px-4 rounded-full bg-primary hover:opacity-90 text-primary-foreground font-sans font-bold text-xs sm:text-[13px] border border-border transition-opacity duration-150"
+                    className="flex-1 flex items-center justify-center gap-1.5 py-1.5 sm:py-2 px-3 sm:px-4 rounded-full bg-white hover:bg-neutral-50 text-primary font-sans font-bold text-xs sm:text-[12.5px] border-2 border-[#141b16] transition-colors duration-150"
                   >
                     <span>Launch App</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
+                    <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5] text-primary" />
                   </MagneticButton>
 
                   {/* View Button */}
@@ -387,7 +387,7 @@ export default function WorkPage() {
                     target="_blank"
                     rel="noreferrer"
                     magneticStrength={0.3}
-                    className="flex items-center justify-center gap-1.5 py-2 px-3.5 rounded-full bg-card hover:bg-muted text-foreground font-sans font-bold text-xs sm:text-[13px] border border-border transition-colors duration-150"
+                    className="flex items-center justify-center gap-1 py-1.5 sm:py-2 px-3 rounded-full bg-white hover:bg-neutral-100 text-[#141b16] font-sans font-bold text-xs sm:text-[12.5px] border-2 border-[#141b16] transition-colors duration-150"
                     title={`View ${project.title}`}
                   >
                     <Eye className="w-3.5 h-3.5 stroke-[2.2]" />
@@ -400,7 +400,7 @@ export default function WorkPage() {
                     target="_blank"
                     rel="noreferrer"
                     magneticStrength={0.3}
-                    className="flex items-center justify-center gap-1.5 py-2 px-3.5 rounded-full bg-card hover:bg-muted text-foreground font-sans font-bold text-xs sm:text-[13px] border border-border transition-colors duration-150"
+                    className="flex items-center justify-center gap-1 py-1.5 sm:py-2 px-3 rounded-full bg-white hover:bg-neutral-100 text-[#141b16] font-sans font-bold text-xs sm:text-[12.5px] border-2 border-[#141b16] transition-colors duration-150"
                     title={`View ${project.title} GitHub Source Code`}
                   >
                     <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -420,20 +420,20 @@ export default function WorkPage() {
       </section>
 
       {/* Bottom Conversion / Contact Callout */}
-      <section className="relative z-10 px-4 sm:px-8 pb-16 max-w-4xl mx-auto text-center">
-        <div className="p-8 sm:p-12 rounded-3xl bg-card border border-border shadow-lg flex flex-col items-center">
-          <h3 className="font-serif italic font-light text-3xl sm:text-5xl text-foreground">
+      <section className="relative z-10 px-4 sm:px-6 pb-12 max-w-2xl mx-auto text-center">
+        <div className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border-2 border-[#141b16] shadow-[4px_4px_0px_#141b16] flex flex-col items-center">
+          <h3 className="font-serif italic font-light text-2xl sm:text-3xl md:text-[2rem] leading-tight text-foreground">
             Have an ambitious project in mind?
           </h3>
-          <p className="font-sans text-xs sm:text-sm text-muted-foreground font-medium max-w-lg mt-2.5 leading-relaxed">
+          <p className="font-sans text-xs sm:text-[13px] text-muted-foreground font-medium max-w-md mt-2 leading-relaxed">
             Open for select high-impact engineering roles, AI system architecture consulting, and founding engineering opportunities.
           </p>
 
           {/* Email Dock Bar */}
-          <div className="flex items-center gap-2 mt-6 p-1 sm:p-1.5 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-[0_4px_20px_rgba(0,0,0,0.06)]">
+          <div className="flex items-center gap-1.5 mt-4.5 p-1 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-xs">
             <a
               href={`mailto:${email}`}
-              className="px-4 py-2 font-sans font-bold text-xs sm:text-sm text-foreground hover:text-muted-foreground transition-colors truncate"
+              className="px-3.5 py-1.5 font-sans font-bold text-xs sm:text-[13px] text-foreground hover:text-muted-foreground transition-colors truncate"
             >
               {email}
             </a>
@@ -441,7 +441,7 @@ export default function WorkPage() {
             <MagneticButton
               onClick={handleCopyEmail}
               ariaLabel="Copy email address"
-              className="px-4 py-2 rounded-full bg-primary hover:opacity-90 text-primary-foreground font-sans font-bold text-xs flex items-center gap-1.5 shadow-xs transition-opacity duration-150"
+              className="px-3 py-1.5 rounded-full border border-border hover:bg-muted text-foreground font-sans font-bold text-xs flex items-center gap-1.5 transition-colors duration-150"
             >
               {copied ? (
                 <>
@@ -458,10 +458,10 @@ export default function WorkPage() {
           </div>
 
           {/* Bottom Dual Action Pill Dock: Back to Home & Hire Me */}
-          <div className="mt-8 inline-flex items-center p-1 sm:p-1.5 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-[0_6px_24px_rgba(0,0,0,0.06)] gap-1">
+          <div className="mt-5 inline-flex items-center p-1 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-xs gap-1">
             <MagneticButton
               href="/"
-              className="px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-sans font-bold text-foreground hover:bg-muted flex items-center gap-1.5 sm:gap-2 transition-colors duration-150 uppercase tracking-wider"
+              className="px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-sans font-bold text-foreground hover:bg-muted flex items-center gap-1.5 transition-colors duration-150 uppercase tracking-wider"
             >
               <ArrowLeft className="w-3.5 h-3.5 stroke-[2.5]" />
               <span>Home</span>
@@ -469,7 +469,7 @@ export default function WorkPage() {
 
             <MagneticButton
               href={`mailto:${email}`}
-              className="px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-sans font-bold bg-primary hover:opacity-90 text-primary-foreground shadow-xs flex items-center gap-1.5 sm:gap-2 transition-opacity duration-150 uppercase tracking-wider"
+              className="px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-sans font-bold bg-primary hover:opacity-90 text-primary-foreground shadow-xs flex items-center gap-1.5 transition-opacity duration-150 uppercase tracking-wider"
             >
               <span>Hire Me</span>
               <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />

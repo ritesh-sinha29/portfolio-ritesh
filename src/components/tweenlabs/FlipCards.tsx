@@ -293,24 +293,24 @@ export default function ShowUpCardsPage() {
                 >
                   {/* Front Side Face */}
                   <div
-                    className="flip-card-front absolute inset-0 border border-border shadow-md p-4 bg-card text-card-foreground flex flex-col justify-between cursor-pointer select-none rounded-xl"
+                    className="flip-card-front absolute inset-0 border-[1.5px] sm:border-[2.5px] border-[#141b16] shadow-[2px_2px_0px_#141b16] sm:shadow-[4px_4px_0px_#141b16] p-4 bg-white text-[#141b16] flex flex-col justify-between cursor-pointer select-none rounded-xl sm:rounded-2xl"
                     style={{
                       backfaceVisibility: "hidden",
                       WebkitBackfaceVisibility: "hidden",
                     }}
                   >
                     <div className="flex justify-between items-center">
-                      <span className="font-mono text-[9px] font-bold text-muted-foreground">
+                      <span className="font-mono text-[9px] font-bold text-neutral-400">
                         [{stage.phase}]
                       </span>
                       <span
-                        className={`inline-block border border-border px-2 py-0.5 rounded-full text-[8px] font-mono font-bold uppercase ${stage.accentClass}`}
+                        className={`inline-block border border-[#141b16] shadow-[1.5px_1.5px_0px_#141b16] px-2 py-0.5 rounded-full text-[8px] font-mono font-bold uppercase ${stage.accentClass}`}
                       >
                         FLIP NODE
                       </span>
                     </div>
 
-                    <div className="inner-img-frame w-full h-[140px] md:h-[180px] border border-border relative overflow-hidden rounded-lg bg-muted my-2 shadow-xs">
+                    <div className="inner-img-frame w-full h-[140px] md:h-[180px] border sm:border-2 border-[#141b16] relative overflow-hidden rounded-lg bg-neutral-100 my-2 shadow-[1px_1px_0px_#141b16] sm:shadow-[2px_2px_0px_#141b16]">
                       <InstantImage
                         src={stage.imgUrl}
                         alt={stage.title}
@@ -320,11 +320,11 @@ export default function ShowUpCardsPage() {
                       />
                     </div>
 
-                    <div className="flex justify-between items-center border-t border-border pt-2">
-                      <h3 className="font-serif font-black text-xs text-foreground">
+                    <div className="flex justify-between items-center border-t border-neutral-200 pt-2">
+                      <h3 className="font-serif font-black text-xs text-[#141b16]">
                         {stage.title}
                       </h3>
-                      <span className="font-mono text-[10px] text-muted-foreground font-bold">
+                      <span className="font-mono text-[10px] text-neutral-400 font-bold">
                         0{stage.id}
                       </span>
                     </div>
@@ -332,23 +332,23 @@ export default function ShowUpCardsPage() {
 
                   {/* Back Side Face (Scroll-revealed) */}
                   <div
-                    className="flip-card-back absolute inset-0 border border-border shadow-md p-4 bg-card text-card-foreground flex flex-col justify-between cursor-pointer select-none rounded-xl"
+                    className="flip-card-back absolute inset-0 border-[1.5px] sm:border-[2.5px] border-[#141b16] shadow-[2px_2px_0px_#141b16] sm:shadow-[4px_4px_0px_#141b16] p-4 bg-white text-[#141b16] flex flex-col justify-between cursor-pointer select-none rounded-xl sm:rounded-2xl"
                     style={{
                       transform: "rotateY(180deg)",
                       backfaceVisibility: "hidden",
                       WebkitBackfaceVisibility: "hidden",
                     }}
                   >
-                    <div className="w-full flex justify-between font-mono font-bold text-[9px] uppercase border-b border-border pb-2 items-center">
-                      <span className="text-muted-foreground">
+                    <div className="w-full flex justify-between font-mono font-bold text-[9px] uppercase border-b border-neutral-200 pb-2 items-center">
+                      <span className="text-[#141b16] font-bold">
                         0{stage.id} {"//"} NODE DETAILS
                       </span>
                       <span
-                        className={`h-2.5 w-2.5 rounded-full border border-border animate-pulse ${stage.accentClass}`}
+                        className={`h-2.5 w-2.5 rounded-full border border-black animate-pulse ${stage.accentClass}`}
                       />
                     </div>
 
-                    <div className="inner-img-frame w-full h-[140px] md:h-[180px] border border-border relative overflow-hidden rounded-lg bg-muted my-2 shadow-xs">
+                    <div className="inner-img-frame w-full h-[140px] md:h-[180px] border sm:border-2 border-[#141b16] relative overflow-hidden rounded-lg bg-neutral-100 my-2 shadow-[1px_1px_0px_#141b16] sm:shadow-[2px_2px_0px_#141b16]">
                       <InstantImage
                         src={stage.imgUrl}
                         alt={stage.title}
@@ -359,12 +359,12 @@ export default function ShowUpCardsPage() {
                     </div>
 
                     <div className="flex-1 flex items-center justify-center py-2">
-                      <p className="text-[10px] md:text-[11px] font-sans font-bold text-muted-foreground leading-snug text-center">
+                      <p className="text-[10px] md:text-[11px] font-sans font-bold text-neutral-700 leading-snug text-center">
                         {stage.desc}
                       </p>
                     </div>
 
-                    <div className="flex justify-between items-center border-t border-border pt-2 font-mono text-[8px] text-muted-foreground font-black">
+                    <div className="flex justify-between items-center border-t border-neutral-200 pt-2 font-mono text-[8px] text-neutral-500 font-black">
                       <span>STATUS: ONLINE</span>
                       <span>SECURE // OK</span>
                     </div>

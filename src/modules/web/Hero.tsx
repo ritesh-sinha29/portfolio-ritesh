@@ -205,38 +205,20 @@ export default function Hero({ isLoaded = false }: HeroProps) {
       {/* Top Spacer for Fixed Header */}
       <div className="w-full h-12 sm:h-14" />
 
-      {/* Background Headline: AI ENGINEER (Layered strictly behind the silhouette image) */}
-      <div className="absolute inset-0 w-full max-w-7xl mx-auto z-10 pointer-events-none">
+      {/* Main Center Stage */}
+      <div className="relative w-full flex-1 max-w-7xl mx-auto z-20 pointer-events-none">
+        {/* Top Headline: AI ENGINEER (Positioned cleanly below the mobile floating nav pill) */}
         <h1
           ref={title1Ref}
           className="text-4xl sm:text-6xl md:text-7xl lg:text-[92px] xl:text-[108px] font-serif tracking-tight sm:tracking-wider italic font-light absolute top-14 sm:top-8 md:top-12 lg:top-14 left-1/2 sm:left-[48%] md:left-[50%] lg:left-[52%] -translate-x-1/2 will-change-transform whitespace-nowrap select-none text-center sm:text-left text-foreground"
         >
           AI ENGINEER
         </h1>
-      </div>
 
-      {/* User Image: Grounded at bottom, enlarged and centered in front of the AI ENGINEER headline */}
-      <div
-        ref={imageRef}
-        className="absolute bottom-0 left-[-6vw] sm:left-[22%] md:left-[24%] xl:left-[25%] sm:-translate-x-1/2 z-20 w-[88vw] sm:w-[90vw] max-w-[360px] sm:max-w-[440px] md:max-w-[500px] lg:max-w-[580px] xl:max-w-[640px] h-[72vh] sm:h-[80vh] md:h-[84vh] lg:h-[88vh] xl:h-[92vh] flex items-end justify-center pointer-events-none will-change-transform"
-      >
-        <div className="relative w-full h-full">
-          <Image
-            src="/ritesh standing.svg"
-            alt="Ritesh Sinha"
-            fill
-            priority
-            sizes="(max-width: 640px) 88vw, (max-width: 1024px) 50vw, 640px"
-            className="object-contain object-bottom select-none"
-          />
-        </div>
-      </div>
-
-      {/* Foreground Stage: Flanking Text Block & BUILDER + Bio + CTAs */}
-      <div className="relative w-full flex-1 max-w-7xl mx-auto z-30 pointer-events-none">
+        {/* Flanking Text Block: & BUILDER + Bio + CTAs (Flanks right side of silhouette) */}
         <div
           ref={taglineRef}
-          className="absolute top-[28%] sm:top-[28%] md:top-[33%] lg:top-[35%] right-3 sm:right-auto sm:left-[46%] md:left-[48%] lg:left-[50%] w-[42%] sm:w-auto max-w-[180px] sm:max-w-md lg:max-w-lg will-change-transform pointer-events-auto"
+          className="absolute top-[28%] sm:top-[28%] md:top-[33%] lg:top-[35%] right-3 sm:right-auto sm:left-[46%] md:left-[48%] lg:left-[50%] w-[42%] sm:w-auto max-w-[180px] sm:max-w-md lg:max-w-lg will-change-transform pointer-events-auto z-20"
         >
           <h2
             ref={title2Ref}
@@ -270,6 +252,23 @@ export default function Hero({ isLoaded = false }: HeroProps) {
               <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary stroke-[2.5]" />
             </MagneticButton>
           </div>
+        </div>
+      </div>
+
+      {/* User Image: Grounded at bottom, enlarged and centered on left quadrant without clipping */}
+      <div
+        ref={imageRef}
+        className="absolute bottom-0 left-[-6vw] sm:left-[22%] md:left-[24%] xl:left-[25%] sm:-translate-x-1/2 z-10 w-[88vw] sm:w-[90vw] max-w-[360px] sm:max-w-[440px] md:max-w-[500px] lg:max-w-[580px] xl:max-w-[640px] h-[72vh] sm:h-[80vh] md:h-[84vh] lg:h-[88vh] xl:h-[92vh] flex items-end justify-center pointer-events-none will-change-transform"
+      >
+        <div className="relative w-full h-full">
+          <Image
+            src="/ritesh standing.svg"
+            alt="Ritesh Sinha"
+            fill
+            priority
+            sizes="(max-width: 640px) 88vw, (max-width: 1024px) 50vw, 640px"
+            className="object-contain object-bottom select-none"
+          />
         </div>
       </div>
 

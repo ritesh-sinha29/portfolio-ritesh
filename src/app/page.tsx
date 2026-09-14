@@ -39,18 +39,24 @@ export default function Home() {
       const vh = window.innerHeight;
 
       const aboutEl = document.getElementById("about-section");
+      const skillsEl = document.getElementById("skills-section");
       const worksEl = document.getElementById("works-stage");
 
       if (!aboutEl || !worksEl) return;
 
       const aboutTop = aboutEl.getBoundingClientRect().top + scrollY;
-      const pinSpacer = worksEl.closest(".pin-spacer") as HTMLElement | null;
-      const worksTop = (pinSpacer || worksEl).getBoundingClientRect().top + scrollY;
+      const skillsPinSpacer = skillsEl?.closest(".pin-spacer") as HTMLElement | null;
+      const skillsNode = skillsPinSpacer || skillsEl;
+      const skillsTop = skillsNode ? skillsNode.getBoundingClientRect().top + scrollY : aboutTop + vh;
+      const worksPinSpacer = worksEl.closest(".pin-spacer") as HTMLElement | null;
+      const worksTop = (worksPinSpacer || worksEl).getBoundingClientRect().top + scrollY;
 
       if (scrollY < aboutTop - vh * 0.4) {
         setActiveTab("home");
-      } else if (scrollY < worksTop - vh * 0.3) {
+      } else if (scrollY < skillsTop - vh * 0.3) {
         setActiveTab("about");
+      } else if (scrollY < worksTop - vh * 0.3) {
+        setActiveTab("skills");
       } else {
         setActiveTab("works");
       }
@@ -77,6 +83,12 @@ export default function Home() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else if (sectionId === "about") {
       const el = document.getElementById("about-section");
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: top + 2, behavior: "smooth" });
+      }
+    } else if (sectionId === "skills") {
+      const el = document.getElementById("skills-section");
       if (el) {
         const top = el.getBoundingClientRect().top + window.scrollY;
         window.scrollTo({ top: top + 2, behavior: "smooth" });
@@ -117,14 +129,19 @@ export default function Home() {
               onClick: () => scrollToSection("home"),
             },
             {
-              id: "works",
-              label: "WORKS",
-              href: "/work",
-            },
-            {
               id: "about",
               label: "ABOUT",
               onClick: () => scrollToSection("about"),
+            },
+            {
+              id: "skills",
+              label: "SKILLS",
+              onClick: () => scrollToSection("skills"),
+            },
+            {
+              id: "works",
+              label: "WORKS",
+              href: "/work",
             },
           ]}
         />

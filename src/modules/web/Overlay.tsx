@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { ArrowUpRight } from "lucide-react";
 import Footer from "./Footer";
+import SkillsSection from "./SkillsSection";
 import { SmoothVideo } from "@/components/media/SmoothVideo";
 import { InstantImage } from "@/components/media/InstantImage";
 import { MagneticButton } from "@/components/ui/magnetic-button";
@@ -478,7 +479,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                 alt="Ritesh Sinha"
                 fill
                 priority
-                className="object-contain object-bottom select-none drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+                className="object-contain object-bottom select-none drop-shadow-[0_16px_36px_rgba(0,0,0,0.15)]"
                 containerClassName="absolute inset-0 w-full h-full"
               />
             </div>
@@ -486,7 +487,12 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
         </div>
 
         {/* ==================================================================== */}
-        {/* STAGE 2: PINNED CONTAINER: TWEENLABS FLIPCARDS + CURTAIN LIFT        */}
+        {/* STAGE 2: PINNED CONTAINER: TWEENLABS SCROLLTAGS SKILLS COLLIDER      */}
+        {/* ==================================================================== */}
+        <SkillsSection />
+
+        {/* ==================================================================== */}
+        {/* STAGE 3: PINNED CONTAINER: TWEENLABS FLIPCARDS + CURTAIN LIFT        */}
         {/* ==================================================================== */}
         <div
           ref={stageContainerRef}

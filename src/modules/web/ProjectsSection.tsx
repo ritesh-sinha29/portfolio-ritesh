@@ -118,11 +118,11 @@ const ProjectsSection = React.forwardRef<HTMLDivElement, ProjectsSectionProps>(
         <aside
           aria-label="Quick Info"
           onClick={() => setQuickInfoOpen((prev) => !prev)}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-40 bg-white/95 backdrop-blur-md border-l border-y border-black/10 py-3.5 px-2 rounded-l-xl shadow-lg flex items-center gap-1.5 cursor-pointer hover:bg-white hover:scale-102 transition-all duration-300 group"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-40 bg-card/95 backdrop-blur-md border-l border-y border-border py-3.5 px-2 rounded-l-xl shadow-lg flex items-center gap-1.5 cursor-pointer hover:bg-card hover:scale-102 transition-all duration-300 group"
         >
-          <span className="w-1.5 h-6 rounded-full bg-[#c5eb35] mr-1" />
+          <span className="w-1.5 h-6 rounded-full bg-primary mr-1" />
           <span
-            className="font-sans text-[11px] font-semibold tracking-wider text-neutral-700 group-hover:text-black uppercase whitespace-nowrap"
+            className="font-sans text-[11px] font-semibold tracking-wider text-muted-foreground group-hover:text-foreground uppercase whitespace-nowrap"
             style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
           >
             Quick info
@@ -138,20 +138,20 @@ const ProjectsSection = React.forwardRef<HTMLDivElement, ProjectsSectionProps>(
             onClick={() => setQuickInfoOpen(false)}
           >
             <div
-              className="w-full max-w-sm h-full bg-[#eaeae8] p-8 shadow-2xl flex flex-col justify-between"
+              className="w-full max-w-sm h-full bg-card text-card-foreground p-8 shadow-2xl flex flex-col justify-between border-l border-border"
               onClick={(e) => e.stopPropagation()}
             >
               <div>
-                <div className="flex items-center justify-between border-b border-black/10 pb-4">
+                <div className="flex items-center justify-between border-b border-border pb-4">
                   <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#c5eb35]" />
-                    <h4 className="font-sans font-bold text-sm tracking-wider uppercase text-black">
+                    <span className="w-2.5 h-2.5 rounded-full bg-primary" />
+                    <h4 className="font-sans font-bold text-sm tracking-wider uppercase text-foreground">
                       Quick Info
                     </h4>
                   </div>
                   <MagneticButton
                     onClick={() => setQuickInfoOpen(false)}
-                    className="text-xs font-semibold uppercase px-3.5 py-1.5 rounded-full bg-black/5 hover:bg-black/10 text-black transition-colors"
+                    className="text-xs font-semibold uppercase px-3.5 py-1.5 rounded-full bg-muted hover:bg-accent text-foreground transition-colors"
                   >
                     Close
                   </MagneticButton>
@@ -159,52 +159,52 @@ const ProjectsSection = React.forwardRef<HTMLDivElement, ProjectsSectionProps>(
 
                 <div className="mt-8 space-y-6">
                   <div>
-                    <span className="font-mono text-xs text-neutral-500 uppercase">
+                    <span className="font-mono text-xs text-muted-foreground uppercase">
                       Role
                     </span>
-                    <p className="font-sans font-semibold text-lg text-black mt-1">
+                    <p className="font-sans font-semibold text-lg text-foreground mt-1">
                       Full-Stack AI Engineer & Builder
                     </p>
                   </div>
 
                   <div>
-                    <span className="font-mono text-xs text-neutral-500 uppercase">
+                    <span className="font-mono text-xs text-muted-foreground uppercase">
                       Core Focus
                     </span>
-                    <p className="font-sans text-sm text-neutral-700 mt-1 leading-relaxed">
+                    <p className="font-sans text-sm text-muted-foreground mt-1 leading-relaxed">
                       AI/ML, Multi-Agent Architecture, Distributed Systems,
                       Cloud Infrastructure, Interactive Web.
                     </p>
                   </div>
 
                   <div>
-                    <span className="font-mono text-xs text-neutral-500 uppercase">
+                    <span className="font-mono text-xs text-muted-foreground uppercase">
                       Availability
                     </span>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="w-2 h-2 rounded-full bg-[#c5eb35] animate-pulse" />
-                      <span className="font-sans text-sm font-medium text-black">
+                      <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                      <span className="font-sans text-sm font-medium text-foreground">
                         Open for Select High-Impact Roles & Projects
                       </span>
                     </div>
                   </div>
 
                   <div>
-                    <span className="font-mono text-xs text-neutral-500 uppercase">
+                    <span className="font-mono text-xs text-muted-foreground uppercase">
                       Location
                     </span>
-                    <p className="font-sans text-sm font-medium text-black mt-1">
+                    <p className="font-sans text-sm font-medium text-foreground mt-1">
                       Global / Remote
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="border-t border-black/10 pt-4 flex justify-center">
-                <div className="w-full p-1 rounded-full bg-white border border-black/10 shadow-xs flex items-center">
+              <div className="border-t border-border pt-4 flex justify-center">
+                <div className="w-full p-1 rounded-full bg-card border border-border shadow-xs flex items-center">
                   <MagneticButton
                     href="mailto:riteshsinha4146@gmail.com"
-                    className="w-full py-2.5 rounded-full bg-[#c5eb35] hover:bg-[#b8e528] text-[#141b16] font-sans font-bold text-sm flex items-center justify-center gap-2 shadow-xs transition-colors duration-150 uppercase tracking-wider"
+                    className="w-full py-2.5 rounded-full bg-primary hover:opacity-90 text-primary-foreground font-sans font-bold text-sm flex items-center justify-center gap-2 shadow-xs transition-opacity duration-150 uppercase tracking-wider"
                   >
                     <span>Initiate Contact</span>
                     <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />

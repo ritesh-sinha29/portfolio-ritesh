@@ -216,7 +216,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
   return (
     <section
       ref={containerRef}
-      className="relative h-screen w-full bg-[#eaeae8] text-black overflow-hidden flex flex-col justify-between p-4 sm:px-6 sm:py-6 select-none"
+      className="relative h-screen w-full bg-background text-foreground overflow-hidden flex flex-col justify-between p-4 sm:px-6 sm:py-6 select-none"
     >
       {/* Top Header Bar (Desktop Only: Logo on left, Contact on right; mobile uses centered floating pill) */}
       <header
@@ -224,12 +224,12 @@ export default function Hero({ isLoaded = false }: HeroProps) {
         className="relative z-30 w-full hidden sm:flex justify-between items-center max-w-7xl mx-auto"
       >
         {/* Name / Brand */}
-        <span className="font-sans font-semibold text-lg sm:text-xl tracking-tight text-[#141b16]">
+        <span className="font-sans font-semibold text-lg sm:text-xl tracking-tight text-foreground">
           RITESH SINHA
         </span>
 
         {/* Contact Pill Button inside dock */}
-        <div className="p-1 rounded-full bg-white/95 backdrop-blur-md border border-black/10 shadow-xs inline-flex items-center">
+        <div className="p-1 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-xs inline-flex items-center">
           <MagneticButton
             onClick={() => {
               const aboutEl = document.getElementById("about-section");
@@ -237,11 +237,11 @@ export default function Hero({ isLoaded = false }: HeroProps) {
                 aboutEl.scrollIntoView({ behavior: "smooth" });
               }
             }}
-            className="group bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-bold text-xs sm:text-sm px-4 sm:px-5 py-1.5 sm:py-2 rounded-full flex items-center gap-2 transition-colors duration-150 shadow-xs"
+            className="group bg-primary hover:opacity-90 text-primary-foreground font-sans font-bold text-xs sm:text-sm px-4 sm:px-5 py-1.5 sm:py-2 rounded-full flex items-center gap-2 transition-all duration-150 shadow-xs"
           >
             <span>Contact</span>
-            <span className="w-5 h-5 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:bg-[#141b16] transition-colors">
-              <ArrowUpRight className="w-3.5 h-3.5 text-[#141b16] group-hover:text-[#c5eb35] transition-colors stroke-[2.5]" />
+            <span className="w-5 h-5 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:bg-primary-foreground/20 transition-colors">
+              <ArrowUpRight className="w-3.5 h-3.5 text-primary-foreground group-hover:text-primary-foreground transition-colors stroke-[2.5]" />
             </span>
           </MagneticButton>
         </div>
@@ -252,7 +252,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
         {/* Top Headline: AI ENGINEER (Positioned cleanly below the mobile floating nav pill) */}
         <h1
           ref={title1Ref}
-          className="text-4xl sm:text-6xl md:text-7xl lg:text-[92px] xl:text-[108px] font-serif tracking-tight sm:tracking-wider italic font-light absolute top-14 sm:top-8 md:top-12 lg:top-14 left-1/2 sm:left-[48%] md:left-[50%] lg:left-[52%] -translate-x-1/2 will-change-transform whitespace-nowrap select-none text-center sm:text-left text-[#141b16]"
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-[92px] xl:text-[108px] font-serif tracking-tight sm:tracking-wider italic font-light absolute top-14 sm:top-8 md:top-12 lg:top-14 left-1/2 sm:left-[48%] md:left-[50%] lg:left-[52%] -translate-x-1/2 will-change-transform whitespace-nowrap select-none text-center sm:text-left text-foreground"
         >
           AI ENGINEER
         </h1>
@@ -264,30 +264,30 @@ export default function Hero({ isLoaded = false }: HeroProps) {
         >
           <h2
             ref={title2Ref}
-            className="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-sans leading-none sm:leading-tight tracking-tight font-extrabold sm:font-semibold text-[#141b16]"
+            className="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-sans leading-none sm:leading-tight tracking-tight font-extrabold sm:font-semibold text-foreground"
           >
             &amp; BUILDER
           </h2>
           <p className="mt-2 sm:mt-5 md:mt-6 max-w-md lg:max-w-lg">
-            <span className="text-[11px] sm:text-base md:text-lg tracking-tight leading-snug sm:leading-relaxed font-sans font-medium text-neutral-800 line-clamp-3 sm:line-clamp-none">
+            <span className="text-[11px] sm:text-base md:text-lg tracking-tight leading-snug sm:leading-relaxed font-sans font-medium text-muted-foreground line-clamp-3 sm:line-clamp-none">
               Architecting intelligent distributed systems, high-performance web applications, and real-time AI agents.
             </span>
           </p>
 
-          <div className="inline-flex flex-row items-center p-1 sm:p-1.5 rounded-full bg-white/95 backdrop-blur-md border border-black/10 shadow-[0_6px_24px_rgba(0,0,0,0.06)] gap-1 mt-3 sm:mt-7 max-w-full">
+          <div className="inline-flex flex-row items-center p-1 sm:p-1.5 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-[0_6px_24px_rgba(0,0,0,0.06)] gap-1 mt-3 sm:mt-7 max-w-full">
             <MagneticButton
-              className="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-sans font-bold text-[#141b16] hover:bg-neutral-100 flex items-center justify-center gap-1.5 sm:gap-2 transition-colors duration-150"
+              className="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-sans font-bold text-foreground hover:bg-muted flex items-center justify-center gap-1.5 sm:gap-2 transition-colors duration-150"
             >
-              <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#141b16]" />
+              <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-foreground" />
               <span>Download CV</span>
             </MagneticButton>
 
             <MagneticButton
               href="/work"
-              className="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-sans font-bold bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] shadow-xs flex items-center justify-center gap-1.5 sm:gap-2 transition-colors duration-150"
+              className="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-sans font-bold bg-primary hover:opacity-90 text-primary-foreground shadow-xs flex items-center justify-center gap-1.5 sm:gap-2 transition-opacity duration-150"
             >
               <span>Explore Works</span>
-              <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#141b16] stroke-[2.5]" />
+              <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary-foreground stroke-[2.5]" />
             </MagneticButton>
           </div>
         </div>
@@ -319,16 +319,16 @@ export default function Hero({ isLoaded = false }: HeroProps) {
           ariaLabel="Ask anything"
           onClick={() => setIsChatOpen(true)}
           magneticStrength={0.25}
-          className="bg-white/95 backdrop-blur-md border-l border-y border-black/10 py-4 px-2 rounded-l-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] flex items-center justify-center hover:bg-white transition-all duration-300 group hover:translate-x-[-3px]"
+          className="bg-card/95 backdrop-blur-md border-l border-y border-border py-4 px-2 rounded-l-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] flex items-center justify-center hover:bg-card transition-all duration-300 group hover:translate-x-[-3px]"
         >
           <div
             className="flex items-center gap-2"
             style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
           >
-            <span className="w-5 h-5 flex items-center justify-center rounded-full text-xs bg-[#c5eb35] text-[#141b16] font-bold">
+            <span className="w-5 h-5 flex items-center justify-center rounded-full text-xs bg-primary text-primary-foreground font-bold">
               R
             </span>
-            <span className="font-sans text-[11px] font-semibold tracking-wider text-neutral-800 group-hover:text-black uppercase whitespace-nowrap">
+            <span className="font-sans text-[11px] font-semibold tracking-wider text-muted-foreground group-hover:text-foreground uppercase whitespace-nowrap">
               Ask anything
             </span>
           </div>
@@ -355,20 +355,20 @@ export default function Hero({ isLoaded = false }: HeroProps) {
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: "100%", opacity: 0 }}
               transition={{ type: "spring", damping: 28, stiffness: 280 }}
-              className="fixed right-0 top-1/2 -translate-y-1/2 z-50 w-[92vw] sm:w-[380px] md:w-[420px] h-[540px] sm:h-[600px] max-h-[90vh] bg-white rounded-l-3xl shadow-[0_20px_60px_rgba(0,0,0,0.18)] border-l border-y border-black/10 flex flex-col overflow-hidden"
+              className="fixed right-0 top-1/2 -translate-y-1/2 z-50 w-[92vw] sm:w-[380px] md:w-[420px] h-[540px] sm:h-[600px] max-h-[90vh] bg-card text-card-foreground rounded-l-3xl shadow-[0_20px_60px_rgba(0,0,0,0.18)] border-l border-y border-border flex flex-col overflow-hidden"
             >
               {/* Top Header */}
-              <div className="p-4 sm:p-5 border-b border-black/8 flex items-center justify-between bg-neutral-50/70">
+              <div className="p-4 sm:p-5 border-b border-border flex items-center justify-between bg-muted/70">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-full bg-[#141b16] flex items-center justify-center font-sans font-bold text-xs text-white shadow-xs">
+                  <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center font-sans font-bold text-xs text-primary-foreground shadow-xs">
                     R
                   </div>
                   <div>
-                    <h3 className="font-sans font-semibold text-sm sm:text-base text-neutral-900 tracking-tight flex items-center gap-2">
+                    <h3 className="font-sans font-semibold text-sm sm:text-base text-foreground tracking-tight flex items-center gap-2">
                       Raya - AI Agent
                       <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                     </h3>
-                    <p className="text-[11px] text-neutral-500 font-sans">
+                    <p className="text-[11px] text-muted-foreground font-sans">
                       Ritesh Sinha&apos;s Personal Assistant
                     </p>
                   </div>
@@ -376,7 +376,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
 
                 <MagneticButton
                   onClick={() => setIsChatOpen(false)}
-                  className="w-8 h-8 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 flex items-center justify-center transition-colors"
+                  className="w-8 h-8 rounded-full bg-muted hover:bg-accent text-foreground flex items-center justify-center transition-colors"
                   ariaLabel="Close chat"
                 >
                   <X className="w-4 h-4" />
@@ -395,8 +395,8 @@ export default function Hero({ isLoaded = false }: HeroProps) {
                     <div
                       className={`max-w-[82%] px-3.5 py-2.5 rounded-2xl leading-relaxed ${
                         msg.role === "user"
-                          ? "bg-[#141b16] text-white font-medium rounded-br-xs"
-                          : "bg-neutral-100 text-neutral-800 rounded-bl-xs"
+                          ? "bg-primary text-primary-foreground font-medium rounded-br-xs"
+                          : "bg-muted text-foreground rounded-bl-xs"
                       }`}
                     >
                       {msg.text}
@@ -408,7 +408,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
               {/* Bottom Input Bar with Mic Icon & Send Button */}
               <form
                 onSubmit={handleSendMessage}
-                className="p-3 sm:p-4 border-t border-black/8 bg-neutral-50/50 flex items-center gap-2"
+                className="p-3 sm:p-4 border-t border-border bg-muted/50 flex items-center gap-2"
               >
                 <div className="relative flex-1 flex items-center">
                   <input
@@ -416,7 +416,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder="Ask anything..."
-                    className="w-full pl-3.5 pr-10 py-2.5 text-xs sm:text-sm bg-white border border-black/10 rounded-full focus:outline-hidden focus:border-[#141b16] focus:ring-1 focus:ring-[#141b16] transition-all text-neutral-900 placeholder:text-neutral-400"
+                    className="w-full pl-3.5 pr-10 py-2.5 text-xs sm:text-sm bg-background border border-border rounded-full focus:outline-hidden focus:border-primary focus:ring-1 focus:ring-primary transition-all text-foreground placeholder:text-muted-foreground"
                   />
                   <MagneticButton
                     onClick={() => {
@@ -424,7 +424,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
                         "Tell me about Ritesh Sinha's tech stack and experience!",
                       );
                     }}
-                    className="absolute right-2.5 p-1 text-neutral-400 hover:text-neutral-800 transition-colors"
+                    className="absolute right-2.5 p-1 text-muted-foreground hover:text-foreground transition-colors"
                     title="Voice input / suggestion"
                     scaleOnHover={1.15}
                   >
@@ -435,7 +435,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
                 <MagneticButton
                   type="submit"
                   disabled={!inputValue.trim()}
-                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#c5eb35] hover:bg-[#b4db26] disabled:opacity-50 disabled:cursor-not-allowed text-[#141b16] flex items-center justify-center shadow-xs shrink-0 font-semibold"
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-primary hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed text-primary-foreground flex items-center justify-center shadow-xs shrink-0 font-semibold"
                   ariaLabel="Send message"
                 >
                   <Send className="w-4 h-4" />
@@ -463,11 +463,11 @@ export default function Hero({ isLoaded = false }: HeroProps) {
             <SpinningText
               radius={4.2}
               duration={12}
-              className="font-sans text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.2em] text-[#141b16] opacity-80 group-hover:opacity-100 transition-opacity"
+              className="font-sans text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.2em] text-foreground opacity-80 group-hover:opacity-100 transition-opacity"
             >
               • SCROLL DOWN • DISCOVER MORE
             </SpinningText>
-            <div className="w-2 h-2 rounded-full bg-[#141b16]/40 group-hover:bg-[#141b16] group-hover:scale-125 transition-all duration-300" />
+            <div className="w-2 h-2 rounded-full bg-foreground/40 group-hover:bg-foreground group-hover:scale-125 transition-all duration-300" />
           </MagneticButton>
         </div>
 
@@ -477,7 +477,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
         {/* Bottom Right: Social Icons Pill Dock (GitHub, LinkedIn, X) */}
         <div
           ref={bottomSocialsRef}
-          className="p-1 rounded-full bg-white/95 backdrop-blur-md border border-black/10 shadow-xs flex items-center gap-1 text-[#141b16]"
+          className="p-1 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-xs flex items-center gap-1 text-foreground"
         >
           {/* GitHub */}
           <MagneticButton
@@ -485,7 +485,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
             target="_blank"
             rel="noreferrer"
             ariaLabel="GitHub"
-            className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 text-[#141b16] transition-colors"
+            className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-muted text-foreground transition-colors"
           >
             <svg className="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24">
               <path
@@ -502,7 +502,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
             target="_blank"
             rel="noreferrer"
             ariaLabel="LinkedIn"
-            className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 text-[#141b16] transition-colors"
+            className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-muted text-foreground transition-colors"
           >
             <svg className="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24">
               <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.45 1.45 0 1 0 0-2.9 1.45 1.45 0 0 0 0 2.9m1.4 9.74V9.97H5.06v8.53h2.8z" />
@@ -515,7 +515,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
             target="_blank"
             rel="noreferrer"
             ariaLabel="X"
-            className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 text-[#141b16] transition-colors"
+            className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-muted text-foreground transition-colors"
           >
             <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />

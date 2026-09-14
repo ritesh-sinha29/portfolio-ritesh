@@ -36,8 +36,8 @@ export function MagneticDock({
 }: MagneticDockProps) {
   const containerClasses =
     variant === "inline"
-      ? `relative z-10 bg-white/95 backdrop-blur-md shadow-[0_6px_24px_rgba(0,0,0,0.06)] border border-black/10 rounded-full p-1 sm:p-1.5 flex flex-wrap items-center justify-center gap-1 sm:gap-1.5 select-none ${className}`
-      : `fixed top-4 sm:top-5 left-1/2 -translate-x-1/2 z-50 bg-white/95 backdrop-blur-md shadow-[0_6px_24px_rgba(0,0,0,0.08)] border border-black/10 rounded-full p-1 sm:p-1.5 flex items-center gap-1 sm:gap-1.5 select-none ${className}`;
+      ? `relative z-10 bg-card/95 backdrop-blur-md shadow-[0_6px_24px_rgba(0,0,0,0.06)] border border-border rounded-full p-1 sm:p-1.5 flex flex-wrap items-center justify-center gap-1 sm:gap-1.5 select-none ${className}`
+      : `fixed top-4 sm:top-5 left-1/2 -translate-x-1/2 z-50 bg-card/95 backdrop-blur-md shadow-[0_6px_24px_rgba(0,0,0,0.08)] border border-border rounded-full p-1 sm:p-1.5 flex items-center gap-1 sm:gap-1.5 select-none ${className}`;
 
   return (
     <nav
@@ -50,8 +50,8 @@ export function MagneticDock({
 
         const buttonClasses = `relative px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-sans font-bold uppercase tracking-wider transition-colors duration-150 cursor-pointer ${
           isCurrentActive
-            ? "bg-[#c5eb35] text-[#141b16] shadow-xs"
-            : "text-[#141b16] hover:text-[#141b16] hover:bg-neutral-100"
+            ? "bg-primary text-primary-foreground shadow-xs"
+            : "text-foreground hover:text-foreground hover:bg-muted"
         }`;
 
         return (

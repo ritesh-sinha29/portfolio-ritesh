@@ -34,7 +34,7 @@ const projectsData: DetailedProject[] = [
     category: "ai-systems",
     categoryLabel: "AI Systems & Agents",
     badge: "AI DEV PLATFORM",
-    accentClass: "bg-[#c5eb35] text-[#141b16]",
+    accentClass: "bg-primary text-primary-foreground",
     accentHex: "#c5eb35",
     imageUrl: "/wekraft.webp",
     description:
@@ -57,7 +57,7 @@ const projectsData: DetailedProject[] = [
     category: "voice-ai",
     categoryLabel: "Voice AI & Intelligence",
     badge: "CAREER AI ENGINE",
-    accentClass: "bg-[#F5C86C] text-[#141b16]",
+    accentClass: "bg-secondary text-secondary-foreground",
     accentHex: "#F5C86C",
     imageUrl: "/clarioo.webp",
     description:
@@ -80,7 +80,7 @@ const projectsData: DetailedProject[] = [
     category: "fullstack",
     categoryLabel: "Interactive & Full-Stack",
     badge: "COLLAB CANVAS",
-    accentClass: "bg-[#123826] text-[#c5eb35]",
+    accentClass: "bg-accent text-accent-foreground",
     accentHex: "#123826",
     imageUrl: "/looma.webp",
     description:
@@ -103,7 +103,7 @@ const projectsData: DetailedProject[] = [
     category: "ai-systems",
     categoryLabel: "AI Systems & Agents",
     badge: "PERSONAL AI OS",
-    accentClass: "bg-[#c5eb35] text-[#141b16]",
+    accentClass: "bg-primary text-primary-foreground",
     accentHex: "#c5eb35",
     imageUrl: "/aria.webp",
     description:
@@ -119,48 +119,48 @@ const projectsData: DetailedProject[] = [
     githubUrl: "https://github.com/ritesh-sinha29/aria",
   },
   {
-    id: "pan-agent",
+    id: "pan-sales",
     number: "05",
-    title: "SALES AGENT",
-    subtitle: "Enterprise Multi-Agent RAG with Semantic Caching",
+    title: "ENTERPRISE SALES AGENT",
+    subtitle: "Bilingual Multi-Agent RAG with Semantic Caching & Memory",
     category: "ai-systems",
     categoryLabel: "AI Systems & Agents",
     badge: "MULTI-AGENT RAG",
-    accentClass: "bg-[#F5C86C] text-[#141b16]",
+    accentClass: "bg-secondary text-secondary-foreground",
     accentHex: "#F5C86C",
     imageUrl: "/pan-agent.webp",
     description:
-      "High-throughput enterprise sales copilot with strict hallucination guardrails, bilingual support (English/Spanish), semantic cache hit optimization, and persistent memory for lead qualification.",
+      "Enterprise sales automation engine designed to answer complex domain-specific inquiries, qualify leads, and orchestrate customer onboarding. Features semantic caching to reduce token spend by 48%.",
     highlights: [
-      "Semantic caching layer reducing LLM query costs by >60%",
-      "Strict factual guardrails preventing hallucinated pricing or claims",
-      "Automated lead qualification and instant CRM synchronization",
-      "Sub-second vector search across thousands of product SKUs",
+      "Sub-200ms cached semantic retrieval via Qdrant & Redis",
+      "Strict zero-hallucination guardrails and output verification",
+      "Bilingual real-time translation & context preservation",
+      "Asynchronous CRM sync & automated calendar booking",
     ],
-    tech: ["Python", "FastAPI", "Qdrant", "LangGraph", "Next.js", "Redis"],
-    liveUrl: "https://pan-sales-agent.vercel.app",
-    githubUrl: "https://github.com/ritesh-sinha29/sales-agent",
+    tech: ["Python", "FastAPI", "Qdrant", "Redis", "OpenAI", "LangGraph"],
+    liveUrl: "https://pan-sales.vercel.app",
+    githubUrl: "https://github.com/ritesh-sinha29/pan-sales",
   },
   {
     id: "vocalx",
     number: "06",
     title: "VOCALX",
-    subtitle: "Voice AI Recruitment Engine & Anti-Cheat Screener",
+    subtitle: "Automated Voice AI Recruitment & Candidate Evaluation Engine",
     category: "voice-ai",
     categoryLabel: "Voice AI & Intelligence",
     badge: "VOICE AI ENGINE",
-    accentClass: "bg-[#123826] text-[#c5eb35]",
+    accentClass: "bg-accent text-accent-foreground",
     accentHex: "#123826",
     imageUrl: "/vocalx.webp",
     description:
-      "Next-generation voice screening platform that automates candidate initial rounds. Parses job descriptions, formulates structured interview criteria, conducts real-time proctored voice interviews, and outputs scorecard reports.",
+      "Autonomous HR recruitment pipeline that parses job descriptions, generates structured technical interview rubrics, and conducts automated phone screening interviews with deep reasoning analysis.",
     highlights: [
-      "Automated job description parsing and dynamic question generation",
-      "Proctored voice evaluation with voice biometric anti-cheat analysis",
-      "Comprehensive candidate scorecard generation with audio highlights",
-      "Seamless ATS integration for recruiter pipeline updates",
+      "Instant JD-to-rubric breakdown in 15 seconds",
+      "Real-time speech interruption handling with Vapi WebSocket bridge",
+      "Comprehensive scoring matrix across 5 dimensions",
+      "Automated candidate summary report dispatched to hiring manager",
     ],
-    tech: ["Next.js", "Deepgram", "Vapi", "Prisma", "PostgreSQL", "Tailwind CSS"],
+    tech: ["Next.js", "Vapi", "Tailwind CSS", "Supabase", "FastAPI", "PostgreSQL"],
     liveUrl: "https://vocalx.vercel.app",
     githubUrl: "https://github.com/ritesh-sinha29/vocalx",
   },
@@ -185,12 +185,12 @@ export default function WorkPage() {
       : projectsData.filter((p) => p.category === selectedCategory);
 
   return (
-    <main className="relative min-h-screen w-full bg-[#eaeae8] text-[#141b16] selection:bg-[#c5eb35] selection:text-black select-none">
+    <main className="relative min-h-screen w-full bg-background text-foreground selection:bg-primary selection:text-primary-foreground select-none">
       {/* Universal Tactile Dot Matrix Background */}
       <div
         className="fixed inset-0 pointer-events-none opacity-20 z-0"
         style={{
-          backgroundImage: "radial-gradient(#141b16 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(var(--foreground) 1px, transparent 1px)",
           backgroundSize: "24px 24px",
         }}
       />
@@ -203,20 +203,20 @@ export default function WorkPage() {
         {/* Left: Name / Brand */}
         <Link
           href="/"
-          className="font-sans font-semibold text-lg sm:text-xl tracking-tight text-[#141b16] hover:opacity-80 transition-opacity"
+          className="font-sans font-semibold text-lg sm:text-xl tracking-tight text-foreground hover:opacity-80 transition-opacity"
         >
           RITESH SINHA
         </Link>
 
         {/* Right: Contact Pill Button inside dock */}
-        <div className="p-1 rounded-full bg-white/95 backdrop-blur-md border border-black/10 shadow-xs inline-flex items-center">
+        <div className="p-1 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-xs inline-flex items-center">
           <MagneticButton
             href={`mailto:${email}`}
-            className="group bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-bold text-xs sm:text-sm px-4 sm:px-5 py-1.5 sm:py-2 rounded-full flex items-center gap-2 transition-colors duration-150 shadow-xs"
+            className="group bg-primary hover:opacity-90 text-primary-foreground font-sans font-bold text-xs sm:text-sm px-4 sm:px-5 py-1.5 sm:py-2 rounded-full flex items-center gap-2 transition-all duration-150 shadow-xs"
           >
             <span>Contact</span>
-            <span className="w-5 h-5 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:bg-[#141b16] transition-colors">
-              <ArrowUpRight className="w-3.5 h-3.5 text-[#141b16] group-hover:text-[#c5eb35] transition-colors stroke-[2.5]" />
+            <span className="w-5 h-5 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:bg-primary-foreground/20 transition-colors">
+              <ArrowUpRight className="w-3.5 h-3.5 text-primary-foreground group-hover:text-primary-foreground transition-colors stroke-[2.5]" />
             </span>
           </MagneticButton>
         </div>
@@ -250,21 +250,21 @@ export default function WorkPage() {
         <MagneticButton
           magneticStrength={0.25}
           scaleOnHover={1.05}
-          className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-black/10 shadow-xs mb-4 sm:mb-5"
+          className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-card border border-border shadow-xs mb-4 sm:mb-5"
         >
-          <span className="w-2 h-2 rounded-full bg-[#c5eb35] animate-pulse" />
-          <span className="font-mono text-[10px] sm:text-xs text-[#5a625b] font-bold tracking-wider uppercase">
+          <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+          <span className="font-mono text-[10px] sm:text-xs text-muted-foreground font-bold tracking-wider uppercase">
             6+ Production Applications &amp; AI Systems
           </span>
         </MagneticButton>
 
         {/* Big Headline */}
-        <h1 className="font-serif italic font-light text-5xl sm:text-7xl md:text-8xl tracking-tight text-[#141b16] leading-none">
-          Selected <span className="font-sans font-bold not-italic text-[#141b16]">Works.</span>
+        <h1 className="font-serif italic font-light text-5xl sm:text-7xl md:text-8xl tracking-tight text-foreground leading-none">
+          Selected <span className="font-sans font-bold not-italic text-foreground">Works.</span>
         </h1>
 
         {/* Subtitle */}
-        <p className="font-sans text-xs xs:text-sm sm:text-base md:text-lg text-[#5a625b] font-medium max-w-2xl mx-auto mt-3.5 sm:mt-5 leading-relaxed px-2">
+        <p className="font-sans text-xs xs:text-sm sm:text-base md:text-lg text-muted-foreground font-medium max-w-2xl mx-auto mt-3.5 sm:mt-5 leading-relaxed px-2">
           Intelligent AI agents, real-time collaborative canvases, distributed architectures, and voice engines built with production-grade performance.
         </p>
 
@@ -290,10 +290,10 @@ export default function WorkPage() {
           {filteredProjects.map((project) => (
             <article
               key={project.id}
-              className="group relative rounded-2xl sm:rounded-3xl bg-white border-2 sm:border-[2.5px] border-[#141b16] shadow-[4px_4px_0px_#141b16] hover:shadow-[6px_6px_0px_#141b16] overflow-hidden transition-all duration-300 flex flex-col justify-between hover:-translate-y-0.5"
+              className="group relative rounded-2xl sm:rounded-3xl bg-card border border-border shadow-md hover:shadow-lg overflow-hidden transition-all duration-300 flex flex-col justify-between hover:-translate-y-0.5"
             >
               {/* Image Preview Banner */}
-              <div className="relative w-full h-[180px] sm:h-[200px] lg:h-[210px] bg-neutral-100 overflow-hidden border-b-2 border-[#141b16]">
+              <div className="relative w-full h-[180px] sm:h-[200px] lg:h-[210px] bg-muted overflow-hidden border-b border-border">
                 <InstantImage
                   src={project.imageUrl}
                   alt={project.title}
@@ -307,14 +307,14 @@ export default function WorkPage() {
                   <MagneticButton
                     magneticStrength={0.2}
                     scaleOnHover={1.08}
-                    className="font-mono text-[9.5px] sm:text-[11px] font-bold text-[#141b16] bg-white border border-[#141b16] shadow-[1.5px_1.5px_0px_#141b16] px-2.5 py-0.5 rounded-full"
+                    className="font-mono text-[9.5px] sm:text-[11px] font-bold text-foreground bg-card/90 border border-border shadow-xs px-2.5 py-0.5 rounded-full"
                   >
                     #{project.number}
                   </MagneticButton>
                   <MagneticButton
                     magneticStrength={0.2}
                     scaleOnHover={1.08}
-                    className={`font-mono text-[9px] sm:text-[10.5px] font-bold uppercase px-2.5 py-0.5 rounded-full border border-[#141b16] shadow-[1.5px_1.5px_0px_#141b16] ${project.accentClass}`}
+                    className={`font-mono text-[9px] sm:text-[10.5px] font-bold uppercase px-2.5 py-0.5 rounded-full border border-border shadow-xs ${project.accentClass}`}
                   >
                     {project.badge}
                   </MagneticButton>
@@ -326,16 +326,16 @@ export default function WorkPage() {
                 <div>
                   <div className="flex justify-between items-start gap-2">
                     <div>
-                      <h2 className="font-sans font-extrabold text-xl sm:text-2xl text-[#141b16] tracking-tight">
+                      <h2 className="font-sans font-extrabold text-xl sm:text-2xl text-foreground tracking-tight">
                         {project.title}
                       </h2>
-                      <p className="font-sans text-[11px] sm:text-xs text-[#5a625b] mt-0.5 font-semibold line-clamp-1">
+                      <p className="font-sans text-[11px] sm:text-xs text-muted-foreground mt-0.5 font-semibold line-clamp-1">
                         {project.subtitle}
                       </p>
                     </div>
                   </div>
 
-                  <p className="font-sans text-xs text-neutral-700 mt-2.5 leading-relaxed font-normal line-clamp-3">
+                  <p className="font-sans text-xs text-muted-foreground mt-2.5 leading-relaxed font-normal line-clamp-3">
                     {project.description}
                   </p>
 
@@ -344,9 +344,9 @@ export default function WorkPage() {
                     {project.highlights.slice(0, 3).map((highlight, hIdx) => (
                       <div
                         key={hIdx}
-                        className="flex items-start gap-1.5 text-[11px] sm:text-xs text-neutral-800 font-sans"
+                        className="flex items-start gap-1.5 text-[11px] sm:text-xs text-foreground font-sans"
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#141b16] mt-1 shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1 shrink-0" />
                         <span className="font-medium truncate">{highlight}</span>
                       </div>
                     ))}
@@ -359,7 +359,7 @@ export default function WorkPage() {
                         key={t}
                         magneticStrength={0.25}
                         scaleOnHover={1.08}
-                        className="px-2 py-0.5 rounded bg-neutral-100 hover:bg-neutral-200 border border-black/10 text-[9.5px] sm:text-[10px] font-mono font-bold text-neutral-800 transition-colors"
+                        className="px-2 py-0.5 rounded bg-muted hover:bg-accent border border-border text-[9.5px] sm:text-[10px] font-mono font-bold text-foreground transition-colors"
                       >
                         {t}
                       </MagneticButton>
@@ -367,40 +367,40 @@ export default function WorkPage() {
                   </div>
                 </div>
 
-                {/* Footer Action Pill Buttons (Matching Screenshot with MagneticButton) */}
-                <div className="pt-4 mt-4 border-t border-neutral-200/80 flex items-center justify-between gap-2">
-                  {/* Launch App - Lime Pill with 2px Black Border */}
+                {/* Footer Action Pill Buttons */}
+                <div className="pt-4 mt-4 border-t border-border flex items-center justify-between gap-2">
+                  {/* Launch App Button */}
                   <MagneticButton
                     href={project.liveUrl}
                     target="_blank"
                     rel="noreferrer"
                     magneticStrength={0.35}
-                    className="flex-1 flex items-center justify-center gap-1.5 py-2 px-4 rounded-full bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-bold text-xs sm:text-[13px] border-2 border-[#141b16] transition-colors duration-150"
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2 px-4 rounded-full bg-primary hover:opacity-90 text-primary-foreground font-sans font-bold text-xs sm:text-[13px] border border-border transition-opacity duration-150"
                   >
                     <span>Launch App</span>
                     <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
                   </MagneticButton>
 
-                  {/* View - White Pill with 2px Black Border */}
+                  {/* View Button */}
                   <MagneticButton
                     href={project.liveUrl}
                     target="_blank"
                     rel="noreferrer"
                     magneticStrength={0.3}
-                    className="flex items-center justify-center gap-1.5 py-2 px-3.5 rounded-full bg-white hover:bg-neutral-100 text-[#141b16] font-sans font-bold text-xs sm:text-[13px] border-2 border-[#141b16] transition-colors duration-150"
+                    className="flex items-center justify-center gap-1.5 py-2 px-3.5 rounded-full bg-card hover:bg-muted text-foreground font-sans font-bold text-xs sm:text-[13px] border border-border transition-colors duration-150"
                     title={`View ${project.title}`}
                   >
                     <Eye className="w-3.5 h-3.5 stroke-[2.2]" />
                     <span>View</span>
                   </MagneticButton>
 
-                  {/* Source - White Pill with 2px Black Border */}
+                  {/* Source Button */}
                   <MagneticButton
                     href={project.githubUrl}
                     target="_blank"
                     rel="noreferrer"
                     magneticStrength={0.3}
-                    className="flex items-center justify-center gap-1.5 py-2 px-3.5 rounded-full bg-white hover:bg-neutral-100 text-[#141b16] font-sans font-bold text-xs sm:text-[13px] border-2 border-[#141b16] transition-colors duration-150"
+                    className="flex items-center justify-center gap-1.5 py-2 px-3.5 rounded-full bg-card hover:bg-muted text-foreground font-sans font-bold text-xs sm:text-[13px] border border-border transition-colors duration-150"
                     title={`View ${project.title} GitHub Source Code`}
                   >
                     <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -421,19 +421,19 @@ export default function WorkPage() {
 
       {/* Bottom Conversion / Contact Callout */}
       <section className="relative z-10 px-4 sm:px-8 pb-16 max-w-4xl mx-auto text-center">
-        <div className="p-8 sm:p-12 rounded-3xl bg-white border-2 sm:border-[2.5px] border-[#141b16] shadow-[6px_6px_0px_#141b16] flex flex-col items-center">
-          <h3 className="font-serif italic font-light text-3xl sm:text-5xl text-[#141b16]">
+        <div className="p-8 sm:p-12 rounded-3xl bg-card border border-border shadow-lg flex flex-col items-center">
+          <h3 className="font-serif italic font-light text-3xl sm:text-5xl text-foreground">
             Have an ambitious project in mind?
           </h3>
-          <p className="font-sans text-xs sm:text-sm text-[#5a625b] font-medium max-w-lg mt-2.5 leading-relaxed">
+          <p className="font-sans text-xs sm:text-sm text-muted-foreground font-medium max-w-lg mt-2.5 leading-relaxed">
             Open for select high-impact engineering roles, AI system architecture consulting, and founding engineering opportunities.
           </p>
 
           {/* Email Dock Bar */}
-          <div className="flex items-center gap-2 mt-6 p-1 sm:p-1.5 rounded-full bg-white/95 backdrop-blur-md border border-black/10 shadow-[0_4px_20px_rgba(0,0,0,0.06)]">
+          <div className="flex items-center gap-2 mt-6 p-1 sm:p-1.5 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-[0_4px_20px_rgba(0,0,0,0.06)]">
             <a
               href={`mailto:${email}`}
-              className="px-4 py-2 font-sans font-bold text-xs sm:text-sm text-[#141b16] hover:text-[#5a625b] transition-colors truncate"
+              className="px-4 py-2 font-sans font-bold text-xs sm:text-sm text-foreground hover:text-muted-foreground transition-colors truncate"
             >
               {email}
             </a>
@@ -441,7 +441,7 @@ export default function WorkPage() {
             <MagneticButton
               onClick={handleCopyEmail}
               ariaLabel="Copy email address"
-              className="px-4 py-2 rounded-full bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-bold text-xs flex items-center gap-1.5 shadow-xs transition-colors duration-150"
+              className="px-4 py-2 rounded-full bg-primary hover:opacity-90 text-primary-foreground font-sans font-bold text-xs flex items-center gap-1.5 shadow-xs transition-opacity duration-150"
             >
               {copied ? (
                 <>
@@ -458,10 +458,10 @@ export default function WorkPage() {
           </div>
 
           {/* Bottom Dual Action Pill Dock: Back to Home & Hire Me */}
-          <div className="mt-8 inline-flex items-center p-1 sm:p-1.5 rounded-full bg-white/95 backdrop-blur-md border border-black/10 shadow-[0_6px_24px_rgba(0,0,0,0.06)] gap-1">
+          <div className="mt-8 inline-flex items-center p-1 sm:p-1.5 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-[0_6px_24px_rgba(0,0,0,0.06)] gap-1">
             <MagneticButton
               href="/"
-              className="px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-sans font-bold text-[#141b16] hover:bg-neutral-100 flex items-center gap-1.5 sm:gap-2 transition-colors duration-150 uppercase tracking-wider"
+              className="px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-sans font-bold text-foreground hover:bg-muted flex items-center gap-1.5 sm:gap-2 transition-colors duration-150 uppercase tracking-wider"
             >
               <ArrowLeft className="w-3.5 h-3.5 stroke-[2.5]" />
               <span>Home</span>
@@ -469,7 +469,7 @@ export default function WorkPage() {
 
             <MagneticButton
               href={`mailto:${email}`}
-              className="px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-sans font-bold bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] shadow-xs flex items-center gap-1.5 sm:gap-2 transition-colors duration-150 uppercase tracking-wider"
+              className="px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-sans font-bold bg-primary hover:opacity-90 text-primary-foreground shadow-xs flex items-center gap-1.5 sm:gap-2 transition-opacity duration-150 uppercase tracking-wider"
             >
               <span>Hire Me</span>
               <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />

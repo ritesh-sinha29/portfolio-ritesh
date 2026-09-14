@@ -1,20 +1,26 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Inter, Instrument_Serif, Silkscreen } from "next/font/google";
+import { Outfit, Merriweather, Fira_Code, Silkscreen } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { SmoothCursor } from "@/components/ui/smooth-cursor";
 
-const inter = Inter({
+const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const instrumentSerif = Instrument_Serif({
+const merriweather = Merriweather({
   subsets: ["latin"],
-  weight: ["400"],
+  weight: ["300", "400", "700", "900"],
   style: ["normal", "italic"],
   variable: "--font-serif",
+  display: "swap",
+});
+
+const firaCode = Fira_Code({
+  subsets: ["latin"],
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -41,12 +47,13 @@ export default function RootLayout({
       lang="en"
       className={cn(
         "antialiased",
-        inter.variable,
-        instrumentSerif.variable,
+        outfit.variable,
+        merriweather.variable,
+        firaCode.variable,
         silkscreen.variable
       )}
     >
-      <body className="min-h-screen bg-[#eaeae8] text-[#141b16] selection:bg-[#c5eb35] selection:text-black">
+      <body className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
         <SmoothCursor />
         {children}
       </body>

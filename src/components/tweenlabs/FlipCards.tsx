@@ -26,7 +26,7 @@ const stageData: StageItem[] = [
     id: 1,
     num: "01",
     title: "PLAN & SCOPE",
-    accentClass: "bg-[#c5eb35] text-[#141b16]",
+    accentClass: "bg-primary text-primary-foreground",
     accentHex: "197, 235, 53",
     imgUrl: "/wekraft.webp",
     phase: "PHASE 01",
@@ -36,7 +36,7 @@ const stageData: StageItem[] = [
     id: 2,
     num: "02",
     title: "STYLING & TOKEN",
-    accentClass: "bg-[#F5C86C] text-[#141b16]",
+    accentClass: "bg-secondary text-secondary-foreground",
     accentHex: "245, 200, 108",
     imgUrl: "/clarioo.webp",
     phase: "PHASE 02",
@@ -46,7 +46,7 @@ const stageData: StageItem[] = [
     id: 3,
     num: "03",
     title: "DEVELOP & DEPLOY",
-    accentClass: "bg-[#123826] text-[#c5eb35]",
+    accentClass: "bg-accent text-accent-foreground",
     accentHex: "18, 56, 38",
     imgUrl: "/looma.webp",
     phase: "PHASE 03",
@@ -238,14 +238,14 @@ export default function ShowUpCardsPage() {
 
   return (
     <div
-      className="relative min-h-[280vh] bg-[#eaeae8] text-[#141b16] selection:bg-[#c5eb35] selection:text-[#141b16] overflow-x-hidden font-sans"
+      className="relative min-h-[280vh] bg-background text-foreground selection:bg-primary selection:text-primary-foreground overflow-x-hidden font-sans"
       ref={containerRef}
     >
       {/* Tactile Grid Backgrounds */}
       <div
         className="absolute inset-0 pointer-events-none z-0 opacity-15"
         style={{
-          backgroundImage: "radial-gradient(#141b16 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(var(--foreground) 1px, transparent 1px)",
           backgroundSize: "24px 24px",
         }}
       />
@@ -260,12 +260,12 @@ export default function ShowUpCardsPage() {
       {/* Interactive Cards Overlay (Pins on scroll) */}
       <section
         ref={showupSectionRef}
-        className="showup-cards-sec relative w-full h-screen flex flex-col justify-center items-center bg-[#eaeae8] border-b-3 border-[#141b16] overflow-hidden"
+        className="showup-cards-sec relative w-full h-screen flex flex-col justify-center items-center bg-background border-b border-border overflow-hidden"
       >
         <div
           className="absolute inset-0 opacity-15"
           style={{
-            backgroundImage: "radial-gradient(#141b16 1px, transparent 1px)",
+            backgroundImage: "radial-gradient(var(--foreground) 1px, transparent 1px)",
             backgroundSize: "24px 24px",
           }}
         />
@@ -293,24 +293,24 @@ export default function ShowUpCardsPage() {
                 >
                   {/* Front Side Face */}
                   <div
-                    className="flip-card-front absolute inset-0 border-3 border-[#2a2a2a] shadow-[6px_6px_0px_#2a2a2a] p-4 bg-white text-[#2a2a2a] flex flex-col justify-between cursor-pointer select-none"
+                    className="flip-card-front absolute inset-0 border border-border shadow-md p-4 bg-card text-card-foreground flex flex-col justify-between cursor-pointer select-none rounded-xl"
                     style={{
                       backfaceVisibility: "hidden",
                       WebkitBackfaceVisibility: "hidden",
                     }}
                   >
                     <div className="flex justify-between items-center">
-                      <span className="font-mono text-[9px] font-bold text-zinc-400">
+                      <span className="font-mono text-[9px] font-bold text-muted-foreground">
                         [{stage.phase}]
                       </span>
                       <span
-                        className={`inline-block border border-black px-2 py-0.5 rounded-full text-[8px] font-mono font-bold text-white uppercase ${stage.accentClass}`}
+                        className={`inline-block border border-border px-2 py-0.5 rounded-full text-[8px] font-mono font-bold uppercase ${stage.accentClass}`}
                       >
                         FLIP NODE
                       </span>
                     </div>
 
-                    <div className="inner-img-frame w-full h-[140px] md:h-[180px] border-2 border-[#2a2a2a] relative overflow-hidden rounded-lg bg-zinc-50 my-2 shadow-[2px_2px_0px_#2a2a2a]">
+                    <div className="inner-img-frame w-full h-[140px] md:h-[180px] border border-border relative overflow-hidden rounded-lg bg-muted my-2 shadow-xs">
                       <InstantImage
                         src={stage.imgUrl}
                         alt={stage.title}
@@ -320,11 +320,11 @@ export default function ShowUpCardsPage() {
                       />
                     </div>
 
-                    <div className="flex justify-between items-center border-t border-zinc-200 pt-2">
-                      <h3 className="font-serif font-black text-xs text-[#2a2a2a]">
+                    <div className="flex justify-between items-center border-t border-border pt-2">
+                      <h3 className="font-serif font-black text-xs text-foreground">
                         {stage.title}
                       </h3>
-                      <span className="font-mono text-[10px] text-zinc-400 font-bold">
+                      <span className="font-mono text-[10px] text-muted-foreground font-bold">
                         0{stage.id}
                       </span>
                     </div>
@@ -332,23 +332,23 @@ export default function ShowUpCardsPage() {
 
                   {/* Back Side Face (Scroll-revealed) */}
                   <div
-                    className="flip-card-back absolute inset-0 border-3 border-[#2a2a2a] shadow-[6px_6px_0px_#2a2a2a] p-4 bg-white border-3 text-[#2a2a2a] flex flex-col justify-between cursor-pointer select-none"
+                    className="flip-card-back absolute inset-0 border border-border shadow-md p-4 bg-card text-card-foreground flex flex-col justify-between cursor-pointer select-none rounded-xl"
                     style={{
                       transform: "rotateY(180deg)",
                       backfaceVisibility: "hidden",
                       WebkitBackfaceVisibility: "hidden",
                     }}
                   >
-                    <div className="w-full flex justify-between font-mono font-bold text-[9px] uppercase border-b-2 border-black pb-2 items-center">
-                      <span className="text-zinc-400">
+                    <div className="w-full flex justify-between font-mono font-bold text-[9px] uppercase border-b border-border pb-2 items-center">
+                      <span className="text-muted-foreground">
                         0{stage.id} {"//"} NODE DETAILS
                       </span>
                       <span
-                        className={`h-2.5 w-2.5 rounded-full border border-black animate-pulse ${stage.accentClass}`}
+                        className={`h-2.5 w-2.5 rounded-full border border-border animate-pulse ${stage.accentClass}`}
                       />
                     </div>
 
-                    <div className="inner-img-frame w-full h-[140px] md:h-[180px] border-2 border-[#2a2a2a] relative overflow-hidden rounded-lg bg-zinc-50 my-2 shadow-[2px_2px_0px_#2a2a2a]">
+                    <div className="inner-img-frame w-full h-[140px] md:h-[180px] border border-border relative overflow-hidden rounded-lg bg-muted my-2 shadow-xs">
                       <InstantImage
                         src={stage.imgUrl}
                         alt={stage.title}
@@ -359,12 +359,12 @@ export default function ShowUpCardsPage() {
                     </div>
 
                     <div className="flex-1 flex items-center justify-center py-2">
-                      <p className="text-[10px] md:text-[11px] font-sans font-bold text-zinc-650 leading-snug text-center">
+                      <p className="text-[10px] md:text-[11px] font-sans font-bold text-muted-foreground leading-snug text-center">
                         {stage.desc}
                       </p>
                     </div>
 
-                    <div className="flex justify-between items-center border-t border-zinc-200 pt-2 font-mono text-[8px] text-zinc-400 font-black">
+                    <div className="flex justify-between items-center border-t border-border pt-2 font-mono text-[8px] text-muted-foreground font-black">
                       <span>STATUS: ONLINE</span>
                       <span>SECURE // OK</span>
                     </div>

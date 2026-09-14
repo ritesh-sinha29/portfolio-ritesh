@@ -85,12 +85,12 @@ export default function Home() {
   };
 
   return (
-    <main className="relative w-full bg-[#eaeae8] text-black">
-      {/* Lemon / Lime Green Loading Screen */}
+    <main className="relative w-full bg-background text-foreground">
+      {/* Loading Screen */}
       <LoadingScreen onComplete={handleLoadingComplete} />
 
       {/* Sticky Hero Page */}
-      <div className="sticky top-0 w-full h-screen overflow-hidden z-10 bg-[#eaeae8]">
+      <div className="sticky top-0 w-full h-screen overflow-hidden z-10 bg-background">
         <div
           ref={heroContentRef}
           className="w-full h-full will-change-transform"

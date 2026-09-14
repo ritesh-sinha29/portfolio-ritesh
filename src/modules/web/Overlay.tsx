@@ -40,7 +40,7 @@ const featuredFlipProjects: FlipProjectItem[] = [
     title: "WEKRAFT",
     phase: "PHASE 01",
     badge: "AI DEV PLATFORM",
-    accentClass: "bg-[#c5eb35] text-[#141b16]",
+    accentClass: "bg-primary text-primary-foreground",
     accentHex: "#c5eb35",
     imageUrl: "/wekraft.webp",
     description:
@@ -55,7 +55,7 @@ const featuredFlipProjects: FlipProjectItem[] = [
     title: "CLARIOO",
     phase: "PHASE 02",
     badge: "CAREER AI ENGINE",
-    accentClass: "bg-[#F5C86C] text-[#141b16]",
+    accentClass: "bg-secondary text-secondary-foreground",
     accentHex: "#F5C86C",
     imageUrl: "/clarioo.webp",
     description:
@@ -70,7 +70,7 @@ const featuredFlipProjects: FlipProjectItem[] = [
     title: "LOOMA",
     phase: "PHASE 03",
     badge: "COLLAB CANVAS",
-    accentClass: "bg-[#123826] text-[#c5eb35]",
+    accentClass: "bg-accent text-accent-foreground",
     accentHex: "#123826",
     imageUrl: "/looma.webp",
     description:
@@ -254,10 +254,10 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
         const title = projectsTitleRef.current;
         const subtitle = projectsSubtitleRef.current;
 
-        // Set initial states with full contrast dark text
-        gsap.set(bg, { backgroundColor: "#eaeae8" });
-        gsap.set(title, { color: "#141b16" });
-        gsap.set(subtitle, { color: "#5a625b" });
+        // Set initial states with theme colors
+        gsap.set(bg, { backgroundColor: "var(--background)" });
+        gsap.set(title, { color: "var(--foreground)" });
+        gsap.set(subtitle, { color: "var(--muted-foreground)" });
         gsap.set(panel, { yPercent: 0 });
 
         featuredFlipProjects.forEach((_, index) => {
@@ -509,18 +509,17 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
             ref={projectsPanelRef}
             className="absolute inset-0 w-full h-full z-20 overflow-hidden rounded-b-xl sm:rounded-b-2xl will-change-transform flex flex-col justify-between"
           >
-            {/* Stage Background: #eaeae8 canvas */}
+            {/* Stage Background */}
             <div
               ref={stageBgRef}
-              className="absolute inset-0 w-full h-full"
-              style={{ backgroundColor: "#eaeae8" }}
+              className="absolute inset-0 w-full h-full bg-background"
             />
 
             {/* Tactile dot matrix background */}
             <div
               className="absolute inset-0 pointer-events-none opacity-20"
               style={{
-                backgroundImage: "radial-gradient(#141b16 1px, transparent 1px)",
+                backgroundImage: "radial-gradient(var(--foreground) 1px, transparent 1px)",
                 backgroundSize: "24px 24px",
               }}
             />
@@ -532,13 +531,13 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
             <div className="relative z-10 w-full flex flex-col items-center justify-center pt-14 xs:pt-16 sm:pt-20 md:pt-20 pb-1 sm:pb-2 px-4 text-center shrink-0">
               <h2
                 ref={projectsTitleRef}
-                className="font-sans font-extrabold tracking-tight text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] leading-tight text-[#141b16]"
+                className="font-sans font-extrabold tracking-tight text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] leading-tight text-foreground"
               >
                 Projects
               </h2>
               <p
                 ref={projectsSubtitleRef}
-                className="font-sans text-[11px] sm:text-sm font-medium tracking-tight mt-0.5 sm:mt-1 text-[#5a625b]"
+                className="font-sans text-[11px] sm:text-sm font-medium tracking-tight mt-0.5 sm:mt-1 text-muted-foreground"
               >
                 Top Loved Works • Scroll to Flip &amp; Explore
               </p>
@@ -569,24 +568,24 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                       >
                         {/* Front Side Face */}
                         <div
-                          className="flip-card-front absolute inset-0 border-[1.5px] sm:border-[2.5px] border-[#141b16] shadow-[2px_2px_0px_#141b16] sm:shadow-[4px_4px_0px_#141b16] p-2 xs:p-2.5 sm:p-4 bg-white text-[#141b16] rounded-xl sm:rounded-2xl flex flex-col justify-between cursor-pointer select-none"
+                          className="flip-card-front absolute inset-0 border border-border shadow-md p-2 xs:p-2.5 sm:p-4 bg-card text-card-foreground rounded-xl sm:rounded-2xl flex flex-col justify-between cursor-pointer select-none"
                           style={{
                             backfaceVisibility: "hidden",
                             WebkitBackfaceVisibility: "hidden",
                           }}
                         >
                           <div className="flex justify-between items-center">
-                            <span className="font-mono text-[8px] sm:text-[10px] font-bold text-neutral-400">
+                            <span className="font-mono text-[8px] sm:text-[10px] font-bold text-muted-foreground">
                               [{stage.phase}]
                             </span>
                             <span
-                              className={`inline-block border border-[#141b16] px-1.5 sm:px-2 py-0.5 rounded-full text-[7px] xs:text-[8px] sm:text-[9px] font-mono font-bold uppercase ${stage.accentClass}`}
+                              className={`inline-block border border-border px-1.5 sm:px-2 py-0.5 rounded-full text-[7px] xs:text-[8px] sm:text-[9px] font-mono font-bold uppercase ${stage.accentClass}`}
                             >
                               {stage.badge}
                             </span>
                           </div>
 
-                          <div className="inner-img-frame w-full h-[85px] xs:h-[105px] sm:h-[135px] md:h-[150px] border sm:border-2 border-[#141b16] relative overflow-hidden rounded-lg sm:rounded-xl bg-neutral-100 my-1 sm:my-1.5 shadow-[1px_1px_0px_#141b16] sm:shadow-[2px_2px_0px_#141b16]">
+                          <div className="inner-img-frame w-full h-[85px] xs:h-[105px] sm:h-[135px] md:h-[150px] border border-border relative overflow-hidden rounded-lg sm:rounded-xl bg-muted my-1 sm:my-1.5 shadow-xs">
                             <InstantImage
                               src={stage.imageUrl}
                               alt={stage.title}
@@ -596,11 +595,11 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                             />
                           </div>
 
-                          <div className="flex justify-between items-center border-t border-neutral-200 pt-1.5 sm:pt-2">
-                            <h3 className="font-sans font-bold text-[10px] xs:text-xs sm:text-sm text-[#141b16] truncate">
+                          <div className="flex justify-between items-center border-t border-border pt-1.5 sm:pt-2">
+                            <h3 className="font-sans font-bold text-[10px] xs:text-xs sm:text-sm text-foreground truncate">
                               {stage.title}
                             </h3>
-                            <span className="font-mono text-[9px] sm:text-[11px] text-neutral-400 font-bold ml-1">
+                            <span className="font-mono text-[9px] sm:text-[11px] text-muted-foreground font-bold ml-1">
                               0{index + 1}
                             </span>
                           </div>
@@ -608,23 +607,23 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
 
                         {/* Back Side Face (Scroll-revealed) */}
                         <div
-                          className="flip-card-back absolute inset-0 border-[1.5px] sm:border-[2.5px] border-[#141b16] shadow-[2px_2px_0px_#141b16] sm:shadow-[4px_4px_0px_#141b16] p-2 xs:p-2.5 sm:p-4 bg-white text-[#141b16] rounded-xl sm:rounded-2xl flex flex-col justify-between cursor-pointer select-none"
+                          className="flip-card-back absolute inset-0 border border-border shadow-md p-2 xs:p-2.5 sm:p-4 bg-card text-card-foreground rounded-xl sm:rounded-2xl flex flex-col justify-between cursor-pointer select-none"
                           style={{
                             transform: "rotateY(180deg)",
                             backfaceVisibility: "hidden",
                             WebkitBackfaceVisibility: "hidden",
                           }}
                         >
-                          <div className="w-full flex justify-between font-mono font-bold text-[8px] sm:text-[10px] uppercase border-b border-neutral-200 pb-1 sm:pb-1.5 items-center">
-                            <span className="text-[#141b16] font-bold tracking-tight truncate">
+                          <div className="w-full flex justify-between font-mono font-bold text-[8px] sm:text-[10px] uppercase border-b border-border pb-1 sm:pb-1.5 items-center">
+                            <span className="text-foreground font-bold tracking-tight truncate">
                               0{index + 1} // {stage.title}
                             </span>
                             <span
-                              className={`h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full border border-black shrink-0 ${stage.accentClass}`}
+                              className={`h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full border border-border shrink-0 ${stage.accentClass}`}
                             />
                           </div>
 
-                          <div className="inner-img-frame w-full h-[65px] xs:h-[80px] sm:h-[110px] md:h-[120px] border sm:border-2 border-[#141b16] relative overflow-hidden rounded-lg sm:rounded-xl bg-neutral-100 my-0.5 sm:my-1 shadow-[1px_1px_0px_#141b16] sm:shadow-[2px_2px_0px_#141b16]">
+                          <div className="inner-img-frame w-full h-[65px] xs:h-[80px] sm:h-[110px] md:h-[120px] border border-border relative overflow-hidden rounded-lg sm:rounded-xl bg-muted my-0.5 sm:my-1 shadow-xs">
                             <InstantImage
                               src={stage.imageUrl}
                               alt={stage.title}
@@ -635,7 +634,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                           </div>
 
                           <div className="flex-1 flex flex-col justify-center py-0.5 sm:py-1">
-                            <p className="text-[8px] xs:text-[9.5px] sm:text-[11.5px] font-sans text-neutral-700 leading-tight sm:leading-snug line-clamp-2 sm:line-clamp-3">
+                            <p className="text-[8px] xs:text-[9.5px] sm:text-[11.5px] font-sans text-muted-foreground leading-tight sm:leading-snug line-clamp-2 sm:line-clamp-3">
                               {stage.description}
                             </p>
                             <div className="flex flex-wrap gap-0.5 sm:gap-1 mt-1 sm:mt-1.5">
@@ -644,7 +643,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                                   key={t}
                                   magneticStrength={0.25}
                                   scaleOnHover={1.08}
-                                  className="px-1 sm:px-1.5 py-0.5 rounded bg-neutral-100 hover:bg-neutral-200 border border-black/10 text-[7px] xs:text-[8px] sm:text-[8.5px] font-mono text-neutral-800 font-semibold transition-colors"
+                                  className="px-1 sm:px-1.5 py-0.5 rounded bg-muted hover:bg-accent border border-border text-[7px] xs:text-[8px] sm:text-[8.5px] font-mono text-foreground font-semibold transition-colors"
                                 >
                                   {t}
                                 </MagneticButton>
@@ -652,14 +651,14 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                             </div>
                           </div>
 
-                          <div className="w-full pt-1.5 sm:pt-2 border-t border-neutral-200">
-                            <div className="bg-white/95 backdrop-blur-md border border-black/10 shadow-xs rounded-full p-0.5 sm:p-1 flex items-center justify-between gap-1">
+                          <div className="w-full pt-1.5 sm:pt-2 border-t border-border">
+                            <div className="bg-card/95 backdrop-blur-md border border-border shadow-xs rounded-full p-0.5 sm:p-1 flex items-center justify-between gap-1">
                               {/* Live Link Button */}
                               <MagneticButton
                                 href={stage.liveUrl}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="flex-1 flex items-center justify-center gap-0.5 sm:gap-1 px-1.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-bold text-[8px] xs:text-[9px] sm:text-[11px] shadow-xs uppercase tracking-wider transition-colors duration-150"
+                                className="flex-1 flex items-center justify-center gap-0.5 sm:gap-1 px-1.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-primary hover:opacity-90 text-primary-foreground font-sans font-bold text-[8px] xs:text-[9px] sm:text-[11px] shadow-xs uppercase tracking-wider transition-opacity duration-150"
                                 title={`Visit ${stage.title} Live`}
                               >
                                 <span>Check Live</span>
@@ -671,7 +670,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                                 href={stage.githubUrl}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="flex items-center gap-1 px-1.5 sm:px-2.5 py-1 sm:py-1.5 rounded-full text-[#141b16] hover:bg-neutral-100 font-sans font-bold text-[8px] xs:text-[9px] sm:text-[11px] transition-colors duration-150"
+                                className="flex items-center gap-1 px-1.5 sm:px-2.5 py-1 sm:py-1.5 rounded-full text-foreground hover:bg-muted font-sans font-bold text-[8px] xs:text-[9px] sm:text-[11px] transition-colors duration-150"
                                 title={`View ${stage.title} on GitHub`}
                               >
                                 <svg className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 fill-current" viewBox="0 0 24 24">
@@ -694,10 +693,10 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
 
             {/* Bottom "Explore All Works" Navigation Bar (Pill Dock Style) */}
             <div className="relative z-20 pb-5 sm:pb-6 md:pb-7 pt-1 flex justify-center shrink-0">
-              <div className="inline-flex items-center p-1 sm:p-1.5 rounded-full bg-white/95 backdrop-blur-md border border-black/10 shadow-[0_6px_24px_rgba(0,0,0,0.08)] gap-1">
+              <div className="inline-flex items-center p-1 sm:p-1.5 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-[0_6px_24px_rgba(0,0,0,0.08)] gap-1">
                 <MagneticButton
                   href="/work"
-                  className="px-5 sm:px-7 py-2 sm:py-2.5 rounded-full bg-[#c5eb35] hover:bg-[#b4db26] text-[#141b16] font-sans font-bold text-xs sm:text-sm flex items-center gap-2 shadow-xs transition-colors duration-150 uppercase tracking-wider"
+                  className="px-5 sm:px-7 py-2 sm:py-2.5 rounded-full bg-primary hover:opacity-90 text-primary-foreground font-sans font-bold text-xs sm:text-sm flex items-center gap-2 shadow-xs transition-opacity duration-150 uppercase tracking-wider"
                 >
                   <span>View All 6+ Production Projects</span>
                   <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />

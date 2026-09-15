@@ -10,7 +10,6 @@ import {
   LucideBrain,
   RotateCcw,
   Send,
-  Sparkles,
   X,
 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
@@ -146,7 +145,7 @@ export default function ChatWidget({
                       <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                     </h3>
                     <p className="text-[11px] text-[#5a625b] font-medium font-sans">
-                      Founder @ VRSA Analytics • AI Engineer
+                      Co-Founder @ VRSA Analytics • AI Engineer
                     </p>
                   </div>
                 </div>
@@ -274,20 +273,8 @@ export default function ChatWidget({
                     onKeyDown={handleKeyDown}
                     placeholder="Ask about projects, stack, experience..."
                     disabled={isStreaming}
-                    className="w-full pl-3.5 pr-8 py-2.5 text-xs sm:text-sm bg-neutral-50 border border-black/15 rounded-full focus:outline-hidden focus:border-[#141b16] focus:ring-1 focus:ring-[#141b16] transition-all text-[#141b16] placeholder:text-neutral-400 disabled:opacity-60 font-sans"
+                    className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-neutral-50 border border-black/15 rounded-full focus:outline-hidden focus:border-[#141b16] focus:ring-1 focus:ring-[#141b16] transition-all text-[#141b16] placeholder:text-neutral-400 disabled:opacity-60 font-sans"
                   />
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setInputValue(
-                        "Tell me about Ritesh's projects and architecture expertise!",
-                      );
-                    }}
-                    className="absolute right-2.5 p-1 text-neutral-400 hover:text-neutral-800 transition-colors cursor-pointer"
-                    title="Insert sample prompt"
-                  >
-                    <Sparkles className="w-4 h-4 text-amber-500" />
-                  </button>
                 </div>
 
                 <button

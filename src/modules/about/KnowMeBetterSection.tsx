@@ -13,7 +13,6 @@ import {
   Terminal,
   ChevronDown,
 } from "lucide-react";
-import Footer from "../web/Footer";
 import TechStackSkills from "./TechStackSkills";
 import GitHubActivitySection from "./GitHubActivitySection";
 
@@ -42,7 +41,7 @@ const faqStories: FaqStory[] = [
     iconColor: "text-[#1c2411]",
     icon: Briefcase,
     content:
-      "As Founder of VRSA Analytics, I own end-to-end product engineering and system design for e-commerce, B2B, and B2C platforms. I lead architecture, client delivery, and technical execution — shipping production systems (including inventory platforms and AI chatbots) while generating ₹3.5L+ in revenue. I also take on selective freelance work building multi-tenant SaaS products with strong focus on reliability, cost-efficient LLM usage, and clean CI/CD.",
+      "As Co-Founder of VRSA Analytics, I own end-to-end product engineering and system design for e-commerce, B2B, and B2C platforms. I lead architecture, client delivery, and technical execution — shipping production systems (including inventory platforms and AI chatbots) while generating ₹3.5L+ in revenue. I also take on selective freelance work building multi-tenant SaaS products with strong focus on reliability, cost-efficient LLM usage, and clean CI/CD.",
   },
   {
     id: "process",
@@ -113,10 +112,10 @@ const KnowMeBetterSection = forwardRef<HTMLDivElement, KnowMeBetterProps>(
       <section
         ref={setRefs}
         id="know-me-better"
-        className={`relative z-20 w-full bg-[#f6f6f4] text-[#141b16] rounded-t-[36px] sm:rounded-t-[52px] shadow-[0_-24px_60px_rgba(0,0,0,0.08)] border-t border-black/5 overflow-hidden ${className}`}
+        className={`relative z-20 w-full bg-[#f6f6f4] text-[#141b16] rounded-t-[36px] sm:rounded-t-[52px] shadow-[0_-24px_60px_rgba(0,0,0,0.08)] border-t border-black/5 select-none ${className}`}
       >
         {/* Ambient top light gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-[#f6f6f4] to-[#efefe9] pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-[#f6f6f4] to-[#efefe9] pointer-events-none rounded-t-[36px] sm:rounded-t-[52px]" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 md:px-14 lg:px-16 pt-16 sm:pt-24 pb-28">
           {/* Section Header */}
@@ -257,11 +256,6 @@ const KnowMeBetterSection = forwardRef<HTMLDivElement, KnowMeBetterProps>(
 
           {/* 03 / GitHub Activity & Stats Heatmap */}
           <GitHubActivitySection />
-        </div>
-
-        {/* Underlying Footer Section */}
-        <div className="relative w-full h-screen min-h-[640px]">
-          <Footer />
         </div>
       </section>
     );

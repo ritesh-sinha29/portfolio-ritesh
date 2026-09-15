@@ -3,7 +3,7 @@
 export const RITESH_PROFILE = {
   name: "Ritesh Sinha",
   nickname: "Ritesh",
-  title: "Founder of VRSA Analytics & Full-Stack AI Engineer",
+  title: "Co-Founder of VRSA Analytics & Full-Stack AI Engineer",
   location: "India",
   email: "riteshsinha4146@gmail.com",
   socials: {
@@ -13,7 +13,7 @@ export const RITESH_PROFILE = {
     portfolio: "https://riteshsinha.dev",
     resume: "/resume.pdf",
   },
-  bio: `Ritesh Sinha is a Full-Stack AI Engineer and Founder of VRSA Analytics. He specializes in designing and deploying production-grade multi-agent AI systems, distributed cloud architectures, real-time collaboration engines, and sleek interactive web applications. He has shipped systems generating ₹3.5L+ in client revenue, with deep expertise in multi-agent workflows (LangGraph supervisor patterns), durable execution (Temporal.io), MCP tool protocols, and full-stack Next.js/React engineering.`,
+  bio: `Ritesh Sinha is a Full-Stack AI Engineer and Co-Founder of VRSA Analytics. He specializes in designing and deploying production-grade multi-agent AI systems, distributed cloud architectures, real-time collaboration engines, and sleek interactive web applications. He has shipped systems generating ₹3.5L+ in client revenue, with deep expertise in multi-agent workflows (LangGraph supervisor patterns), durable execution (Temporal.io), MCP tool protocols, and full-stack Next.js/React engineering.`,
   coreSkills: [
     "Multi-Agent Architectures (LangGraph supervisor patterns, state graphs, checkpointing, guardrails)",
     "Vercel AI SDK & Model Context Protocol (MCP) integrations",
@@ -27,7 +27,7 @@ export const RITESH_PROFILE = {
   ],
   currentRole: {
     company: "VRSA Analytics",
-    position: "Founder & Lead Architect",
+    position: "Co-Founder & Lead Architect",
     summary:
       "Owns end-to-end product engineering and system design for e-commerce, B2B, and B2C platforms. Leads architecture, client delivery, and technical execution — shipping production inventory platforms, AI chatbots, and multi-tenant SaaS products with over ₹3.5L+ in generated revenue.",
   },

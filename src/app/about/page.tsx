@@ -9,6 +9,7 @@ import { RotateCcw, Activity } from "lucide-react";
 import Header from "@/modules/web/Header";
 import PlayfulPhysicsCanvas, { PlayfulPhysicsCanvasRef } from "@/modules/about/PlayfulPhysicsCanvas";
 import KnowMeBetterSection from "@/modules/about/KnowMeBetterSection";
+import Footer from "@/modules/web/Footer";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -159,6 +160,9 @@ export default function AboutPage() {
 
       {/* "Know me better" Overlay Section that glides over the hero */}
       <KnowMeBetterSection ref={overlayRef} className="relative z-20" />
+
+      {/* Signature Full-Screen Alpine Footer */}
+      <Footer className="relative z-20" />
     </main>
   );
 }

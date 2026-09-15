@@ -209,7 +209,7 @@ Ritesh is currently open for select high-impact engineering roles, founding engi
 
   // 5. Default Bio / Overview
   return {
-    text: `**Ritesh Sinha** is a **Full-Stack AI Engineer** and the **Founder of VRSA Analytics**.
+    text: `**Ritesh Sinha** is a **Full-Stack AI Engineer** and the **Co-Founder of VRSA Analytics**.
 
 - **Specialization**: Designing and shipping production-grade multi-agent architectures (LangGraph), durable workflow orchestrations (Temporal.io), real-time collaborative canvases (Liveblocks), and ultra-low latency voice AI engines (Vapi).
 - **Track Record**: Has shipped systems generating ₹3.5L+ in client revenue across multi-tenant SaaS, inventory platforms, and automated developer tools.

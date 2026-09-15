@@ -1,7 +1,7 @@
 // src/components/ui/ProjectLikeButton.tsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Heart } from "lucide-react";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
@@ -19,17 +19,20 @@ export function ProjectLikeButton({
   className = "",
   size = "sm",
 }: ProjectLikeButtonProps) {
-  const [localLiked, setLocalLiked] = useState(() => {
-    if (typeof window === "undefined") return false;
-    try {
-      return localStorage.getItem(`liked_${projectId}`) === "true";
-    } catch {
-      return false;
-    }
-  });
-
+  const [localLiked, setLocalLiked] = useState(false);
   const [localCount, setLocalCount] = useState(initialLikes);
   const [isPopping, setIsPopping] = useState(false);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(`liked_${projectId}`);
+      if (stored === "true") {
+        setLocalLiked(true);
+      }
+    } catch {
+      // ignore
+    }
+  }, [projectId]);
 
   // Unconditional Convex hooks
   const allLikes = useQuery(api.projects.getLikes);

@@ -73,8 +73,16 @@ portfolio-ritesh/
 - Implemented **Convex Real-Time Backend & Project Like / Upvote System**:
   - [schema.ts](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/convex/schema.ts): Real-time schema for `messages`, `projectLikes`, and `guestbook`.
   - [projects.ts](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/convex/projects.ts), [messages.ts](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/convex/messages.ts), [guestbook.ts](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/convex/guestbook.ts): Queries and mutations.
-  - [ConvexClientProvider.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/components/providers/ConvexClientProvider.tsx): Resilient Convex provider with graceful fallback when `NEXT_PUBLIC_CONVEX_URL` is unconfigured.
-  - [ProjectLikeButton.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/components/ui/ProjectLikeButton.tsx): Tactile upvote / like button with optimistic state and real-time synchronization, integrated in both [ProjectsSection.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/web/ProjectsSection.tsx) and [page.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/app/work/page.tsx).
+- Enhanced **Selected Works Page (`/work`)**:
+  - Integrated signature full-screen Alpine [Footer.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/web/Footer.tsx) with live panorama background video, avatar, email copy pill dock, and socials.
+  - Added real-time [ProjectLikeButton.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/components/ui/ProjectLikeButton.tsx) alongside project cards.
+
+- Unified and standard Alpine Mountain **Footer** across **all pages** (`/`, `/about`, `/work`, `/contact`):
+  - In [Footer.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/web/Footer.tsx): Rendered with live ambient alpine panorama video background, centered avatar, sunset gold editorial typography (`YOU FOUND ME. NOW LET'S BUILD SOMETHING.`), copyable email dock pill, and social links.
+  - In [work/page.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/app/work/page.tsx): Removed the redundant middle conversion callout box so the project grid leads directly into the Alpine mountain footer.
+  - In [contact/page.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/app/contact/page.tsx): Integrated the signature Alpine mountain footer at the bottom of the contact page.
+  - In [KnowMeBetterSection.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/about/KnowMeBetterSection.tsx): Rendered full-width responsive Alpine footer beneath GitHub stats.
+  - In [Overlay_about-me.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/web/Overlay_about-me.tsx): Rendered as the pinned underneath reveal layer following the projects stage.
 
 ## 5. Important File Map
 | Section | Files |
@@ -90,9 +98,13 @@ portfolio-ritesh/
 | Footer & Contact | `src/modules/web/Footer.tsx` |
 | Config & Dependencies | `package.json`, `next.config.ts`, `tsconfig.json`, `.env.example` |
 
-## 6. Current Task Context
-- All requested features from rox-portfolio ported, adapted, and integrated into Ritesh's portfolio with full Convex real-time support.
-
-## 7. Last Session Summary
-- Verified TypeScript compilation (`pnpm tsc --noEmit` -> 0 errors).
-- Built Convex backend, Project Upvotes, Mobile Desktop Recommendation Modal, Contact Page with Resend email API, and AI Agent Chatbot.
+- Redesigned **Selected Works Page (`/work`)**:
+  - Structured the **First Dome / Hero** as a dedicated full-viewport fold (`min-h-screen`) containing exclusively the editorial badge, large **"Top Works."** headline, subtitle description, and a subtle animated scroll cue.
+  - Moved the filter tabs dock and project cards grid into the subsequent stage below the first dome, ensuring clean visual separation with no cut-off cards on initial page load.
+  - Retained the signature sticky curtain reveal Alpine mountain footer at the bottom of the page.
+- Updated **About Page Overlay ([KnowMeBetterSection.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/about/KnowMeBetterSection.tsx) & [page.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/app/about/page.tsx))**:
+  - Restored circular top rounded corners (`rounded-t-[36px] sm:rounded-t-[52px]`) with smooth drop shadow on the "Know Me Better" card.
+  - Eliminated the dark background artifact behind the top corners by keeping the overlay card backdrop fully transparent so the sticky hero section behind it (text, physics simulation, background) shows through the corner notches seamlessly.
+  - Rendered [`Footer`](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/web/Footer.tsx) directly at the bottom of the About page flow.
+- Fixed **React Hydration Error in Contact Page ([contact/page.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/app/contact/page.tsx))**:
+  - Resolved invalid `<button>` nesting inside `<MagneticButton>` by removing the redundant inner `<button>` and passing `type="submit"`, `disabled={...}`, and classes directly to `<MagneticButton>`.

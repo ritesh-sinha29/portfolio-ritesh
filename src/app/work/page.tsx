@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowLeft, ArrowUpRight, Check, Copy, Eye } from "lucide-react";
+import { ArrowUpRight, Eye } from "lucide-react";
 import { InstantImage } from "@/components/media/InstantImage";
 import Header from "@/modules/web/Header";
+import Footer from "@/modules/web/Footer";
 import MagneticDock from "@/components/tweenlabs/MagneticDock";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { ProjectLikeButton } from "@/components/ui/ProjectLikeButton";
@@ -171,14 +172,6 @@ export default function WorkPage() {
   const [selectedCategory, setSelectedCategory] = useState<
     "all" | "ai-systems" | "voice-ai" | "fullstack"
   >("all");
-  const [copied, setCopied] = useState(false);
-  const email = "riteshsinha4146@gmail.com";
-
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   const filteredProjects =
     selectedCategory === "all"
@@ -186,44 +179,60 @@ export default function WorkPage() {
       : projectsData.filter((p) => p.category === selectedCategory);
 
   return (
-    <main className="relative min-h-screen w-full bg-background text-foreground selection:bg-primary selection:text-primary-foreground select-none">
-      {/* Film grain noise overlay */}
-      <div className="fixed inset-0 bg-noise opacity-10 pointer-events-none mix-blend-overlay z-0" />
-
+    <main className="relative w-full bg-background text-foreground selection:bg-primary selection:text-primary-foreground select-none">
       {/* Universal Fixed Header */}
       <Header activeTab="works" />
 
-      {/* Hero Header Area */}
-      <section className="relative z-10 pt-28 sm:pt-36 md:pt-40 lg:pt-44 pb-8 sm:pb-12 px-4 sm:px-8 max-w-7xl mx-auto text-center flex flex-col items-center">
-        {/* Big Headline */}
-        <h1 className="font-serif italic font-light text-5xl sm:text-7xl md:text-8xl tracking-tight text-foreground leading-none">
-          Selected <span className="font-sans font-bold not-italic text-foreground">Works.</span>
-        </h1>
+      {/* Main Content Stage (Curtain): sits on top of sticky footer */}
+      <div className="relative z-20 w-full bg-background min-h-screen shadow-[0_25px_50px_rgba(0,0,0,0.25)] border-b border-black/10">
+        {/* Film grain noise overlay */}
+        <div className="absolute inset-0 bg-noise opacity-10 pointer-events-none mix-blend-overlay z-0" />
 
-        {/* Subtitle */}
-        <p className="font-sans text-xs xs:text-sm sm:text-base md:text-lg text-muted-foreground font-medium max-w-2xl mx-auto mt-3.5 sm:mt-5 leading-relaxed px-2">
-          Intelligent AI agents, real-time collaborative canvases, distributed architectures, and voice engines built with production-grade performance.
-        </p>
+        {/* Hero Header Area: Dedicated Full First Dome */}
+        <section className="relative w-full min-h-screen flex flex-col justify-center items-center text-center px-4 sm:px-8 max-w-5xl mx-auto pt-20 pb-16">
+          {/* Editorial Sub-badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/5 text-[#5a625b] text-[11px] font-mono uppercase tracking-[0.15em] mb-4 sm:mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+            Curated Engineering Archive
+          </div>
 
-        {/* Filter Tabs (MagneticDock) */}
-        <div className="mt-6 sm:mt-10 flex justify-center max-w-full">
-          <MagneticDock
-            variant="inline"
-            activeId={selectedCategory}
-            onItemClick={(id) => setSelectedCategory(id as "all" | "ai-systems" | "voice-ai" | "fullstack")}
-            items={[
-              { id: "all", label: "All Works" },
-              { id: "ai-systems", label: "AI Systems & Agents" },
-              { id: "voice-ai", label: "Voice AI" },
-              { id: "fullstack", label: "Interactive & Full-Stack" },
-            ]}
-          />
-        </div>
-      </section>
+          {/* Big Headline */}
+          <h1 className="font-serif italic font-light text-6xl xs:text-7xl sm:text-8xl md:text-[6.5rem] lg:text-[7.5rem] tracking-tight text-foreground leading-[1.02]">
+            Top <span className="font-sans font-bold not-italic text-foreground">Works.</span>
+          </h1>
 
-      {/* Projects Grid Section (3 Columns on Large Screens) */}
-      <section className="relative z-10 px-4 sm:px-6 lg:px-8 pb-20 max-w-[1160px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-5 lg:gap-5.5">
+          {/* Subtitle */}
+          <p className="font-sans text-sm xs:text-base sm:text-lg md:text-xl text-muted-foreground font-medium max-w-2xl mx-auto mt-4 sm:mt-6 leading-relaxed px-2">
+            Intelligent AI agents, real-time collaborative canvases, distributed architectures, and voice engines built with production-grade performance.
+          </p>
+
+          {/* Scroll Down Cue */}
+          <div className="absolute bottom-8 sm:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/60 select-none">
+            <span className="text-[10px] font-mono uppercase tracking-widest font-semibold">Scroll to Explore</span>
+            <div className="w-5 h-8 rounded-full border border-black/15 flex items-start justify-center p-1">
+              <div className="w-1 h-2 rounded-full bg-foreground/50 animate-bounce" />
+            </div>
+          </div>
+        </section>
+
+        {/* Projects Stage Section: Filter Tabs Dock + 3-Column Cards Grid */}
+        <section className="relative z-10 px-4 sm:px-6 lg:px-8 pt-8 sm:pt-14 pb-24 sm:pb-32 max-w-[1160px] mx-auto">
+          {/* Filter Tabs (MagneticDock) */}
+          <div className="mb-10 sm:mb-14 flex justify-center max-w-full">
+            <MagneticDock
+              variant="inline"
+              activeId={selectedCategory}
+              onItemClick={(id) => setSelectedCategory(id as "all" | "ai-systems" | "voice-ai" | "fullstack")}
+              items={[
+                { id: "all", label: "All Works" },
+                { id: "ai-systems", label: "AI Systems & Agents" },
+                { id: "voice-ai", label: "Voice AI" },
+                { id: "fullstack", label: "Interactive & Full-Stack" },
+              ]}
+            />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-5 lg:gap-5.5">
           {filteredProjects.map((project) => (
             <article
               key={project.id}
@@ -359,71 +368,12 @@ export default function WorkPage() {
           ))}
         </div>
       </section>
+      </div>
 
-      {/* Bottom Conversion / Contact Callout */}
-      <section className="relative z-10 px-4 sm:px-6 pb-12 max-w-2xl mx-auto text-center">
-        <div className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border-2 border-[#141b16] shadow-[4px_4px_0px_#141b16] flex flex-col items-center">
-          <h3 className="font-serif italic font-light text-2xl sm:text-3xl md:text-[2rem] leading-tight text-foreground">
-            Have an ambitious project in mind?
-          </h3>
-          <p className="font-sans text-xs sm:text-[13px] text-muted-foreground font-medium max-w-md mt-2 leading-relaxed">
-            Open for select high-impact engineering roles, AI system architecture consulting, and founding engineering opportunities.
-          </p>
-
-          {/* Email Dock Bar */}
-          <div className="flex items-center gap-1.5 mt-4.5 p-1 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-xs">
-            <a
-              href={`mailto:${email}`}
-              className="px-3.5 py-1.5 font-sans font-bold text-xs sm:text-[13px] text-foreground hover:text-muted-foreground transition-colors truncate"
-            >
-              {email}
-            </a>
-
-            <MagneticButton
-              onClick={handleCopyEmail}
-              magneticStrength={0.45}
-              scaleOnHover={1.06}
-              ariaLabel="Copy email address"
-              className="px-3 py-1.5 rounded-full border border-border hover:bg-muted text-foreground font-sans font-bold text-xs flex items-center gap-1.5 transition-colors duration-150"
-            >
-              {copied ? (
-                <>
-                  <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                  <span>Copied!</span>
-                </>
-              ) : (
-                <>
-                  <Copy className="w-3.5 h-3.5 stroke-[2.5]" />
-                  <span>Copy Email</span>
-                </>
-              )}
-            </MagneticButton>
-          </div>
-
-          {/* Bottom Dual Action Pill Dock: Back to Home & Hire Me */}
-          <div className="mt-5 inline-flex items-center p-1 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-xs gap-1">
-            <MagneticButton
-              href="/"
-              magneticStrength={0.45}
-              scaleOnHover={1.06}
-              className="px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-sans font-bold text-foreground hover:bg-muted flex items-center gap-1.5 transition-colors duration-150 uppercase tracking-wider"
-            >
-              <ArrowLeft className="w-3.5 h-3.5 stroke-[2.5]" />
-              <span>Home</span>
-            </MagneticButton>
-
-            <MagneticButton
-              href={`mailto:${email}`}
-              magneticStrength={0.45}
-              scaleOnHover={1.06}
-              className="px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-sans font-bold bg-primary hover:opacity-90 text-primary-foreground shadow-xs flex items-center gap-1.5 transition-opacity duration-150 uppercase tracking-wider"
-            >
-              <span>Hire Me</span>
-              <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
-            </MagneticButton>
-          </div>
-        </div>
-      </section>
+      {/* Sticky Curtain Reveal Alpine Footer: sits underneath z-20 content */}
+      <div className="sticky bottom-0 z-10 h-screen w-full overflow-hidden">
+        <Footer />
+      </div>
     </main>
   );
 }

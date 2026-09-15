@@ -38,7 +38,7 @@ export default function Header({
   const pathname = usePathname();
   const isHomePage = pathname === "/";
   const currentActiveTab =
-    activeTab || (pathname === "/work" ? "works" : pathname === "/about" ? "about" : "home");
+    activeTab || (pathname === "/work" ? "works" : pathname === "/about" ? "about" : pathname === "/contact" ? "contact" : "home");
 
   const scrollToHomeSection = (id: string) => {
     const lenis = (
@@ -123,10 +123,15 @@ export default function Header({
   };
 
   const handleContactClick = () => {
-    if (isHomePage) {
-      handleTabAction("contact");
+    if (pathname === "/contact") {
+      const lenis = (window as unknown as { lenis?: { scrollTo: (t: number) => void } }).lenis;
+      if (lenis) {
+        lenis.scrollTo(0);
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     } else {
-      router.push("/?section=contact");
+      router.push("/contact");
     }
   };
 
@@ -186,7 +191,11 @@ export default function Header({
           ) : showContact ? (
             <div className="p-1 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-[0_4px_20px_rgba(0,0,0,0.06)] inline-flex items-center">
               <MagneticButton
-                onClick={handleContactClick}
+                href="/contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleContactClick();
+                }}
                 className="group bg-primary hover:opacity-90 text-primary-foreground font-sans font-bold text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-full flex items-center gap-1.5 sm:gap-2 transition-all duration-150 shadow-xs cursor-pointer"
               >
                 <span className="hidden sm:inline">Contact</span>

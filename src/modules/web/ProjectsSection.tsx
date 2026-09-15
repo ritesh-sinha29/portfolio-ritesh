@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import gsap from "gsap";
 import { MagneticButton } from "@/components/ui/magnetic-button";
+import { ProjectLikeButton } from "@/components/ui/ProjectLikeButton";
 
 export interface ProjectCardItem {
   id: string;
@@ -133,16 +134,19 @@ const ProjectsSection = forwardRef<HTMLDivElement, ProjectsSectionProps>(
                   transform: "perspective(1000px) rotateX(0deg) rotateY(0deg)",
                 }}
               >
-                {/* Top Badge Row */}
-                <div className="flex justify-between items-center pb-0.5">
-                  <span className="font-mono text-[8px] sm:text-[10px] font-bold text-neutral-400">
-                    [{project.phase}]
-                  </span>
-                  <span
-                    className={`inline-block border border-[#141b16] shadow-[1px_1px_0px_#141b16] px-1.5 sm:px-2 py-0.5 rounded-full text-[7px] xs:text-[8px] sm:text-[9px] font-mono font-bold uppercase ${project.accentClass}`}
-                  >
-                    {project.badge}
-                  </span>
+                {/* Header Phase / Badge & Like Button */}
+                <div className="flex items-center justify-between gap-1">
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-mono font-bold text-[8px] xs:text-[9px] sm:text-[10px] text-neutral-500">
+                      [{project.phase}]
+                    </span>
+                    <span
+                      className={`inline-block border border-[#141b16] shadow-[1px_1px_0px_#141b16] px-1.5 sm:px-2 py-0.5 rounded-full text-[7px] xs:text-[8px] sm:text-[9px] font-mono font-bold uppercase ${project.accentClass}`}
+                    >
+                      {project.badge}
+                    </span>
+                  </div>
+                  <ProjectLikeButton projectId={project.id} />
                 </div>
 
                 {/* Image Frame */}

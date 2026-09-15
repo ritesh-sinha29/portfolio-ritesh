@@ -7,6 +7,7 @@ import { InstantImage } from "@/components/media/InstantImage";
 import Header from "@/modules/web/Header";
 import MagneticDock from "@/components/tweenlabs/MagneticDock";
 import { MagneticButton } from "@/components/ui/magnetic-button";
+import { ProjectLikeButton } from "@/components/ui/ProjectLikeButton";
 
 interface DetailedProject {
   id: string;
@@ -262,7 +263,7 @@ export default function WorkPage() {
               <div className="p-3.5 sm:p-4 lg:p-4.5 flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex justify-between items-start gap-2">
-                    <div>
+                    <div className="flex-1 min-w-0">
                       <h2 className="font-sans font-extrabold text-lg sm:text-xl text-[#141b16] tracking-tight">
                         {project.title}
                       </h2>
@@ -270,6 +271,7 @@ export default function WorkPage() {
                         {project.subtitle}
                       </p>
                     </div>
+                    <ProjectLikeButton projectId={project.id} />
                   </div>
 
                   <p className="font-sans text-[11.5px] sm:text-xs text-neutral-700 mt-2 leading-relaxed font-normal line-clamp-2">

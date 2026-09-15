@@ -61,22 +61,38 @@ portfolio-ritesh/
   - [use-agent.ts](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/agent/use-agent.ts): React state hook for message streaming, abort controller, tool status events, and conversation clearing.
   - [ChatWidget.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/agent/ChatWidget.tsx): Tactile neo-brutalist right-edge `"Ask anything"` launcher with circular avatar, live pulse indicator, animated slide-in drawer, starter suggestions, markdown rendering, and tool execution status feedback.
   - [route.ts](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/app/api/agent/route.ts): Multi-tier streaming endpoint (Local Ollama `http://localhost:11434` -> Cloud API -> Smart Knowledge Fallback Engine + Resend tool triggers for 100% uptime).
-  - [layout.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/app/layout.tsx): Globally mounted across all routes (`/`, `/about`, `/work`).
+  - [layout.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/app/layout.tsx): Globally mounted across all routes (`/`, `/about`, `/work`, `/contact`).
+
+- Built dedicated **Contact Page & Email Delivery Pipeline**:
+  - [page.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/app/contact/page.tsx): Editorial contact form with copy email pill, quick info chips, name/email/message inputs with tactile neo-brutalist styling, and responsive validation.
+  - [route.ts](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/app/api/contact/route.ts): Dedicated API route with Zod schema validation and Resend email delivery.
+
+- Built **Mobile Desktop Recommendation Modal**:
+  - [DesktopRecommendationModal.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/components/ui/DesktopRecommendationModal.tsx): Subtle neo-brutalist banner popup for small screens (< 768px) with `sessionStorage` dismissal persistence.
+
+- Implemented **Convex Real-Time Backend & Project Like / Upvote System**:
+  - [schema.ts](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/convex/schema.ts): Real-time schema for `messages`, `projectLikes`, and `guestbook`.
+  - [projects.ts](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/convex/projects.ts), [messages.ts](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/convex/messages.ts), [guestbook.ts](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/convex/guestbook.ts): Queries and mutations.
+  - [ConvexClientProvider.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/components/providers/ConvexClientProvider.tsx): Resilient Convex provider with graceful fallback when `NEXT_PUBLIC_CONVEX_URL` is unconfigured.
+  - [ProjectLikeButton.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/components/ui/ProjectLikeButton.tsx): Tactile upvote / like button with optimistic state and real-time synchronization, integrated in both [ProjectsSection.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/web/ProjectsSection.tsx) and [page.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/app/work/page.tsx).
 
 ## 5. Important File Map
 | Section | Files |
 | :--- | :--- |
-| Core Layout & Global Styles | `src/app/layout.tsx`, `src/app/globals.css`, `src/components/providers/LoadingProvider.tsx`, `src/modules/web/LoadingScreen.tsx` |
+| Core Layout & Global Providers | `src/app/layout.tsx`, `src/app/globals.css`, `src/components/providers/LoadingProvider.tsx`, `src/components/providers/ConvexClientProvider.tsx`, `src/components/ui/DesktopRecommendationModal.tsx`, `src/modules/web/LoadingScreen.tsx` |
 | AI Chatbot Assistant & Tools | `src/modules/agent/ChatWidget.tsx`, `src/modules/agent/use-agent.ts`, `src/modules/agent/agent-stream.ts`, `src/lib/agent/knowledge.ts`, `src/lib/agent/tools.ts`, `src/app/api/agent/route.ts` |
+| Convex Backend & Mutations | `convex/schema.ts`, `convex/projects.ts`, `convex/messages.ts`, `convex/guestbook.ts`, `src/components/ui/ProjectLikeButton.tsx` |
 | Navigation Header & Dock | `src/modules/web/Header.tsx`, `src/components/tweenlabs/MagneticDock.tsx` |
 | Home Page & Overlay | `src/app/page.tsx`, `src/modules/web/Hero.tsx`, `src/modules/web/Overlay_about-me.tsx` |
 | Dedicated About Page | `src/app/about/page.tsx`, `src/modules/about/PlayfulPhysicsCanvas.tsx`, `src/modules/about/KnowMeBetterSection.tsx`, `src/modules/about/TechStackSkills.tsx`, `src/modules/about/GitHubActivitySection.tsx` |
 | Selected Works Page | `src/app/work/page.tsx`, `src/modules/web/ProjectsSection.tsx` |
+| Contact Page & Email API | `src/app/contact/page.tsx`, `src/app/api/contact/route.ts` |
 | Footer & Contact | `src/modules/web/Footer.tsx` |
 | Config & Dependencies | `package.json`, `next.config.ts`, `tsconfig.json`, `.env.example` |
 
 ## 6. Current Task Context
-- AI Chatbot and Resend Email tools fully ported and configured for Ritesh Sinha's portfolio.
+- All requested features from rox-portfolio ported, adapted, and integrated into Ritesh's portfolio with full Convex real-time support.
 
 ## 7. Last Session Summary
-- Built and verified Ritesh AI Chatbot Assistant with Resend email tools (`contactRitesh` and `sendRiteshDetails`), local Ollama + fallback streaming, and tactile drawer UI.
+- Verified TypeScript compilation (`pnpm tsc --noEmit` -> 0 errors).
+- Built Convex backend, Project Upvotes, Mobile Desktop Recommendation Modal, Contact Page with Resend email API, and AI Agent Chatbot.

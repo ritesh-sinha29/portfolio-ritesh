@@ -7,6 +7,7 @@ import SmoothScroll from "@/components/providers/SmoothScroll";
 import { LoadingProvider } from "@/components/providers/LoadingProvider";
 import ConvexClientProvider from "@/components/providers/ConvexClientProvider";
 import ChatWidget from "@/modules/agent/ChatWidget";
+import { DesktopRecommendationModal } from "@/components/ui/DesktopRecommendationModal";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -78,6 +79,7 @@ export default function RootLayout({
               <SmoothCursor />
               {children}
               <ChatWidget />
+              <DesktopRecommendationModal />
             </SmoothScroll>
           </LoadingProvider>
         </ConvexClientProvider>

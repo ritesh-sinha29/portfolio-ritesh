@@ -8,7 +8,6 @@ import {
   Brain,
   Cpu,
   Database,
-  GitBranch,
   Network,
   Sparkles,
   Zap,
@@ -349,17 +348,27 @@ const PlayfulPhysicsCanvas = forwardRef<
     const mouse = Mouse.create(container);
     
     // Completely unbind Matter's wheel listener so native window wheel scrolling works 100% naturally
-    if (mouse.element) {
-      mouse.element.removeEventListener("wheel", (mouse as any).mousewheel);
-      mouse.element.removeEventListener("mousewheel", (mouse as any).mousewheel);
-      mouse.element.removeEventListener("DOMMouseScroll", (mouse as any).mousewheel);
-      (mouse as any).mousewheel = () => {};
+    type MatterMouseInternal = Matter.Mouse & {
+      mousewheel?: EventListener;
+      mousemove?: EventListener;
+      mousedown?: EventListener;
+      mouseup?: EventListener;
+    };
+    const internalMouse = mouse as MatterMouseInternal;
+
+    if (internalMouse.element) {
+      if (internalMouse.mousewheel) {
+        internalMouse.element.removeEventListener("wheel", internalMouse.mousewheel);
+        internalMouse.element.removeEventListener("mousewheel", internalMouse.mousewheel);
+        internalMouse.element.removeEventListener("DOMMouseScroll", internalMouse.mousewheel);
+        internalMouse.mousewheel = () => {};
+      }
 
       // On mobile screens (< 768px), disable Matter's aggressive touch hijacking so vertical swipe scrolls the page freely
       if (window.innerWidth < 768) {
-        mouse.element.removeEventListener("touchmove", (mouse as any).mousemove);
-        mouse.element.removeEventListener("touchstart", (mouse as any).mousedown);
-        mouse.element.removeEventListener("touchend", (mouse as any).mouseup);
+        if (internalMouse.mousemove) internalMouse.element.removeEventListener("touchmove", internalMouse.mousemove);
+        if (internalMouse.mousedown) internalMouse.element.removeEventListener("touchstart", internalMouse.mousedown);
+        if (internalMouse.mouseup) internalMouse.element.removeEventListener("touchend", internalMouse.mouseup);
       }
     }
 

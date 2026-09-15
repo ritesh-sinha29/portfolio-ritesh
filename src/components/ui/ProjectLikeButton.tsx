@@ -1,10 +1,10 @@
 // src/components/ui/ProjectLikeButton.tsx
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Heart } from "lucide-react";
 import { useQuery, useMutation } from "convex/react";
-import { anyApi } from "convex/server";
+import { api } from "../../../convex/_generated/api";
 
 interface ProjectLikeButtonProps {
   projectId: string;
@@ -19,37 +19,23 @@ export function ProjectLikeButton({
   className = "",
   size = "sm",
 }: ProjectLikeButtonProps) {
-  const [localLiked, setLocalLiked] = useState(false);
+  const [localLiked, setLocalLiked] = useState(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      return localStorage.getItem(`liked_${projectId}`) === "true";
+    } catch {
+      return false;
+    }
+  });
+
   const [localCount, setLocalCount] = useState(initialLikes);
   const [isPopping, setIsPopping] = useState(false);
 
-  const hasConvex = !!process.env.NEXT_PUBLIC_CONVEX_URL;
+  // Unconditional Convex hooks
+  const allLikes = useQuery(api.projects.getLikes);
+  const likeMutation = useMutation(api.projects.likeProject);
 
-  // Real-time query & mutation from Convex if connected
-  let allLikes: Record<string, number> | undefined;
-  let likeMutation: ((args: { projectId: string }) => Promise<any>) | undefined;
-
-  try {
-    if (hasConvex) {
-      allLikes = useQuery((anyApi as any).projects.getLikes);
-      likeMutation = useMutation((anyApi as any).projects.likeProject);
-    }
-  } catch {
-    // Convex not initialized yet
-  }
-
-  const liveCount = allLikes?.[projectId] ?? localCount;
-
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem(`liked_${projectId}`);
-      if (stored === "true") {
-        setLocalLiked(true);
-      }
-    } catch {
-      // ignore
-    }
-  }, [projectId]);
+  const liveCount = (allLikes as Record<string, number> | undefined)?.[projectId] ?? localCount;
 
   const handleLike = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -67,12 +53,10 @@ export function ProjectLikeButton({
       // ignore
     }
 
-    if (likeMutation) {
-      try {
-        await likeMutation({ projectId });
-      } catch (err) {
-        console.warn("[ProjectLikeButton] Mutation notice:", err);
-      }
+    try {
+      await likeMutation({ projectId });
+    } catch {
+      // Graceful fallback if backend offline
     }
   };
 
@@ -98,10 +82,10 @@ export function ProjectLikeButton({
       />
       <span
         className={`font-mono font-bold ${
-          isSmall ? "text-[9px] sm:text-[10px]" : "text-[10.5px] sm:text-xs"
+          isSmall ? "text-[8px] sm:text-[9.5px]" : "text-[9.5px] sm:text-[11px]"
         }`}
       >
-        {liveCount > 0 ? liveCount : ""}
+        {liveCount}
       </span>
     </button>
   );

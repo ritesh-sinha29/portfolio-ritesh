@@ -17,7 +17,7 @@ const contactSchema = z.object({
 
 export async function POST(req: Request) {
   try {
-    let body: any;
+    let body: unknown;
     try {
       body = await req.json();
     } catch {
@@ -120,10 +120,12 @@ export async function POST(req: Request) {
       }),
       { status: 200, headers: { "Content-Type": "application/json" } }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("[Contact API] Exception:", error);
     return new Response(
-      JSON.stringify({ error: error?.message || "Internal Server Error" }),
+      JSON.stringify({
+        error: error instanceof Error ? error.message : "Internal Server Error",
+      }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }

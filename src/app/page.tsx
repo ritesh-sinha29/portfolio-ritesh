@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -77,7 +77,7 @@ function HomeContent() {
     }, 100);
   };
 
-  const scrollToSection = (sectionId: string) => {
+  const scrollToSection = useCallback((sectionId: string) => {
     setActiveTab(sectionId);
     if (sectionId === "about") {
       router.push("/about");
@@ -123,7 +123,7 @@ function HomeContent() {
     } else {
       window.scrollTo({ top: targetPos, behavior: "smooth" });
     }
-  };
+  }, [router]);
 
   // When arriving from another route with a target section query param (e.g. /?section=skills)
   useEffect(() => {
@@ -136,7 +136,7 @@ function HomeContent() {
     }, 120);
 
     return () => clearTimeout(timer);
-  }, [sectionParam]);
+  }, [sectionParam, scrollToSection]);
 
   return (
     <main className="relative w-full bg-background text-foreground">

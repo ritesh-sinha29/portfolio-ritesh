@@ -2,18 +2,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import {
-  ArrowLeft,
-  ArrowUpRight,
-  CheckCircle2,
-  Copy,
-  Loader2,
-  Mail,
-  Send,
-  Sparkles,
-} from "lucide-react";
+import { CheckCircle2, Copy, Loader2, Send } from "lucide-react";
 import Header from "@/modules/web/Header";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 
@@ -60,10 +49,12 @@ export default function ContactPage() {
       setEmail("");
       setName("");
       setMessage("");
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("[Contact Error]:", err);
       setStatus("error");
-      setErrorMessage(err.message || "Failed to send message. Please try again.");
+      setErrorMessage(
+        err instanceof Error ? err.message : "Failed to send message. Please try again."
+      );
     }
   };
 

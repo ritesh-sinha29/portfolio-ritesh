@@ -24,17 +24,14 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     try {
       const alreadyLoaded = sessionStorage.getItem(STORAGE_KEY);
-      if (alreadyLoaded === "true") {
-        setIsLoading(false);
-        setHasLoaded(true);
-      } else {
-        setIsLoading(true);
-        setHasLoaded(false);
+      if (alreadyLoaded !== "true") {
+        queueMicrotask(() => {
+          setIsLoading(true);
+          setHasLoaded(false);
+        });
       }
     } catch {
-      // If sessionStorage is unavailable (e.g. private mode restrictions), fallback gracefully
-      setIsLoading(false);
-      setHasLoaded(true);
+      // If sessionStorage is unavailable
     }
   }, []);
 

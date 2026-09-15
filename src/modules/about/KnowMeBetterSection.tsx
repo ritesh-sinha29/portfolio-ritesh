@@ -2,7 +2,6 @@
 
 import React, { forwardRef, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -13,7 +12,6 @@ import {
   MapPin,
   Terminal,
   ChevronDown,
-  Sparkles,
 } from "lucide-react";
 import Footer from "../web/Footer";
 import TechStackSkills from "./TechStackSkills";

@@ -10,13 +10,13 @@ export interface AgentMessage {
   text: string;
   toolName?: string;
   toolStatus?: "running" | "done";
-  toolOutput?: any;
+  toolOutput?: { message?: string; success?: boolean; [key: string]: unknown };
 }
 
 export interface AgentToolStatus {
   toolName: string;
   status: "running" | "done";
-  output?: unknown;
+  output?: { message?: string; success?: boolean; [key: string]: unknown };
 }
 
 export function useAgent() {
@@ -105,14 +105,18 @@ export function useAgent() {
                 },
               ]);
             },
-            onToolDone: (toolName: string, output: any) => {
-              setToolStatus({ toolName, status: "done", output });
+            onToolDone: (toolName: string, output: unknown) => {
+              const formattedOutput =
+                typeof output === "object" && output !== null
+                  ? (output as { message?: string; success?: boolean; [key: string]: unknown })
+                  : { message: String(output) };
+              setToolStatus({ toolName, status: "done", output: formattedOutput });
               setMessages((prev) =>
                 prev.map((m) =>
                   m.role === "tool" &&
                   m.toolName === toolName &&
                   m.toolStatus === "running"
-                    ? { ...m, toolStatus: "done", toolOutput: output }
+                    ? { ...m, toolStatus: "done", toolOutput: formattedOutput }
                     : m
                 )
               );
@@ -122,18 +126,19 @@ export function useAgent() {
               setToolStatus(null);
               abortControllerRef.current = null;
             },
-            onError: (err: any) => {
+            onError: (err: unknown) => {
+              const errorObj = err instanceof Error ? err : new Error(String(err));
               if (
-                err.name !== "AbortError" &&
-                err.message !== "The user aborted a request."
+                errorObj.name !== "AbortError" &&
+                errorObj.message !== "The user aborted a request."
               ) {
-                console.error("[Agent Chat] Stream error:", err);
+                console.error("[Agent Chat] Stream error:", errorObj);
                 setMessages((prev) =>
                   prev.map((m) =>
                     m.id === assistantId
                       ? {
                           ...m,
-                          text: `⚠️ Notice: ${err.message || "An unexpected error occurred."}`,
+                          text: `⚠️ Notice: ${errorObj.message || "An unexpected error occurred."}`,
                         }
                       : m
                   )
@@ -146,18 +151,19 @@ export function useAgent() {
           },
           controller.signal
         );
-      } catch (err: any) {
+      } catch (err: unknown) {
+        const errorObj = err instanceof Error ? err : new Error(String(err));
         if (
-          err.name !== "AbortError" &&
-          err.message !== "The user aborted a request."
+          errorObj.name !== "AbortError" &&
+          errorObj.message !== "The user aborted a request."
         ) {
-          console.error("[Agent Chat] Fetch error:", err);
+          console.error("[Agent Chat] Fetch error:", errorObj);
           setMessages((prev) =>
             prev.map((m) =>
               m.id === assistantId
                 ? {
                     ...m,
-                    text: `⚠️ Notice: ${err.message || "Failed to connect to agent server."}`,
+                    text: `⚠️ Notice: ${errorObj.message || "Failed to connect to agent server."}`,
                   }
                 : m
             )

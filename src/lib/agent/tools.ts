@@ -99,11 +99,11 @@ ${message}
       message: `Your message has been delivered directly to Ritesh Sinha's inbox (${RITESH_PRIMARY_EMAIL}). He will get back to you at ${visitorEmail} soon!`,
       emailId: response.data?.id,
     };
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("[Ritesh Tool] Exception in contactRitesh:", err);
     return {
       success: false,
-      message: `Error sending message: ${err?.message || "Unknown error"}`,
+      message: `Error sending message: ${err instanceof Error ? err.message : "Unknown error"}`,
     };
   }
 }
@@ -128,7 +128,7 @@ export async function sendRiteshDetails({
   const greetingName = recipientName ? ` ${recipientName}` : "";
 
   // Load resume PDF buffer from public directory if present
-  const attachments: any[] = [];
+  const attachments: { filename: string; content: Buffer }[] = [];
   try {
     const resumePath = path.join(process.cwd(), "public", "resume.pdf");
     if (fs.existsSync(resumePath)) {
@@ -231,11 +231,11 @@ export async function sendRiteshDetails({
       message: `Ritesh's complete details, resume PDF attachment, and social profiles have been dispatched to ${recipientEmail}!`,
       emailId: response.data?.id,
     };
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("[Ritesh Tool] Exception in sendRiteshDetails:", err);
     return {
       success: false,
-      message: `Error dispatching details: ${err?.message || "Unknown error"}`,
+      message: `Error dispatching details: ${err instanceof Error ? err.message : "Unknown error"}`,
     };
   }
 }

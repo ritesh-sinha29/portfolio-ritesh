@@ -59,16 +59,6 @@ export default function RootLayout({
       )}
     >
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700;800;900&family=Silkscreen:wght@400;700&family=Almarai:wght@300;400;700;800&display=swap"
-          rel="stylesheet"
-        />
         <link rel="preload" href="/ritesh standing.svg" as="image" type="image/svg+xml" />
         <link rel="preload" href="/ritesh mic.svg" as="image" type="image/svg+xml" />
       </head>

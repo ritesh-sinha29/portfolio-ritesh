@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Check, Copy, Eye, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Check, Copy, Eye } from "lucide-react";
 import { InstantImage } from "@/components/media/InstantImage";
 import Header from "@/modules/web/Header";
 import MagneticDock from "@/components/tweenlabs/MagneticDock";
@@ -211,7 +210,7 @@ export default function WorkPage() {
           <MagneticDock
             variant="inline"
             activeId={selectedCategory}
-            onItemClick={(id) => setSelectedCategory(id as any)}
+            onItemClick={(id) => setSelectedCategory(id as "all" | "ai-systems" | "voice-ai" | "fullstack")}
             items={[
               { id: "all", label: "All Works" },
               { id: "ai-systems", label: "AI Systems & Agents" },

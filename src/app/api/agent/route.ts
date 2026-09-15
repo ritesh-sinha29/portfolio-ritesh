@@ -64,7 +64,7 @@ function extractEmail(text: string): string | null {
 // ============================================================================
 async function processFallbackOrTool(
   userMessage: string
-): Promise<{ text: string; toolExecution?: { name: string; output: any } }> {
+): Promise<{ text: string; toolExecution?: { name: string; output: unknown } }> {
   const query = userMessage.toLowerCase();
   const emailInQuery = extractEmail(userMessage);
 
@@ -242,7 +242,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    let body: any;
+    let body: { messages?: Array<{ role?: string; text?: string; parts?: Array<{ text?: string }> }> };
     try {
       body = await req.json();
     } catch {
@@ -261,7 +261,7 @@ export async function POST(req: NextRequest) {
     // Format chat history for LLM
     const formattedMessages = [
       { role: "system", content: AGENT_SYSTEM_PROMPT },
-      ...messages.map((m: any) => ({
+      ...messages.map((m) => ({
         role: m.role === "user" ? "user" : "assistant",
         content: m.parts?.[0]?.text || m.text || "",
       })),
@@ -548,10 +548,12 @@ export async function POST(req: NextRequest) {
         Connection: "keep-alive",
       },
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("[Agent API Route Error]:", error);
     return new Response(
-      JSON.stringify({ error: error?.message || "Internal server error" }),
+      JSON.stringify({
+        error: error instanceof Error ? error.message : "Internal server error",
+      }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }

@@ -8,7 +8,6 @@ import {
   Star,
   GitFork,
   ArrowUpRight,
-  Calendar,
   Code2,
 } from "lucide-react";
 
@@ -201,7 +200,7 @@ export default function GitHubActivitySection() {
         const currentDate = new Date(startDate);
         currentDate.setDate(startDate.getDate() + i);
         const dateStr = currentDate.toISOString().split("T")[0];
-        const count = i % 3 === 0 ? Math.floor(Math.random() * 8) + 1 : 0;
+        const count = i % 3 === 0 ? ((i * 7 + 13) % 8) + 1 : 0;
         let level = 0;
         if (count > 8) level = 4;
         else if (count > 5) level = 3;

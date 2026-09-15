@@ -1,13 +1,10 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { ArrowUpRight, Download, Mic, Send, X } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
-import { NoiseBackground } from "@/components/ui/noise-background";
+import { ArrowUpRight, Download } from "lucide-react";
 import { SpinningText } from "@/components/ui/spinning-text";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 
@@ -15,11 +12,6 @@ gsap.registerPlugin(useGSAP);
 
 interface HeroProps {
   isLoaded?: boolean;
-}
-
-interface ChatMessage {
-  role: "assistant" | "user";
-  text: string;
 }
 
 export default function Hero({ isLoaded = false }: HeroProps) {
@@ -30,60 +22,6 @@ export default function Hero({ isLoaded = false }: HeroProps) {
   const taglineRef = useRef<HTMLDivElement>(null);
   const bottomArrowRef = useRef<HTMLDivElement>(null);
   const bottomSocialsRef = useRef<HTMLDivElement>(null);
-  const quickInfoRef = useRef<HTMLDivElement>(null);
-
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [inputValue, setInputValue] = useState("");
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      role: "assistant",
-      text: "Hey! I'm Raya, Ritesh Sinha's AI Agent. Ask me anything about his projects, experience, or tech stack!",
-    },
-  ]);
-
-  const handleSendMessage = (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    if (!inputValue.trim()) return;
-
-    const userText = inputValue.trim();
-    const newMessages = [
-      ...messages,
-      { role: "user" as const, text: userText },
-    ];
-    setMessages(newMessages);
-    setInputValue("");
-
-    // Smart contextual response
-    setTimeout(() => {
-      const lower = userText.toLowerCase();
-      let reply =
-        "Ritesh Sinha is a Full-Stack AI Engineer & Builder architecting intelligent distributed systems, high-performance web applications, and real-time AI agents.";
-
-      if (
-        lower.includes("stack") ||
-        lower.includes("tech") ||
-        lower.includes("skills")
-      ) {
-        reply =
-          "Ritesh Sinha works with Next.js, React, TypeScript, Python, PyTorch, LangGraph, GSAP, Tailwind CSS, Three.js, and multi-agent workflows.";
-      } else if (lower.includes("project") || lower.includes("work")) {
-        reply =
-          "Ritesh Sinha's top projects include wekraft, clarioo, looma, Aria, Enterprise sales agent, and vocalx. Check out the Works page for more details!";
-      } else if (
-        lower.includes("contact") ||
-        lower.includes("email") ||
-        lower.includes("hire")
-      ) {
-        reply =
-          "You can reach out directly to Ritesh Sinha via email at riteshsinha4146@gmail.com or connect on LinkedIn and GitHub!";
-      }
-
-      setMessages([
-        ...newMessages,
-        { role: "assistant" as const, text: reply },
-      ]);
-    }, 450);
-  };
 
   // Set initial states for clean GSAP entrance
   useGSAP(
@@ -109,7 +47,6 @@ export default function Hero({ isLoaded = false }: HeroProps) {
         [
           bottomArrowRef.current,
           bottomSocialsRef.current,
-          quickInfoRef.current,
         ],
         {
           autoAlpha: 0,
@@ -175,11 +112,10 @@ export default function Hero({ isLoaded = false }: HeroProps) {
       );
     }
 
-    // 5. Left circular arrow, right socials, and quick-info tab appear
+    // 5. Left circular arrow and right socials appear
     const bottomControls = [
       bottomArrowRef.current,
       bottomSocialsRef.current,
-      quickInfoRef.current,
     ].filter((el): el is HTMLDivElement => Boolean(el));
 
     if (bottomControls.length > 0) {
@@ -271,142 +207,6 @@ export default function Hero({ isLoaded = false }: HeroProps) {
           />
         </div>
       </div>
-
-      {/* Ask anything Tab (Right Screen Edge) */}
-      <div
-        ref={quickInfoRef}
-        className="fixed sm:absolute right-0 top-1/2 -translate-y-1/2 z-30 pointer-events-auto"
-      >
-        <MagneticButton
-          ariaLabel="Ask anything"
-          onClick={() => setIsChatOpen(true)}
-          magneticStrength={0.25}
-          className="bg-card/95 backdrop-blur-md border-l border-y border-border py-4 px-2 rounded-l-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] flex items-center justify-center hover:bg-card transition-all duration-300 group hover:translate-x-[-3px]"
-        >
-          <div
-            className="flex items-center gap-2"
-            style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
-          >
-            <span className="w-5 h-5 flex items-center justify-center rounded-full text-xs bg-primary text-primary-foreground font-bold">
-              R
-            </span>
-            <span className="font-sans text-[11px] font-semibold tracking-wider text-muted-foreground group-hover:text-foreground uppercase whitespace-nowrap">
-              Ask anything
-            </span>
-          </div>
-        </MagneticButton>
-      </div>
-
-      {/* Right Side AI Agent Popup */}
-      <AnimatePresence>
-        {isChatOpen && (
-          <>
-            {/* Backdrop for mobile */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              onClick={() => setIsChatOpen(false)}
-              className="fixed inset-0 bg-black/20 backdrop-blur-[2px] z-50 sm:hidden"
-            />
-
-            {/* Right-Side Popup Panel */}
-            <motion.aside
-              initial={{ x: "100%", opacity: 0.5 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: "100%", opacity: 0 }}
-              transition={{ type: "spring", damping: 28, stiffness: 280 }}
-              className="fixed right-0 top-1/2 -translate-y-1/2 z-50 w-[92vw] sm:w-[380px] md:w-[420px] h-[540px] sm:h-[600px] max-h-[90vh] bg-card text-card-foreground rounded-l-3xl shadow-[0_20px_60px_rgba(0,0,0,0.18)] border-l border-y border-border flex flex-col overflow-hidden"
-            >
-              {/* Top Header */}
-              <div className="p-4 sm:p-5 border-b border-border flex items-center justify-between bg-muted/70">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center font-sans font-bold text-xs text-primary-foreground shadow-xs">
-                    R
-                  </div>
-                  <div>
-                    <h3 className="font-sans font-semibold text-sm sm:text-base text-foreground tracking-tight flex items-center gap-2">
-                      Raya - AI Agent
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    </h3>
-                    <p className="text-[11px] text-muted-foreground font-sans">
-                      Ritesh Sinha&apos;s Personal Assistant
-                    </p>
-                  </div>
-                </div>
-
-                <MagneticButton
-                  onClick={() => setIsChatOpen(false)}
-                  className="w-8 h-8 rounded-full bg-muted hover:bg-accent text-foreground flex items-center justify-center transition-colors"
-                  ariaLabel="Close chat"
-                >
-                  <X className="w-4 h-4" />
-                </MagneticButton>
-              </div>
-
-              {/* Body Space: Chat Messages */}
-              <div className="flex-1 p-4 overflow-y-auto space-y-3.5 text-xs sm:text-sm font-sans">
-                {messages.map((msg, i) => (
-                  <div
-                    key={i}
-                    className={`flex ${
-                      msg.role === "user" ? "justify-end" : "justify-start"
-                    }`}
-                  >
-                    <div
-                      className={`max-w-[82%] px-3.5 py-2.5 rounded-2xl leading-relaxed ${
-                        msg.role === "user"
-                          ? "bg-primary text-primary-foreground font-medium rounded-br-xs"
-                          : "bg-muted text-foreground rounded-bl-xs"
-                      }`}
-                    >
-                      {msg.text}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Bottom Input Bar with Mic Icon & Send Button */}
-              <form
-                onSubmit={handleSendMessage}
-                className="p-3 sm:p-4 border-t border-border bg-muted/50 flex items-center gap-2"
-              >
-                <div className="relative flex-1 flex items-center">
-                  <input
-                    type="text"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    placeholder="Ask anything..."
-                    className="w-full pl-3.5 pr-10 py-2.5 text-xs sm:text-sm bg-background border border-border rounded-full focus:outline-hidden focus:border-primary focus:ring-1 focus:ring-primary transition-all text-foreground placeholder:text-muted-foreground"
-                  />
-                  <MagneticButton
-                    onClick={() => {
-                      setInputValue(
-                        "Tell me about Ritesh Sinha's tech stack and experience!",
-                      );
-                    }}
-                    className="absolute right-2.5 p-1 text-muted-foreground hover:text-foreground transition-colors"
-                    title="Voice input / suggestion"
-                    scaleOnHover={1.15}
-                  >
-                    <Mic className="w-4 h-4" />
-                  </MagneticButton>
-                </div>
-
-                <MagneticButton
-                  type="submit"
-                  disabled={!inputValue.trim()}
-                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-primary hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed text-primary-foreground flex items-center justify-center shadow-xs shrink-0 font-semibold"
-                  ariaLabel="Send message"
-                >
-                  <Send className="w-4 h-4" />
-                </MagneticButton>
-              </form>
-            </motion.aside>
-          </>
-        )}
-      </AnimatePresence>
 
       {/* Bottom Controls Bar */}
       <footer className="relative z-30 w-full max-w-7xl mx-auto flex justify-between items-center mt-2 sm:mt-4">

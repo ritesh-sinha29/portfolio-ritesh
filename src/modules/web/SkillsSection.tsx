@@ -238,16 +238,16 @@ const SkillsSection = forwardRef<HTMLDivElement, SkillsSectionProps>(
     return (
       <div
         ref={ref}
-        className={`w-full h-full flex flex-col justify-center items-center p-6 sm:p-10 md:p-14 ${className}`}
+        className={`w-full h-full flex flex-col justify-center items-center pt-16 sm:pt-20 md:pt-24 pb-4 sm:pb-6 md:pb-8 px-4 sm:px-8 md:px-12 ${className}`}
       >
         {/* Center Skills Box */}
-        <div className="relative z-10 w-full max-w-3xl mx-auto flex flex-col items-center justify-center my-auto py-2">
+        <div className="relative z-10 w-full max-w-3xl mx-auto flex flex-col items-center justify-center my-auto min-h-0 py-1 sm:py-2">
           {/* Heading */}
-          <div className="skills-header flex flex-col items-center text-center mb-6 sm:mb-8 md:mb-10 will-change-transform">
+          <div className="skills-header flex flex-col items-center text-center mb-3 sm:mb-5 md:mb-6 will-change-transform">
             <h2 className="font-sans font-extrabold tracking-tight text-xl xs:text-2xl sm:text-3xl md:text-4xl text-[#141b16] leading-tight">
               Skills &amp; Technologies
             </h2>
-            <p className="font-sans text-[11px] sm:text-xs md:text-[13px] font-medium text-[#141b16]/65 mt-2 sm:mt-3 text-center max-w-md">
+            <p className="font-sans text-[11px] sm:text-xs md:text-[13px] font-medium text-[#141b16]/65 mt-1 sm:mt-2 text-center max-w-md">
               Click any category tab below to explore the dedicated toolset &amp; technical stack
             </p>
           </div>

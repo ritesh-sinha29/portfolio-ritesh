@@ -106,12 +106,12 @@ const ProjectsSection = forwardRef<HTMLDivElement, ProjectsSectionProps>(
     return (
       <div
         ref={ref}
-        className={`w-full h-full flex flex-col justify-center items-center p-4 sm:p-8 md:p-12 ${className}`}
+        className={`w-full h-full flex flex-col justify-center items-center pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-4 sm:pb-6 md:pb-8 px-4 sm:px-8 md:px-12 ${className}`}
       >
         {/* Center Content: Header & 3 Projects Cards */}
-        <div className="relative z-20 w-full max-w-5xl mx-auto flex-1 flex flex-col justify-center items-center my-auto min-h-0 py-2 sm:py-4">
+        <div className="relative z-20 w-full max-w-5xl mx-auto flex-1 flex flex-col justify-center items-center my-auto min-h-0 py-1 sm:py-2">
           {/* Heading */}
-          <div className="projects-header text-center mb-4 sm:mb-6 md:mb-7 will-change-transform">
+          <div className="projects-header text-center mb-3 sm:mb-5 md:mb-6 will-change-transform">
             <h2 className="font-sans font-extrabold tracking-tight text-xl xs:text-2xl sm:text-3xl md:text-4xl text-[#141b16] leading-tight">
               Featured Projects
             </h2>
@@ -127,7 +127,7 @@ const ProjectsSection = forwardRef<HTMLDivElement, ProjectsSectionProps>(
                 key={project.id}
                 onMouseMove={handleCardMouseMove}
                 onMouseLeave={handleCardMouseLeave}
-                className={`project-card-item project-card-item-${index} w-[108px] xs:w-[124px] sm:w-[240px] md:w-[265px] lg:w-[285px] h-[260px] xs:h-[285px] sm:h-[365px] md:h-[385px] max-h-[70vh] flex-1 relative transform-gpu rounded-xl sm:rounded-2xl border-[1.5px] sm:border-[2.5px] border-[#141b16] shadow-[2.5px_2.5px_0px_#141b16] sm:shadow-[4px_4px_0px_#141b16] p-2 xs:p-2.5 sm:p-4 bg-white text-[#141b16] flex flex-col justify-between cursor-pointer select-none transition-shadow hover:shadow-[5px_5px_0px_#141b16] will-change-transform`}
+                className={`project-card-item project-card-item-${index} w-[108px] xs:w-[124px] sm:w-[240px] md:w-[265px] lg:w-[285px] h-[255px] xs:h-[280px] sm:h-[350px] md:h-[370px] lg:h-[380px] max-h-[64vh] flex-1 relative transform-gpu rounded-xl sm:rounded-2xl border-[1.5px] sm:border-[2.5px] border-[#141b16] shadow-[2.5px_2.5px_0px_#141b16] sm:shadow-[4px_4px_0px_#141b16] p-2 xs:p-2.5 sm:p-4 bg-white text-[#141b16] flex flex-col justify-between cursor-pointer select-none transition-shadow hover:shadow-[5px_5px_0px_#141b16] will-change-transform`}
                 style={{
                   transformStyle: "preserve-3d",
                   transform: "perspective(1000px) rotateX(0deg) rotateY(0deg)",

@@ -163,6 +163,16 @@ export function SmoothCursor({
         return
       }
 
+      const target = e.target as HTMLElement | null
+      const isHiddenTarget =
+        Boolean(target?.closest?.("[data-hide-cursor]")) ||
+        document.body.dataset.cursorHidden === "true"
+
+      if (isHiddenTarget) {
+        setIsVisible(false)
+        return
+      }
+
       setIsVisible(true)
 
       const currentPos = { x: e.clientX, y: e.clientY }

@@ -84,9 +84,12 @@ const initialPinnedRepos: RepoHighlight[] = [
 ];
 
 export default function GitHubActivitySection() {
+  const gridContainerRef = React.useRef<HTMLDivElement>(null);
   const [hoveredCell, setHoveredCell] = useState<{
     count: number;
     date: string;
+    x: number;
+    y: number;
   } | null>(null);
 
   const [rawDays, setRawDays] = useState<ContributionDay[]>([]);
@@ -94,6 +97,18 @@ export default function GitHubActivitySection() {
   const [streakDays, setStreakDays] = useState<number>(48);
   const [pinnedRepos, setPinnedRepos] = useState<RepoHighlight[]>(initialPinnedRepos);
   const [isLoadingLive, setIsLoadingLive] = useState<boolean>(true);
+
+  // Sync cursor visibility: hide custom cursor when hovering contribution cells
+  useEffect(() => {
+    if (hoveredCell) {
+      document.body.dataset.cursorHidden = "true";
+    } else {
+      delete document.body.dataset.cursorHidden;
+    }
+    return () => {
+      delete document.body.dataset.cursorHidden;
+    };
+  }, [hoveredCell]);
 
   // Fetch real live GitHub contribution data from GitHub API endpoint
   useEffect(() => {
@@ -171,78 +186,68 @@ export default function GitHubActivitySection() {
     };
   }, []);
 
-  // Construct 52 weeks grid from live data (or fallback)
-  const contributionGrid = useMemo(() => {
-    if (rawDays.length === 0) {
-      // High-precision fallback matching the 1,804 snapshot
-      const weeks = 52;
-      const daysPerWeek = 7;
-      const fallback: { count: number; date: string; level: number }[][] = [];
-      const startDate = new Date();
-      startDate.setDate(startDate.getDate() - weeks * 7);
+  // Construct exact 53-week proportional grid and aligned month markers from live data
+  const { weeksData, monthMarkers } = useMemo(() => {
+    let days = rawDays;
 
-      for (let w = 0; w < weeks; w++) {
-        const weekDays: { count: number; date: string; level: number }[] = [];
-        for (let d = 0; d < daysPerWeek; d++) {
-          const currentDate = new Date(startDate);
-          currentDate.setDate(startDate.getDate() + w * 7 + d);
-          const dateStr = currentDate.toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
-            year: "numeric",
-          });
-          weekDays.push({ count: 4, date: dateStr, level: 2 });
-        }
-        fallback.push(weekDays);
+    if (!days || days.length === 0) {
+      // 53 weeks * 7 days = 371 days fallback
+      const totalDays = 53 * 7;
+      const fallback: ContributionDay[] = [];
+      const startDate = new Date();
+      startDate.setDate(startDate.getDate() - totalDays);
+
+      for (let i = 0; i < totalDays; i++) {
+        const currentDate = new Date(startDate);
+        currentDate.setDate(startDate.getDate() + i);
+        const dateStr = currentDate.toISOString().split("T")[0];
+        const count = i % 3 === 0 ? Math.floor(Math.random() * 8) + 1 : 0;
+        let level = 0;
+        if (count > 8) level = 4;
+        else if (count > 5) level = 3;
+        else if (count > 2) level = 2;
+        else if (count > 0) level = 1;
+
+        fallback.push({ date: dateStr, count, level });
       }
-      return fallback;
+      days = fallback;
     }
 
-    // Group actual days into 7-day columns (weeks)
-    const weeks: { count: number; date: string; level: number }[][] = [];
-    let currentWeek: { count: number; date: string; level: number }[] = [];
+    // Group into 7-day week columns
+    const weeks: ContributionDay[][] = [];
+    let currentWeek: ContributionDay[] = [];
 
-    rawDays.forEach((day, index) => {
-      const dateObj = new Date(day.date);
-      const dateStr = dateObj.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      });
-
-      currentWeek.push({
-        count: day.count,
-        date: dateStr,
-        level: day.level,
-      });
-
-      if (currentWeek.length === 7 || index === rawDays.length - 1) {
+    days.forEach((day, index) => {
+      currentWeek.push(day);
+      if (currentWeek.length === 7 || index === days.length - 1) {
+        while (currentWeek.length < 7) {
+          currentWeek.push({ date: "", count: 0, level: 0 });
+        }
         weeks.push(currentWeek);
         currentWeek = [];
       }
     });
 
-    return weeks;
-  }, [rawDays]);
+    // Compute exact month marker starting positions
+    const markers: { name: string; col: number }[] = [];
+    let lastMonth = -1;
 
-  // Dynamic month labels derived from live timeline
-  const months = useMemo(() => {
-    return [
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-    ];
-  }, []);
+    weeks.forEach((w, colIdx) => {
+      if (w[0]?.date) {
+        const dateObj = new Date(w[0].date);
+        const monthNum = dateObj.getMonth();
+        if (monthNum !== lastMonth) {
+          markers.push({
+            name: dateObj.toLocaleString("en-US", { month: "short" }),
+            col: colIdx,
+          });
+          lastMonth = monthNum;
+        }
+      }
+    });
+
+    return { weeksData: weeks, monthMarkers: markers };
+  }, [rawDays]);
 
   return (
     <div className="mt-20 sm:mt-28 pt-12 sm:pt-16 border-t border-black/8">
@@ -278,170 +283,225 @@ export default function GitHubActivitySection() {
         </a>
       </div>
 
-      {/* GitHub Key Stats 4-Card Grid (using Inter font for clean numbers) */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        {/* Stat 1: Total Commits */}
-        <div className="p-5 sm:p-6 rounded-[22px] bg-white border border-black/6 shadow-xs flex flex-col justify-between">
-          <div className="flex items-center justify-between text-[#5a625b] mb-3">
-            <span className="text-[11px] font-mono uppercase tracking-wider">
-              Total Commits
-            </span>
-            <GitCommit className="w-4 h-4 text-[#141b16]" />
-          </div>
-          <div>
-            <div className="font-sans text-3xl sm:text-4xl font-extrabold text-[#141b16] tracking-tight leading-none">
-              {totalContributions.toLocaleString()}
+      {/* Side-by-Side: Larger Contribution Graph (Left, col-span-8) & Compact 2x2 Stats Grid (Right, col-span-4) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 mb-8 items-stretch">
+        {/* Left Column: Expanded Contribution Graph Card */}
+        <div className="lg:col-span-8 p-5 sm:p-6 rounded-[24px] bg-white border border-black/6 shadow-xs flex flex-col justify-between overflow-hidden text-[#141b16]">
+          {/* Top Title & Enhanced Hover Badge */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+            <div className="flex items-center gap-2.5">
+              <div className="w-7 h-7 rounded-lg bg-black/[0.04] flex items-center justify-center">
+                <GithubIcon className="w-4 h-4 text-[#141b16]" />
+              </div>
+              <div>
+                <h3 className="font-sans font-bold text-sm sm:text-base text-[#141b16] tracking-tight leading-none">
+                  Contribution Activity
+                </h3>
+                <p className="text-[10px] font-mono text-[#7a827b] mt-0.5">
+                  {isLoadingLive ? "Syncing live metrics..." : "53-week commit history"}
+                </p>
+              </div>
             </div>
-            <p className="text-[11px] text-[#7a827b] font-sans mt-2">
-              In the past 12 months
-            </p>
+
+            {/* Top Right Header Badge */}
+            <div className="h-6 flex items-center self-start sm:self-auto">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/[0.03] border border-black/5 text-[11px] font-mono text-[#5a625b]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#30a14e] animate-pulse" />
+                <span>Live GitHub Sync</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Heatmap Grid (Full width on desktop with generous proportions) */}
+          <div className="overflow-x-auto pb-1 scrollbar-thin">
+            <div
+              ref={gridContainerRef}
+              data-hide-cursor
+              className="relative min-w-[540px] w-full pt-7 pb-1"
+            >
+              {/* Dynamic Floating Tooltip positioned directly above hovered square */}
+              {hoveredCell && (
+                <div
+                  style={{
+                    left: `${hoveredCell.x}px`,
+                    top: `${hoveredCell.y - 8}px`,
+                    transform: "translate(-50%, -100%)",
+                  }}
+                  className="absolute pointer-events-none z-50 whitespace-nowrap bg-white text-[#111827] text-[11px] sm:text-xs font-sans font-medium px-3 py-1.5 rounded-md shadow-[0_4px_18px_rgba(0,0,0,0.14)] border border-black/10 transition-all duration-75 animate-in fade-in zoom-in-95 select-none"
+                >
+                  <span>
+                    {hoveredCell.count === 0
+                      ? "No contributions"
+                      : `${hoveredCell.count} ${hoveredCell.count === 1 ? "commit" : "commits"}`}{" "}
+                    on{" "}
+                    {new Date(hoveredCell.date).toLocaleDateString("en-US", {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </span>
+                  {/* Caret pointing to cell */}
+                  <div className="absolute left-1/2 -bottom-1 -translate-x-1/2 w-2 h-2 bg-white border-r border-b border-black/10 rotate-45" />
+                </div>
+              )}
+
+              {/* Grid Layout: Left Weekday Labels + Full-Width 53 Columns */}
+              <div className="flex gap-2.5 items-start">
+                {/* Left Day Labels */}
+                <div className="flex flex-col justify-between pt-4 pb-0.5 text-[8.5px] font-mono text-[#7a827b] select-none h-[92px] sm:h-[102px] shrink-0">
+                  <span className="invisible">Sun</span>
+                  <span>Mon</span>
+                  <span className="invisible">Tue</span>
+                  <span>Wed</span>
+                  <span className="invisible">Thu</span>
+                  <span>Fri</span>
+                  <span className="invisible">Sat</span>
+                </div>
+
+                {/* Weeks Container */}
+                <div className="flex-1 flex flex-col min-w-0">
+                  {/* Month Labels accurately placed above their respective week columns */}
+                  <div className="relative h-3.5 mb-1.5 text-[9px] sm:text-[9.5px] font-mono text-[#7a827b] select-none w-full">
+                    {monthMarkers.map((m, idx) => (
+                      <span
+                        key={`${m.name}-${idx}`}
+                        style={{ left: `${(m.col / Math.max(weeksData.length, 52)) * 100}%` }}
+                        className="absolute transform -translate-x-0 font-medium"
+                      >
+                        {m.name}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* 53 Proportional Columns of 7 Days */}
+                  <div className="flex gap-[2.5px] sm:gap-[3px] w-full">
+                    {weeksData.map((week, wIndex) => (
+                      <div key={wIndex} className="flex-1 flex flex-col gap-[2.5px] sm:gap-[3px]">
+                        {week.map((day, dIndex) => {
+                          let bgClass = "bg-[#ebedf0]";
+                          if (day.level === 1) bgClass = "bg-[#9be9a8]";
+                          else if (day.level === 2) bgClass = "bg-[#40c463]";
+                          else if (day.level === 3) bgClass = "bg-[#30a14e]";
+                          else if (day.level >= 4) bgClass = "bg-[#216e39]";
+
+                          return (
+                            <div
+                              key={`${day.date || wIndex}-${dIndex}`}
+                              data-hide-cursor
+                              onMouseEnter={(e) => {
+                                if (day.date && gridContainerRef.current) {
+                                  const cellRect = e.currentTarget.getBoundingClientRect();
+                                  const containerRect = gridContainerRef.current.getBoundingClientRect();
+                                  setHoveredCell({
+                                    count: day.count,
+                                    date: day.date,
+                                    x: cellRect.left - containerRect.left + cellRect.width / 2,
+                                    y: cellRect.top - containerRect.top,
+                                  });
+                                }
+                              }}
+                              onMouseLeave={() => setHoveredCell(null)}
+                              className={`w-full aspect-square rounded-[2px] sm:rounded-[2.5px] transition-all duration-150 cursor-pointer hover:scale-125 hover:z-10 ${bgClass}`}
+                            />
+                          );
+                        })}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Legend & Summary */}
+              <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-[#7a827b] font-mono mt-3.5 pt-3 border-t border-black/5">
+                <span className="font-medium text-[#5a625b]">
+                  {totalContributions.toLocaleString()} commits past year
+                </span>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[9px]">Less</span>
+                  <span className="w-2.5 h-2.5 rounded-[1.5px] bg-[#ebedf0]" />
+                  <span className="w-2.5 h-2.5 rounded-[1.5px] bg-[#9be9a8]" />
+                  <span className="w-2.5 h-2.5 rounded-[1.5px] bg-[#40c463]" />
+                  <span className="w-2.5 h-2.5 rounded-[1.5px] bg-[#30a14e]" />
+                  <span className="w-2.5 h-2.5 rounded-[1.5px] bg-[#216e39]" />
+                  <span className="text-[9px]">More</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Stat 2: Active Streak */}
-        <div className="p-5 sm:p-6 rounded-[22px] bg-white border border-black/6 shadow-xs flex flex-col justify-between">
-          <div className="flex items-center justify-between text-[#5a625b] mb-3">
-            <span className="text-[11px] font-mono uppercase tracking-wider">
-              Active Streak
-            </span>
-            <Flame className="w-4 h-4 text-[#ff7640]" />
-          </div>
-          <div>
-            <div className="font-sans text-3xl sm:text-4xl font-extrabold text-[#141b16] tracking-tight leading-none flex items-baseline gap-1.5">
-              <span>{streakDays}</span>
-              <span className="text-sm font-semibold text-[#5a625b]">Days</span>
-            </div>
-            <p className="text-[11px] text-[#7a827b] font-sans mt-2">
-              Current daily streak
-            </p>
-          </div>
-        </div>
-
-        {/* Stat 3: Pull Requests */}
-        <div className="p-5 sm:p-6 rounded-[22px] bg-white border border-black/6 shadow-xs flex flex-col justify-between">
-          <div className="flex items-center justify-between text-[#5a625b] mb-3">
-            <span className="text-[11px] font-mono uppercase tracking-wider">
-              Pull Requests
-            </span>
-            <GitPullRequest className="w-4 h-4 text-[#3178c6]" />
-          </div>
-          <div>
-            <div className="font-sans text-3xl sm:text-4xl font-extrabold text-[#141b16] tracking-tight leading-none">
-              184+
-            </div>
-            <p className="text-[11px] text-[#7a827b] font-sans mt-2">
-              PRs merged &amp; submitted
-            </p>
-          </div>
-        </div>
-
-        {/* Stat 4: Code Ratio */}
-        <div className="p-5 sm:p-6 rounded-[22px] bg-white border border-black/6 shadow-xs flex flex-col justify-between">
-          <div className="flex items-center justify-between text-[#5a625b] mb-3">
-            <span className="text-[11px] font-mono uppercase tracking-wider">
-              Code Ratio
-            </span>
-            <Code2 className="w-4 h-4 text-[#0ae448]" />
-          </div>
-          <div>
-            <div className="font-sans text-3xl sm:text-4xl font-extrabold text-[#141b16] tracking-tight leading-none">
-              98.4%
-            </div>
-            <p className="text-[11px] text-[#7a827b] font-sans mt-2">
-              TypeScript &amp; Python
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* GitHub Contribution Heatmap Card */}
-      <div className="p-6 sm:p-8 rounded-[28px] bg-white border border-black/6 shadow-xs mb-8 overflow-hidden">
-        {/* Top Title & Hover Tooltip */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-[#216e39]/10 text-[#216e39] flex items-center justify-center font-bold">
-              <Calendar className="w-4 h-4" />
+        {/* Right Column: Compact 2x2 Stats Grid (col-span-4) */}
+        <div className="lg:col-span-4 grid grid-cols-2 gap-2.5 sm:gap-3">
+          {/* Stat 1: Total Commits */}
+          <div className="p-3.5 sm:p-4 rounded-[20px] bg-white border border-black/6 shadow-xs flex flex-col justify-between hover:border-black/15 transition-all">
+            <div className="flex items-center justify-between text-[#5a625b] mb-1.5">
+              <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider">
+                Commits
+              </span>
+              <GitCommit className="w-3.5 h-3.5 text-[#141b16]" />
             </div>
             <div>
-              <h3 className="font-sans font-bold text-sm sm:text-base text-[#141b16] flex items-center gap-2">
-                Contribution Graph
-                {isLoadingLive && (
-                  <span className="text-[10px] font-mono text-[#7a827b] animate-pulse">
-                    (Syncing live...)
-                  </span>
-                )}
-              </h3>
-              <p className="text-xs text-[#616862] font-sans font-medium">
-                {totalContributions.toLocaleString()} contributions in the last year
+              <div className="font-sans text-xl sm:text-2xl font-extrabold text-[#141b16] tracking-tight leading-none">
+                {totalContributions.toLocaleString()}
+              </div>
+              <p className="text-[9px] text-[#7a827b] font-sans mt-1">
+                Past 12 months
               </p>
             </div>
           </div>
 
-          {/* Active Hover Tooltip Indicator (Authentic GitHub Dark Tooltip) */}
-          <div className="h-6 flex items-center">
-            {hoveredCell ? (
-              <span className="px-3 py-1 rounded-full bg-[#24292f] text-white text-[11px] font-mono shadow-md animate-in fade-in duration-200">
-                {hoveredCell.count > 0
-                  ? `${hoveredCell.count} contributions on ${hoveredCell.date}`
-                  : `No contributions on ${hoveredCell.date}`}
+          {/* Stat 2: Active Streak */}
+          <div className="p-3.5 sm:p-4 rounded-[20px] bg-white border border-black/6 shadow-xs flex flex-col justify-between hover:border-black/15 transition-all">
+            <div className="flex items-center justify-between text-[#5a625b] mb-1.5">
+              <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider">
+                Streak
               </span>
-            ) : (
-              <span className="text-xs font-mono text-[#8a928c]">
-                Hover over a square for details
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* Heatmap Grid (Scrollable on small screens) */}
-        <div className="overflow-x-auto pb-2 scrollbar-thin">
-          <div className="min-w-[760px]">
-            {/* Month Labels */}
-            <div className="flex justify-between text-[11px] font-mono text-[#7a827b] mb-2 px-1">
-              {months.map((m, i) => (
-                <span key={`${m}-${i}`}>{m}</span>
-              ))}
+              <Flame className="w-3.5 h-3.5 text-[#ff7640]" />
             </div>
-
-            {/* Grid of Squares */}
-            <div className="flex gap-[3.5px]">
-              {contributionGrid.map((week, wIndex) => (
-                <div key={wIndex} className="flex flex-col gap-[3.5px]">
-                  {week.map((day, dIndex) => {
-                    // Official GitHub Green contribution palette
-                    let bgClass = "bg-[#ebedf0]";
-                    if (day.level === 1) bgClass = "bg-[#9be9a8]";
-                    else if (day.level === 2) bgClass = "bg-[#40c463]";
-                    else if (day.level === 3) bgClass = "bg-[#30a14e]";
-                    else if (day.level >= 4) bgClass = "bg-[#216e39]";
-
-                    return (
-                      <div
-                        key={dIndex}
-                        onMouseEnter={() =>
-                          setHoveredCell({ count: day.count, date: day.date })
-                        }
-                        onMouseLeave={() => setHoveredCell(null)}
-                        className={`w-[11.5px] h-[11.5px] rounded-[2.5px] transition-all duration-150 cursor-pointer hover:scale-135 hover:z-10 ${bgClass}`}
-                      />
-                    );
-                  })}
-                </div>
-              ))}
-            </div>
-
-            {/* Bottom Legend & Day labels */}
-            <div className="flex items-center justify-between text-[11px] text-[#7a827b] font-mono mt-4 pt-3 border-t border-black/5">
-              <span className="text-[10px]">Mon • Wed • Fri</span>
-              <div className="flex items-center gap-1.5">
-                <span className="text-[10px]">Less</span>
-                <span className="w-2.5 h-2.5 rounded-[2px] bg-[#ebedf0]" />
-                <span className="w-2.5 h-2.5 rounded-[2px] bg-[#9be9a8]" />
-                <span className="w-2.5 h-2.5 rounded-[2px] bg-[#40c463]" />
-                <span className="w-2.5 h-2.5 rounded-[2px] bg-[#30a14e]" />
-                <span className="w-2.5 h-2.5 rounded-[2px] bg-[#216e39]" />
-                <span className="text-[10px]">More</span>
+            <div>
+              <div className="font-sans text-xl sm:text-2xl font-extrabold text-[#141b16] tracking-tight leading-none flex items-baseline gap-1">
+                <span>{streakDays}</span>
+                <span className="text-[11px] font-semibold text-[#5a625b]">Days</span>
               </div>
+              <p className="text-[9px] text-[#7a827b] font-sans mt-1">
+                Active streak
+              </p>
+            </div>
+          </div>
+
+          {/* Stat 3: Pull Requests */}
+          <div className="p-3.5 sm:p-4 rounded-[20px] bg-white border border-black/6 shadow-xs flex flex-col justify-between hover:border-black/15 transition-all">
+            <div className="flex items-center justify-between text-[#5a625b] mb-1.5">
+              <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider">
+                PRs
+              </span>
+              <GitPullRequest className="w-3.5 h-3.5 text-[#3178c6]" />
+            </div>
+            <div>
+              <div className="font-sans text-xl sm:text-2xl font-extrabold text-[#141b16] tracking-tight leading-none">
+                184+
+              </div>
+              <p className="text-[9px] text-[#7a827b] font-sans mt-1">
+                Merged &amp; open
+              </p>
+            </div>
+          </div>
+
+          {/* Stat 4: Code Ratio */}
+          <div className="p-3.5 sm:p-4 rounded-[20px] bg-white border border-black/6 shadow-xs flex flex-col justify-between hover:border-black/15 transition-all">
+            <div className="flex items-center justify-between text-[#5a625b] mb-1.5">
+              <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider">
+                Code Ratio
+              </span>
+              <Code2 className="w-3.5 h-3.5 text-[#0ae448]" />
+            </div>
+            <div>
+              <div className="font-sans text-xl sm:text-2xl font-extrabold text-[#141b16] tracking-tight leading-none">
+                98.4%
+              </div>
+              <p className="text-[9px] text-[#7a827b] font-sans mt-1 truncate">
+                TS &amp; Python
+              </p>
             </div>
           </div>
         </div>

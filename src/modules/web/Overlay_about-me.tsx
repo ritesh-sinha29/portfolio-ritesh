@@ -488,7 +488,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
           {/* ================================================================== */}
           {/* PANEL 0: ABOUT ME SECTION                                          */}
           {/* ================================================================== */}
-          <section className="panel-item panel-0 absolute inset-0 w-full h-full bg-[#eae7e1] text-[#141b16] flex flex-col justify-between p-6 sm:p-10 md:p-14 z-10 select-none overflow-hidden will-change-transform">
+          <section className="panel-item panel-0 absolute inset-0 w-full h-full bg-[#eae7e1] text-[#141b16] flex flex-col justify-between pt-16 sm:pt-20 md:pt-24 pb-6 sm:pb-8 md:pb-10 px-6 sm:px-10 md:px-14 z-10 select-none overflow-hidden will-change-transform">
             {/* Warm Ambient Lighting */}
             <div
               className="absolute inset-0 pointer-events-none"
@@ -499,17 +499,17 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
             />
 
             {/* Top Center Title */}
-            <div className="about-title relative z-20 w-full flex justify-center items-center pt-8 sm:pt-12 md:pt-14 will-change-transform">
+            <div className="about-title relative z-20 w-full flex justify-center items-center mb-2 sm:mb-4 md:mb-6 will-change-transform">
               <h2 className="font-sans font-extrabold tracking-tight text-xl xs:text-2xl sm:text-3xl md:text-4xl text-[#141b16] leading-tight text-center">
                 About Me
               </h2>
             </div>
 
             {/* Center Stage: Hero-Style Typography & Content (Left Quadrant) */}
-            <div className="relative w-full flex-1 max-w-6xl mx-auto z-20 flex flex-col justify-center my-auto py-2 sm:py-4">
+            <div className="relative w-full flex-1 max-w-6xl mx-auto z-20 flex flex-col justify-center my-auto min-h-0 py-1 sm:py-2">
               <div className="max-w-xl lg:max-w-2xl">
                 {/* Big About Me Headline */}
-                <h1 className="font-sans font-normal tracking-tight text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-[38px] xl:text-[42px] leading-[1.2] text-[#141b16]">
+                <h1 className="font-sans font-normal tracking-tight text-xl xs:text-2xl sm:text-[28px] md:text-[32px] lg:text-[36px] xl:text-[38px] leading-[1.18] text-[#141b16]">
                   <span className="about-headline-line block will-change-transform">
                     I am Ritesh Sinha, an experienced
                   </span>
@@ -531,7 +531,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                 </h1>
 
                 {/* Subtext */}
-                <p className="about-subtext font-sans text-xs sm:text-sm md:text-[14px] text-[#141b16]/75 font-normal max-w-lg leading-relaxed mt-3.5 sm:mt-5 will-change-transform">
+                <p className="about-subtext font-sans text-xs sm:text-[13px] md:text-[14px] text-[#141b16]/75 font-normal max-w-lg leading-relaxed mt-2.5 sm:mt-3.5 will-change-transform">
                   I work across AI/ML, LLMs, RAG, multi-agent systems, MCP,
                   distributed architectures, cloud infrastructure, and full-stack
                   engineering — turning ambitious ideas into production-grade
@@ -539,15 +539,15 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                 </p>
 
                 {/* Know More CTA Button */}
-                <div className="about-cta mt-4 sm:mt-6 will-change-transform">
+                <div className="about-cta mt-3.5 sm:mt-5 will-change-transform">
                   <MagneticButton
                     href="/about"
                     magneticStrength={0.35}
                     scaleOnHover={1.06}
-                    className="group inline-flex items-center gap-2 px-4.5 sm:px-5.5 py-2 sm:py-2.5 rounded-full bg-[#141b16] text-[#faf8f5] hover:bg-black font-sans font-bold text-xs sm:text-sm border-2 border-[#141b16] shadow-[2.5px_2.5px_0px_#c5eb35] hover:shadow-[4px_4px_0px_#c5eb35] transition-all duration-200 cursor-pointer uppercase tracking-wider"
+                    className="group inline-flex items-center gap-2.5 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-white hover:bg-[#faf8f5] text-[#141b16] font-sans font-extrabold text-xs sm:text-sm border-[1.5px] sm:border-2 border-[#141b16] shadow-[2.5px_2.5px_0px_#141b16] hover:shadow-[4.5px_4.5px_0px_#141b16] transition-all duration-200 cursor-pointer uppercase tracking-wider"
                   >
                     <span>Know More</span>
-                    <span className="w-5 h-5 rounded-full bg-white/15 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:bg-[#c5eb35] group-hover:text-[#141b16] transition-all duration-200">
+                    <span className="w-5.5 h-5.5 rounded-full bg-[#141b16] text-[#faf8f5] group-hover:bg-primary group-hover:text-primary-foreground flex items-center justify-center transition-all duration-200 shadow-xs group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                       <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
                     </span>
                   </MagneticButton>
@@ -556,7 +556,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
             </div>
 
             {/* Right Side Grounded Character Image */}
-            <div className="about-image absolute bottom-0 right-0 sm:right-[2%] md:right-[4%] lg:right-[6%] z-10 w-[60vw] sm:w-[38vw] md:w-[34vw] max-w-[280px] sm:max-w-[360px] md:max-w-[420px] lg:max-w-[460px] h-[55vh] sm:h-[68vh] md:h-[74vh] lg:h-[78vh] flex items-end justify-center pointer-events-none will-change-transform">
+            <div className="about-image absolute bottom-0 right-0 sm:right-[2%] md:right-[4%] lg:right-[6%] z-10 w-[60vw] sm:w-[38vw] md:w-[34vw] max-w-[280px] sm:max-w-[360px] md:max-w-[420px] lg:max-w-[460px] h-[55vh] sm:h-[66vh] md:h-[72vh] lg:h-[76vh] flex items-end justify-center pointer-events-none will-change-transform">
               <div className="relative w-full h-full">
                 <Image
                   src="/ritesh mic.svg"

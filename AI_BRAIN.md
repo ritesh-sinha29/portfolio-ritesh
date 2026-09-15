@@ -34,17 +34,20 @@ portfolio-ritesh/
 - Source code is ground truth: if memory conflicts with code, update the brain to match the code.
 
 ## Recent Changes
+- Redesigned the **"KNOW MORE"** CTA button in [Overlay_about-me.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/web/Overlay_about-me.tsx) to a refined, non-filled tactile neo-brutalist pill:
+  - White surface (`bg-white hover:bg-[#faf8f5]`) with obsidian typography (`text-[#141b16]`), crisp border (`border-[#141b16]`), and tactile offset shadow (`shadow-[2.5px_2.5px_0px_#141b16] hover:shadow-[4.5px_4.5px_0px_#141b16]`).
+  - Dark contrasting arrow badge (`bg-[#141b16] text-white`) that dynamically illuminates to primary terracotta on hover (`group-hover:bg-primary group-hover:text-primary-foreground`) with micro-hover translation.
+- Harmonized the vertical rhythm and structure across all interactive panels (About Me, Skills, Featured Projects):
+  - In [Overlay_about-me.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/web/Overlay_about-me.tsx), restructured Panel 0 (About Me) with clean top clearance (`pt-16 sm:pt-20 md:pt-24`), balanced heading margins (`mb-2 sm:mb-4 md:mb-6`), refined headline line-height and typography scale (`leading-[1.18]`), ensuring the "KNOW MORE" CTA stays comfortably in view above the fold on all desktop and laptop resolutions.
+  - In [SkillsSection.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/web/SkillsSection.tsx), unified top container padding and heading margins to match Panel 0 and Panel 2.
+  - In [ProjectsSection.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/web/ProjectsSection.tsx), provided clear distance from top header dock and optimized card viewport scaling.
 - Standardized the `/about` page top header navigation:
   - Centered Magnetic Dock (`HOME`, `ABOUT`, `SKILLS`, `WORKS`) with active route styling.
-  - Converted the GitHub profile button to a clean, non-filled outline pill (`bg-white border border-black/10 text-[#141b16]`) removing the solid filled orange background.
-  - Updated GitHub Contribution Graph and legend to use official authentic GitHub green colors (`#ebedf0`, `#9be9a8`, `#40c463`, `#30a14e`, `#216e39`) and authentic dark tooltip style (`#24292f`).
-  - Reduced the size and padding of the Tech Stack & Skills category filter dock to a compact, sleek pill layout (`text-[10px] sm:text-[11px]`, `px-3 sm:px-3.5 py-1 sm:py-1.5`).
-  - Replaced the yellow Zap icon in the `Bounce` button with a clean monochrome `Activity` vector stroke icon (`stroke-[2] text-[#141b16]`) to remove the emoji appearance.
-  - Positioned the simple, minimalist `Bounce` and `Drop Again` pills in the top right of the header bar aligned with the navigation.
-  - Added frosted glass backdrop (`bg-white/80 backdrop-blur-md`) so buttons remain clearly visible and legible over both light sections and dark footer imagery.
-  - Removed left brand avatar on `/about` to keep the layout clean and balanced.
-  - Linked physics impulse methods (`handleNudgeAll` and `handleResetDrop`) cleanly via `useImperativeHandle`.
-  - Updated portrait container in `KnowMeBetterSection` to `aspect-[3/4]` with `object-cover object-bottom` to match `/2.svg`.
+  - Enhanced the GitHub Contribution Activity section:
+    - Expanded graph width to `lg:col-span-8` giving contribution cells larger size and greater visual prominence.
+    - Compressed the 4 stat cards on the right into a tight, compact 2x2 grid (`lg:col-span-4`) with refined typography and padding.
+    - Implemented a floating white popover tooltip with caret pointing directly to the hovered contribution square showing `{X} commits on {Month} {DD}, {YYYY}`, matching GitHub's authentic interaction.
+    - Added mutual exclusivity between custom cursor and tooltip: custom cursor seamlessly disappears whenever hovering over contribution squares (`data-hide-cursor` / `dataset.cursorHidden`), ensuring only 1 of the two is visible at a time without overlap.
 
 ## 5. Important File Map
 | Section | Files |

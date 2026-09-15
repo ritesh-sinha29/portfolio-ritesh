@@ -35,9 +35,9 @@
   --sidebar-accent-foreground: oklch(0.3791 0.1378 265.5222);
   --sidebar-border: oklch(0.9276 0.0058 264.5313);
   --sidebar-ring: oklch(0.6397 0.1720 36.4421);
-  --font-sans: Outfit, sans-serif;
-  --font-serif: Merriweather, serif;
-  --font-mono: Fira Code, monospace;
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-mono: 'Fira Code', monospace;
   --font-silkscreen: 'Silkscreen', cursive;
   --radius: 0.5rem;
   --shadow-x: 0px;
@@ -91,9 +91,10 @@
   --sidebar-accent-foreground: oklch(0.8823 0.0571 254.1284);
   --sidebar-border: oklch(0.3290 0 0);
   --sidebar-ring: oklch(0.6397 0.1720 36.4421);
-  --font-sans: Outfit, sans-serif;
-  --font-serif: Merriweather, serif;
-  --font-mono: Fira Code, monospace;
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-mono: 'Fira Code', monospace;
+  --font-silkscreen: 'Silkscreen', cursive;
   --radius: 0.5rem;
   --shadow-x: 0px;
   --shadow-y: 1px;
@@ -170,8 +171,11 @@
     @apply border-border outline-ring/50;
     box-sizing: border-box;
   }
+  html {
+    @apply font-sans;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
@@ -180,19 +184,19 @@
 }
 
 .font-serif {
-  font-family: var(--font-serif), Merriweather, Georgia, serif;
+  font-family: 'Instrument Serif', Georgia, serif;
 }
 
 .font-silkscreen {
-  font-family: var(--font-silkscreen), 'Silkscreen', cursive;
+  font-family: 'Silkscreen', cursive;
 }
 
 .font-sans {
-  font-family: var(--font-sans), Outfit, 'Inter', system-ui, sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .font-mono {
-  font-family: var(--font-mono), 'Fira Code', monospace;
+  font-family: 'Fira Code', monospace;
 }
 
 /* Liquid Glass Effect */

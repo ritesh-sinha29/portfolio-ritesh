@@ -13,6 +13,8 @@ export interface HeaderProps {
   onTabClick?: (id: string) => void;
   isLoading?: boolean;
   className?: string;
+  showBrand?: boolean;
+  showContact?: boolean;
 }
 
 export const defaultNavItems: DockItem[] = [
@@ -27,6 +29,8 @@ export default function Header({
   onTabClick,
   isLoading = false,
   className = "",
+  showBrand = true,
+  showContact = true,
 }: HeaderProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -130,36 +134,42 @@ export default function Header({
     <header
       className={`fixed top-0 left-0 right-0 z-50 pointer-events-none w-full transition-opacity duration-300 ${className}`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-5 flex items-center justify-between">
+      <div
+        className={`max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-5 flex items-center ${
+          !showBrand && !showContact ? "justify-center" : "justify-between"
+        }`}
+      >
         {/* Left: Brand / Logo */}
-        <div className="pointer-events-auto">
-          <Link
-            href="/"
-            onClick={(e) => {
-              e.preventDefault();
-              if (isHomePage) {
-                handleTabAction("home");
-              } else {
-                router.push("/");
-              }
-            }}
-            className="group flex items-center gap-2 p-1 sm:px-3 sm:py-1.5 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:bg-card transition-all duration-200"
-          >
-            <div className="relative w-6 h-6 sm:w-7 sm:h-7 rounded-full overflow-hidden shrink-0">
-              <Image
-                src="/ritesh circle.svg"
-                alt="Ritesh Sinha"
-                width={28}
-                height={28}
-                className="w-full h-full object-cover select-none"
-                priority
-              />
-            </div>
-            <span className="font-sans font-bold text-xs sm:text-sm tracking-tight text-foreground pr-2 hidden sm:inline">
-              RITESH SINHA
-            </span>
-          </Link>
-        </div>
+        {showBrand && (
+          <div className="pointer-events-auto">
+            <Link
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                if (isHomePage) {
+                  handleTabAction("home");
+                } else {
+                  router.push("/");
+                }
+              }}
+              className="group flex items-center gap-2 p-1 sm:px-3 sm:py-1.5 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:bg-card transition-all duration-200"
+            >
+              <div className="relative w-6 h-6 sm:w-7 sm:h-7 rounded-full overflow-hidden shrink-0">
+                <Image
+                  src="/ritesh circle.svg"
+                  alt="Ritesh Sinha"
+                  width={28}
+                  height={28}
+                  className="w-full h-full object-cover select-none"
+                  priority
+                />
+              </div>
+              <span className="font-sans font-bold text-xs sm:text-sm tracking-tight text-foreground pr-2 hidden sm:inline">
+                RITESH SINHA
+              </span>
+            </Link>
+          </div>
+        )}
 
         {/* Center: Universal Navigation Pill Dock */}
         <div className="pointer-events-auto">
@@ -172,19 +182,21 @@ export default function Header({
         </div>
 
         {/* Right: Contact Pill CTA */}
-        <div className="pointer-events-auto">
-          <div className="p-1 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-[0_4px_20px_rgba(0,0,0,0.06)] inline-flex items-center">
-            <MagneticButton
-              onClick={handleContactClick}
-              className="group bg-primary hover:opacity-90 text-primary-foreground font-sans font-bold text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-full flex items-center gap-1.5 sm:gap-2 transition-all duration-150 shadow-xs cursor-pointer"
-            >
-              <span className="hidden sm:inline">Contact</span>
-              <span className="w-5 h-5 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:bg-primary-foreground/20 transition-colors">
-                <ArrowUpRight className="w-3.5 h-3.5 text-primary-foreground group-hover:text-primary-foreground transition-colors stroke-[2.5]" />
-              </span>
-            </MagneticButton>
+        {showContact && (
+          <div className="pointer-events-auto">
+            <div className="p-1 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-[0_4px_20px_rgba(0,0,0,0.06)] inline-flex items-center">
+              <MagneticButton
+                onClick={handleContactClick}
+                className="group bg-primary hover:opacity-90 text-primary-foreground font-sans font-bold text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-full flex items-center gap-1.5 sm:gap-2 transition-all duration-150 shadow-xs cursor-pointer"
+              >
+                <span className="hidden sm:inline">Contact</span>
+                <span className="w-5 h-5 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:bg-primary-foreground/20 transition-colors">
+                  <ArrowUpRight className="w-3.5 h-3.5 text-primary-foreground group-hover:text-primary-foreground transition-colors stroke-[2.5]" />
+                </span>
+              </MagneticButton>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </header>
   );

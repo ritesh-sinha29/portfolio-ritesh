@@ -45,11 +45,11 @@ portfolio-ritesh/
 | Config & Dependencies | `package.json`, `next.config.ts`, `tsconfig.json` |
 
 ## 6. Current Task Context
-- Completed seamless header navigation with session-level `LoadingProvider` to eliminate re-triggering the loader.
-- Added "Know More" button in the Home About section linking to `/about`.
-- Created and ported complete `/about` page featuring Matter.js 2D rigid-body interactive physics simulation (`PlayfulPhysicsCanvas`), expandable story cards (`KnowMeBetterSection`), technical arsenal (`TechStackSkills`), and real-time live GitHub contributions & pinned repos (`GitHubActivitySection`).
-- Configured universal Header routing so clicking "ABOUT" seamlessly navigates to `/about`.
+- Set up typography and font variables to match rox-portfolio: `Instrument Serif` (`--font-serif`), `Inter` (`--font-sans`), `Fira Code` (`--font-mono`), and `Silkscreen` (`--font-silkscreen`).
+- Preserved full editorial headline size (`text-[44px] sm:text-[66px] md:text-[80px] lg:text-[92px]`) on the About page.
+- Configured centered magnetic navigation dock on `/about` (`[HOME, ABOUT, SKILLS, WORKS]`) and hid the left logo and right Contact pill on the About page as requested.
 
 ## 7. Last Session Summary
 - Fixed loader triggers across header button navigations.
 - Ported and integrated complete rox-portfolio About architecture into `portfolio-ritesh`.
+- Configured font system and centered magnetic dock for `/about`.

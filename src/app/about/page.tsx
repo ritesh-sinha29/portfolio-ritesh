@@ -2,7 +2,6 @@
 
 import React, { useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -65,22 +64,22 @@ export default function AboutPage() {
 
   return (
     <main className="relative w-full bg-[#fafafa] text-[#141b16] selection:bg-primary selection:text-primary-foreground">
-      {/* Universal Fixed Header */}
-      <Header activeTab="about" />
+      {/* Universal Fixed Top Header with Magnetic Dock Navigation */}
+      <Header activeTab="about" showBrand={false} showContact={false} />
 
       {/* Sticky Hero Section with Interactive Physics Badges */}
       <div className="sticky top-0 w-full h-screen overflow-hidden z-10 bg-[#fafafa]">
         {/* Hero Content Section (Behind the physics canvas: z-10) */}
         <div
           ref={heroContentRef}
-          className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center px-4 sm:px-8 max-w-3xl mx-auto pointer-events-none will-change-transform pt-16 sm:pt-20 pb-24 sm:pb-28"
+          className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center px-6 sm:px-10 max-w-5xl mx-auto pointer-events-none will-change-transform pt-16 sm:pt-20 pb-20 sm:pb-24"
         >
           {/* Profile / Avatar Greeting Badge */}
           <div
             ref={badgeRef}
-            className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-black/8 shadow-[0_2px_12px_rgba(0,0,0,0.06)] mb-3 sm:mb-4 pointer-events-auto hover:scale-105 transition-transform duration-300"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-black/8 shadow-[0_2px_12px_rgba(0,0,0,0.06)] mb-4 sm:mb-6 pointer-events-auto hover:scale-105 transition-transform duration-300"
           >
-            <div className="relative w-5 h-5 sm:w-6 sm:h-6 rounded-full overflow-hidden border border-black/10 shrink-0">
+            <div className="relative w-6 h-6 rounded-full overflow-hidden border border-black/10 shrink-0">
               <Image
                 src="/ritesh circle.svg"
                 alt="Avatar"
@@ -89,7 +88,7 @@ export default function AboutPage() {
                 priority
               />
             </div>
-            <span className="text-[11px] sm:text-xs font-medium text-[#404741] tracking-tight">
+            <span className="text-xs sm:text-sm font-medium text-[#404741] tracking-tight">
               Hello 👋 <span className="font-semibold text-[#141b16]">I&apos;m Ritesh Sinha</span>
             </span>
           </div>
@@ -97,16 +96,17 @@ export default function AboutPage() {
           {/* Big Editorial Headline */}
           <h1
             ref={headlineRef}
-            className="font-serif italic text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-[52px] xl:text-[56px] leading-[1.12] tracking-tight text-[#141b16] font-normal max-w-2xl sm:max-w-3xl"
+            style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}
+            className="text-[44px] sm:text-[66px] md:text-[80px] lg:text-[92px] leading-[1.06] tracking-[-0.025em] text-[#141b16] font-normal"
           >
-            I design products that <span className="not-italic font-bold">feel</span>{" "}
+            I design products that <em className="italic font-normal">feel</em>{" "}
             simple, even when they&apos;re not.
           </h1>
 
           {/* Editorial Subtitle */}
           <p
             ref={subRef}
-            className="mt-3 sm:mt-4 text-xs sm:text-sm md:text-base text-[#616862] max-w-lg sm:max-w-xl leading-relaxed tracking-tight font-sans"
+            className="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg text-[#616862] max-w-2xl leading-relaxed tracking-tight font-sans"
           >
             Currently architecting{" "}
             <strong className="font-bold text-[#141b16]">

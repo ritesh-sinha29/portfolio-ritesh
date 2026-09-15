@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Outfit, Merriweather, Fira_Code, Silkscreen } from "next/font/google";
+import { Inter, Instrument_Serif, Fira_Code, Silkscreen } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { SmoothCursor } from "@/components/ui/smooth-cursor";
 import SmoothScroll from "@/components/providers/SmoothScroll";
 import { LoadingProvider } from "@/components/providers/LoadingProvider";
 
-const outfit = Outfit({
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const merriweather = Merriweather({
+const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
-  weight: ["300", "400", "700", "900"],
+  weight: ["400"],
   style: ["normal", "italic"],
   variable: "--font-serif",
   display: "swap",
@@ -49,13 +49,23 @@ export default function RootLayout({
       lang="en"
       className={cn(
         "antialiased",
-        outfit.variable,
-        merriweather.variable,
+        inter.variable,
+        instrumentSerif.variable,
         firaCode.variable,
         silkscreen.variable
       )}
     >
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700;800;900&family=Silkscreen:wght@400;700&family=Almarai:wght@300;400;700;800&display=swap"
+          rel="stylesheet"
+        />
         <link rel="preload" href="/ritesh standing.svg" as="image" type="image/svg+xml" />
         <link rel="preload" href="/ritesh mic.svg" as="image" type="image/svg+xml" />
       </head>

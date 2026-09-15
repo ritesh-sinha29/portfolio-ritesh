@@ -54,19 +54,29 @@ portfolio-ritesh/
   - Scaled subtitle badge ("AI Engineer & Builder") up to `text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl`.
   - Scaled footer status text ("Loading Experience") up to `text-sm sm:text-base md:text-lg` and number counter up to `text-5xl sm:text-7xl md:text-8xl lg:text-9xl`.
 
+- Implemented and integrated the **Ritesh AI Chatbot Assistant & Automated Resend Email Tools**:
+  - [knowledge.ts](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/lib/agent/knowledge.ts): Complete persona knowledge graph, VRSA Analytics details, all 6 projects, tech stack, and system prompt.
+  - [tools.ts](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/lib/agent/tools.ts): Resend email dispatch tools (`contactRitesh` to send visitor inquiries straight to `riteshsinha4146@gmail.com`, and `sendRiteshDetails` to dispatch resume PDF and dossier).
+  - [agent-stream.ts](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/agent/agent-stream.ts): SSE stream decoder handling text-delta, tool calls, and finish states.
+  - [use-agent.ts](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/agent/use-agent.ts): React state hook for message streaming, abort controller, tool status events, and conversation clearing.
+  - [ChatWidget.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/agent/ChatWidget.tsx): Tactile neo-brutalist right-edge `"Ask anything"` launcher with circular avatar, live pulse indicator, animated slide-in drawer, starter suggestions, markdown rendering, and tool execution status feedback.
+  - [route.ts](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/app/api/agent/route.ts): Multi-tier streaming endpoint (Local Ollama `http://localhost:11434` -> Cloud API -> Smart Knowledge Fallback Engine + Resend tool triggers for 100% uptime).
+  - [layout.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/app/layout.tsx): Globally mounted across all routes (`/`, `/about`, `/work`).
+
 ## 5. Important File Map
 | Section | Files |
 | :--- | :--- |
 | Core Layout & Global Styles | `src/app/layout.tsx`, `src/app/globals.css`, `src/components/providers/LoadingProvider.tsx`, `src/modules/web/LoadingScreen.tsx` |
+| AI Chatbot Assistant & Tools | `src/modules/agent/ChatWidget.tsx`, `src/modules/agent/use-agent.ts`, `src/modules/agent/agent-stream.ts`, `src/lib/agent/knowledge.ts`, `src/lib/agent/tools.ts`, `src/app/api/agent/route.ts` |
 | Navigation Header & Dock | `src/modules/web/Header.tsx`, `src/components/tweenlabs/MagneticDock.tsx` |
 | Home Page & Overlay | `src/app/page.tsx`, `src/modules/web/Hero.tsx`, `src/modules/web/Overlay_about-me.tsx` |
 | Dedicated About Page | `src/app/about/page.tsx`, `src/modules/about/PlayfulPhysicsCanvas.tsx`, `src/modules/about/KnowMeBetterSection.tsx`, `src/modules/about/TechStackSkills.tsx`, `src/modules/about/GitHubActivitySection.tsx` |
 | Selected Works Page | `src/app/work/page.tsx`, `src/modules/web/ProjectsSection.tsx` |
 | Footer & Contact | `src/modules/web/Footer.tsx` |
-| Config & Dependencies | `package.json`, `next.config.ts`, `tsconfig.json` |
+| Config & Dependencies | `package.json`, `next.config.ts`, `tsconfig.json`, `.env.example` |
 
 ## 6. Current Task Context
-- Increased loader screen typography scale across mobile and desktop.
+- AI Chatbot and Resend Email tools fully ported and configured for Ritesh Sinha's portfolio.
 
 ## 7. Last Session Summary
-- Enhanced loader text ("Hey I'm Ritesh", subtitle, status, and counter) with larger font sizes and responsive scaling.
+- Built and verified Ritesh AI Chatbot Assistant with Resend email tools (`contactRitesh` and `sendRiteshDetails`), local Ollama + fallback streaming, and tactile drawer UI.

@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { SmoothCursor } from "@/components/ui/smooth-cursor";
 import SmoothScroll from "@/components/providers/SmoothScroll";
 import { LoadingProvider } from "@/components/providers/LoadingProvider";
+import ChatWidget from "@/modules/agent/ChatWidget";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -74,6 +75,7 @@ export default function RootLayout({
           <SmoothScroll>
             <SmoothCursor />
             {children}
+            <ChatWidget />
           </SmoothScroll>
         </LoadingProvider>
       </body>

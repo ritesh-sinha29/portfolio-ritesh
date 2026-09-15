@@ -168,12 +168,13 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           />
         </div>
 
-        {/* Subtitle Badge with High-Contrast Glass Pill */}
-        <div className="mt-4 sm:mt-6 inline-flex items-center gap-2.5 px-4 sm:px-6 py-1.5 sm:py-2 rounded-full bg-black/80 backdrop-blur-md border border-white/25 shadow-[0_8px_32px_rgba(0,0,0,0.85)]">
-          <span className="w-2 h-2 rounded-full bg-[#c5eb35] shadow-[0_0_10px_#c5eb35] animate-pulse shrink-0" />
-          <p className="font-sans font-bold text-xs xs:text-sm sm:text-base md:text-lg text-white tracking-[0.22em] uppercase">
+        {/* Clean, Sleek & Professional Editorial Subtitle */}
+        <div className="mt-4 sm:mt-6 flex items-center justify-center gap-3 sm:gap-4 select-none">
+          <span className="h-[1px] w-6 sm:w-12 bg-white/40 shadow-sm" />
+          <p className="font-mono text-xs sm:text-sm md:text-base font-medium tracking-[0.32em] uppercase text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
             AI Engineer &amp; Builder
           </p>
+          <span className="h-[1px] w-6 sm:w-12 bg-white/40 shadow-sm" />
         </div>
       </main>
 

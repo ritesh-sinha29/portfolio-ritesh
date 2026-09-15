@@ -192,7 +192,7 @@ export default function ChatWidget({
                           key={idx}
                           type="button"
                           onClick={() => sendMessage(item.prompt)}
-                          className="w-full text-left p-3 rounded-xl border border-black/8 bg-white hover:bg-[#c5eb35]/25 hover:border-[#141b16] transition-all duration-200 group flex items-center justify-between gap-2 cursor-pointer shadow-xs"
+                          className="w-full text-left p-3 rounded-xl border border-black/8 bg-white hover:bg-[#e8d5b0]/40 hover:border-[#141b16] transition-all duration-200 group flex items-center justify-between gap-2 cursor-pointer shadow-xs"
                         >
                           <span className="text-xs text-neutral-800 group-hover:text-black font-semibold">
                             {item.label}
@@ -208,7 +208,7 @@ export default function ChatWidget({
                       <React.Fragment key={msg.id || i}>
                         {msg.role === "user" && (
                           <div className="flex justify-end">
-                            <div className="max-w-[85%] px-4 py-2.5 rounded-2xl rounded-br-xs leading-relaxed bg-[#c5eb35] text-[#141b16] font-semibold text-xs sm:text-sm shadow-xs border border-[#141b16]/20">
+                            <div className="max-w-[85%] px-4 py-2.5 rounded-2xl rounded-br-xs leading-relaxed bg-[#e8d5b0] text-[#141b16] font-semibold text-xs sm:text-sm shadow-xs border border-[#141b16]/20">
                               {msg.text}
                             </div>
                           </div>
@@ -280,7 +280,7 @@ export default function ChatWidget({
                 <button
                   type="submit"
                   disabled={!inputValue.trim() || isStreaming}
-                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#c5eb35] hover:bg-[#b5e024] disabled:opacity-50 disabled:cursor-not-allowed text-[#141b16] border border-[#141b16] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 shrink-0 font-bold"
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#e8d5b0] hover:bg-[#ddc89a] disabled:opacity-50 disabled:cursor-not-allowed text-[#141b16] border border-[#141b16] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 shrink-0 font-bold"
                   aria-label="Send message"
                 >
                   {isStreaming ? (

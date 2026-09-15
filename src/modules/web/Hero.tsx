@@ -146,7 +146,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
         {/* Top Headline: AI ENGINEER (Positioned cleanly below the mobile floating nav pill) */}
         <h1
           ref={title1Ref}
-          className="text-4xl sm:text-6xl md:text-7xl lg:text-[92px] xl:text-[108px] font-serif tracking-tight sm:tracking-wider italic font-light absolute top-14 sm:top-8 md:top-12 lg:top-14 left-1/2 sm:left-[48%] md:left-[50%] lg:left-[52%] -translate-x-1/2 will-change-transform whitespace-nowrap select-none text-center sm:text-left text-foreground"
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-[92px] xl:text-[108px] font-serif tracking-tight sm:tracking-wider italic font-light absolute top-14 sm:top-8 md:top-12 lg:top-14 left-1/2 sm:left-[48%] md:left-[50%] lg:left-[52%] -translate-x-1/2 will-change-transform whitespace-nowrap select-none text-center sm:text-left text-[#141b16]"
         >
           AI ENGINEER
         </h1>
@@ -158,12 +158,12 @@ export default function Hero({ isLoaded = false }: HeroProps) {
         >
           <h2
             ref={title2Ref}
-            className="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-sans leading-none sm:leading-tight tracking-tight font-extrabold sm:font-semibold text-foreground"
+            className="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-sans leading-none sm:leading-tight tracking-tight font-extrabold sm:font-semibold text-[#141b16]"
           >
             &amp; BUILDER
           </h2>
           <p className="mt-2 sm:mt-5 md:mt-6 max-w-md lg:max-w-lg">
-            <span className="text-[11px] sm:text-base md:text-lg tracking-tight leading-snug sm:leading-relaxed font-sans font-medium text-muted-foreground line-clamp-3 sm:line-clamp-none">
+            <span className="text-[11px] sm:text-base md:text-lg tracking-tight leading-snug sm:leading-relaxed font-sans font-medium text-[#141b16] line-clamp-3 sm:line-clamp-none">
               Architecting intelligent distributed systems, high-performance web applications, and real-time AI agents.
             </span>
           </p>
@@ -198,7 +198,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
       >
         <div className="relative w-full h-full">
           <Image
-            src="/1.svg"
+            src="/ritesh standing.svg"
             alt="Ritesh Sinha"
             fill
             priority

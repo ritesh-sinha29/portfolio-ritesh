@@ -105,6 +105,20 @@ export default function Header({
       return;
     }
 
+    if (id === "skills" && pathname === "/about") {
+      const skillsEl = document.getElementById("skills");
+      if (skillsEl) {
+        const top = skillsEl.getBoundingClientRect().top + window.scrollY - 80;
+        const lenis = (window as unknown as { lenis?: { scrollTo: (t: number) => void } }).lenis;
+        if (lenis) {
+          lenis.scrollTo(top);
+        } else {
+          window.scrollTo({ top, behavior: "smooth" });
+        }
+        return;
+      }
+    }
+
     if (onTabClick && isHomePage) {
       onTabClick(id);
       return;
@@ -113,7 +127,7 @@ export default function Header({
     if (isHomePage) {
       scrollToHomeSection(id);
     } else {
-      // Sub-pages like /work or /about
+      // Sub-pages like /work
       if (id === "home") {
         router.push("/");
       } else {

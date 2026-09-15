@@ -107,8 +107,8 @@ function HomeContent() {
       const top = (pinSpacer || el).getBoundingClientRect().top + window.scrollY;
 
       if (sectionId === "about") return top + 2;
-      if (sectionId === "skills") return top + 900;
-      if (sectionId === "projects") return top + 1750;
+      if (sectionId === "skills") return top + 1000;
+      if (sectionId === "projects") return top + 1850;
       if (sectionId === "contact") return top + 2600;
       return top;
     };

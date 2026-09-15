@@ -4,7 +4,8 @@
 import React, { ReactNode, useMemo } from "react";
 import { ConvexProvider, ConvexReactClient } from "convex/react";
 
-const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
+const convexUrl =
+  process.env.NEXT_PUBLIC_CONVEX_URL || "https://placeholder-portfolio.convex.cloud";
 
 export default function ConvexClientProvider({
   children,
@@ -12,18 +13,12 @@ export default function ConvexClientProvider({
   children: ReactNode;
 }) {
   const client = useMemo(() => {
-    if (!convexUrl) return null;
     try {
       return new ConvexReactClient(convexUrl);
-    } catch (err) {
-      console.warn("[ConvexClientProvider] Invalid NEXT_PUBLIC_CONVEX_URL:", err);
-      return null;
+    } catch {
+      return new ConvexReactClient("https://placeholder-portfolio.convex.cloud");
     }
   }, []);
-
-  if (!client) {
-    return <>{children}</>;
-  }
 
   return <ConvexProvider client={client}>{children}</ConvexProvider>;
 }

@@ -72,11 +72,11 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
 
       const counter = { val: 0 };
 
-      // 1. Number loading smoothly from 0 to 99 in 1.4s
+      // 1. Number counter counting smoothly from 0 to 99 over 2.6s
       tl.to(counter, {
         val: 99,
-        duration: 1.4,
-        ease: "power2.inOut",
+        duration: 2.6,
+        ease: "power2.out",
         onUpdate: () => {
           if (numberRef.current) {
             numberRef.current.textContent = Math.floor(counter.val).toString();
@@ -86,7 +86,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
         // 2. Hit 100
         .to(counter, {
           val: 100,
-          duration: 0.15,
+          duration: 0.2,
           ease: "none",
           onUpdate: () => {
             if (numberRef.current) {
@@ -94,15 +94,15 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
             }
           },
         })
-        // 3. Brief micro-pause at 100
-        .to({}, { duration: 0.15 })
+        // 3. Meaningful hold at 100 so user can comfortably read all loader text
+        .to({}, { duration: 0.9 })
         // 4. Center content lift before swipe
         .to(
           [centerContentRef.current, footerRef.current],
           {
             y: -25,
             opacity: 0,
-            duration: 0.35,
+            duration: 0.4,
             ease: "power2.in",
           },
           "-=0.05"
@@ -112,7 +112,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           containerRef.current,
           {
             yPercent: -100,
-            duration: 0.75,
+            duration: 0.8,
             ease: "power4.inOut",
           },
           "-=0.1"
@@ -168,10 +168,13 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           />
         </div>
 
-        {/* Subtitle */}
-        <p className="font-sans font-semibold text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl text-[#F5C86C] mt-4 sm:mt-6 tracking-[0.28em] uppercase drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
-          AI Engineer &amp; Builder
-        </p>
+        {/* Subtitle Badge with High-Contrast Glass Pill */}
+        <div className="mt-4 sm:mt-6 inline-flex items-center gap-2.5 px-4 sm:px-6 py-1.5 sm:py-2 rounded-full bg-black/80 backdrop-blur-md border border-white/25 shadow-[0_8px_32px_rgba(0,0,0,0.85)]">
+          <span className="w-2 h-2 rounded-full bg-[#c5eb35] shadow-[0_0_10px_#c5eb35] animate-pulse shrink-0" />
+          <p className="font-sans font-bold text-xs xs:text-sm sm:text-base md:text-lg text-white tracking-[0.22em] uppercase">
+            AI Engineer &amp; Builder
+          </p>
+        </div>
       </main>
 
       {/* Bottom Footer: Status on Left, Number in Silkscreen on Right */}

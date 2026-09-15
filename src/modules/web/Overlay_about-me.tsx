@@ -576,9 +576,9 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
           {/* ================================================================== */}
           <section
             id="skills-section"
-            className="panel-item panel-1 absolute inset-0 w-full h-full bg-[#faf8f5] text-[#141b16] z-[12] select-none overflow-hidden will-change-transform"
+            className="panel-item panel-1 absolute inset-0 w-full h-full bg-[#faf8f5] text-[#141b16] z-[12] select-none overflow-hidden"
           >
-            <div className="panel-1-content h-full w-full will-change-transform origin-bottom-left">
+            <div className="panel-1-content h-full w-full origin-bottom-left">
               <SkillsSection />
             </div>
           </section>
@@ -588,9 +588,9 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
           {/* ================================================================== */}
           <section
             id="works-stage"
-            className="panel-item panel-2 absolute inset-0 w-full h-full bg-[#eae7e1] text-[#141b16] z-[14] select-none overflow-hidden will-change-transform"
+            className="panel-item panel-2 absolute inset-0 w-full h-full bg-[#eae7e1] text-[#141b16] z-[14] select-none overflow-hidden"
           >
-            <div className="panel-2-content h-full w-full will-change-transform origin-bottom-left">
+            <div className="panel-2-content h-full w-full origin-bottom-left">
               <ProjectsSection />
             </div>
           </section>

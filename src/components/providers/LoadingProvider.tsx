@@ -9,40 +9,26 @@ interface LoadingContextType {
 }
 
 const LoadingContext = createContext<LoadingContextType>({
-  isLoading: false,
-  hasLoaded: true,
+  isLoading: true,
+  hasLoaded: false,
   finishLoading: () => {},
 });
 
-const STORAGE_KEY = "portfolio_intro_loaded";
-
 export function LoadingProvider({ children }: { children: React.ReactNode }) {
-  // Start with false to avoid hydration mismatch; verify sessionStorage in useEffect
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [hasLoaded, setHasLoaded] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [hasLoaded, setHasLoaded] = useState<boolean>(false);
 
   useEffect(() => {
-    try {
-      const alreadyLoaded = sessionStorage.getItem(STORAGE_KEY);
-      if (alreadyLoaded !== "true") {
-        queueMicrotask(() => {
-          setIsLoading(true);
-          setHasLoaded(false);
-        });
-      }
-    } catch {
-      // If sessionStorage is unavailable
+    // Disable browser scroll restoration so page reload lands at the top Hero stage
+    if (typeof window !== "undefined" && "scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+      window.scrollTo(0, 0);
     }
   }, []);
 
   const finishLoading = useCallback(() => {
     setIsLoading(false);
     setHasLoaded(true);
-    try {
-      sessionStorage.setItem(STORAGE_KEY, "true");
-    } catch {
-      // ignore
-    }
   }, []);
 
   return (

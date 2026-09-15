@@ -392,7 +392,7 @@ export default function TechStackSkills() {
   const filteredSkills = skillsData.filter((skill) => skill.category === activeTab);
 
   return (
-    <div className="mt-20 sm:mt-28 pt-12 sm:pt-16 border-t border-black/8">
+    <div id="skills" className="mt-20 sm:mt-28 pt-12 sm:pt-16 border-t border-black/8 scroll-mt-24">
       {/* Header with Title & Filter Tabs */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10">
         <div>

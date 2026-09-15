@@ -128,10 +128,14 @@ const ProjectsSection = forwardRef<HTMLDivElement, ProjectsSectionProps>(
                 key={project.id}
                 onMouseMove={handleCardMouseMove}
                 onMouseLeave={handleCardMouseLeave}
-                className={`project-card-item project-card-item-${index} w-[108px] xs:w-[124px] sm:w-[240px] md:w-[265px] lg:w-[285px] h-[255px] xs:h-[280px] sm:h-[350px] md:h-[370px] lg:h-[380px] max-h-[64vh] flex-1 relative transform-gpu rounded-xl sm:rounded-2xl border-[1.5px] sm:border-[2.5px] border-[#141b16] shadow-[2.5px_2.5px_0px_#141b16] sm:shadow-[4px_4px_0px_#141b16] p-2 xs:p-2.5 sm:p-4 bg-white text-[#141b16] flex flex-col justify-between cursor-pointer select-none transition-shadow hover:shadow-[5px_5px_0px_#141b16] will-change-transform`}
+                className={`project-card-item project-card-item-${index} w-[108px] xs:w-[124px] sm:w-[240px] md:w-[265px] lg:w-[285px] h-[255px] xs:h-[280px] sm:h-[350px] md:h-[370px] lg:h-[380px] max-h-[64vh] flex-1 relative rounded-xl sm:rounded-2xl border-[1.5px] sm:border-[2.5px] border-[#141b16] shadow-[2.5px_2.5px_0px_#141b16] sm:shadow-[4px_4px_0px_#141b16] p-2 xs:p-2.5 sm:p-4 bg-white text-[#141b16] flex flex-col justify-between cursor-pointer select-none transition-shadow hover:shadow-[5px_5px_0px_#141b16]`}
                 style={{
-                  transformStyle: "preserve-3d",
-                  transform: "perspective(1000px) rotateX(0deg) rotateY(0deg)",
+                  WebkitFontSmoothing: "antialiased",
+                  MozOsxFontSmoothing: "grayscale",
+                  textRendering: "optimizeLegibility",
+                  backfaceVisibility: "hidden",
+                  WebkitBackfaceVisibility: "hidden",
+                  transform: "perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0)",
                 }}
               >
                 {/* Header Phase / Badge & Like Button */}
@@ -150,14 +154,14 @@ const ProjectsSection = forwardRef<HTMLDivElement, ProjectsSectionProps>(
                 </div>
 
                 {/* Image Frame */}
-                <div className="w-full h-[78px] xs:h-[95px] sm:h-[125px] md:h-[135px] border sm:border-2 border-[#141b16] relative overflow-hidden rounded-lg sm:rounded-xl bg-neutral-100 my-1 sm:my-1.5 shadow-[1px_1px_0px_#141b16] sm:shadow-[2px_2px_0px_#141b16]">
+                <div className="w-full h-[78px] xs:h-[95px] sm:h-[125px] md:h-[135px] border sm:border-2 border-[#141b16] relative overflow-hidden rounded-lg sm:rounded-xl bg-neutral-100 my-1 sm:my-1.5 shadow-[1px_1px_0px_#141b16]">
                   <Image
                     src={project.imageUrl}
                     alt={project.title}
                     fill
                     priority
-                    loading="eager"
-                    sizes="(max-width: 640px) 33vw, 285px"
+                    quality={95}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
                     className="object-cover object-top select-none"
                   />
                 </div>

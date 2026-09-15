@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import Link from "next/link";
+import React, { Suspense, useEffect, useRef, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -9,13 +9,17 @@ import Hero from "@/modules/web/Hero";
 import Overlay from "@/modules/web/Overlay_about-me";
 import LoadingScreen from "@/modules/web/LoadingScreen";
 import Header from "@/modules/web/Header";
+import { useLoading } from "@/components/providers/LoadingProvider";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-export default function Home() {
+function HomeContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const sectionParam = searchParams.get("section");
   const heroContentRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { isLoading, finishLoading } = useLoading();
   const [activeTab, setActiveTab] = useState<string>("home");
 
   useGSAP(() => {
@@ -67,7 +71,7 @@ export default function Home() {
   });
 
   const handleLoadingComplete = () => {
-    setIsLoading(false);
+    finishLoading();
     setTimeout(() => {
       ScrollTrigger.refresh();
     }, 100);
@@ -75,6 +79,15 @@ export default function Home() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveTab(sectionId);
+    if (sectionId === "about") {
+      router.push("/about");
+      return;
+    }
+    if (sectionId === "works") {
+      router.push("/work");
+      return;
+    }
+
     const lenis = (
       window as unknown as {
         lenis?: {
@@ -95,15 +108,10 @@ export default function Home() {
 
       if (sectionId === "about") return top + 2;
       if (sectionId === "skills") return top + 900;
-      if (sectionId === "works") return top + 1750;
-      if (sectionId === "contact") return top + 2590;
+      if (sectionId === "projects") return top + 1750;
+      if (sectionId === "contact") return top + 2600;
       return top;
     };
-
-    if (sectionId === "works") {
-      window.location.href = "/work";
-      return;
-    }
 
     const targetPos = getTargetPos();
 
@@ -117,6 +125,19 @@ export default function Home() {
     }
   };
 
+  // When arriving from another route with a target section query param (e.g. /?section=skills)
+  useEffect(() => {
+    if (!sectionParam) return;
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+      scrollToSection(sectionParam);
+      // Clean query parameter from URL without page reload
+      window.history.replaceState({}, "", window.location.pathname);
+    }, 120);
+
+    return () => clearTimeout(timer);
+  }, [sectionParam]);
+
   return (
     <main className="relative w-full bg-background text-foreground">
       {/* Universal Fixed Header */}
@@ -126,8 +147,8 @@ export default function Home() {
         isLoading={isLoading}
       />
 
-      {/* Loading Screen */}
-      <LoadingScreen onComplete={handleLoadingComplete} />
+      {/* Loading Screen: Rendered ONLY during initial session load */}
+      {isLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
 
       {/* Sticky Hero Page */}
       <div className="sticky top-0 w-full h-screen overflow-hidden z-10 bg-background">
@@ -145,5 +166,13 @@ export default function Home() {
         className="relative z-20"
       />
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={null}>
+      <HomeContent />
+    </Suspense>
   );
 }

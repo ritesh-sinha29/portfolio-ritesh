@@ -2,9 +2,11 @@
 
 import React, { forwardRef, useRef } from "react";
 import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { MagneticButton } from "@/components/ui/magnetic-button";
 import SkillsSection from "./SkillsSection";
 import ProjectsSection from "./ProjectsSection";
 import Footer from "./Footer";
@@ -59,6 +61,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
         gsap.set(".about-title", { y: -25, autoAlpha: 0 });
         gsap.set(".about-headline-line", { y: 35, autoAlpha: 0 });
         gsap.set(".about-subtext", { y: 25, autoAlpha: 0 });
+        gsap.set(".about-cta", { y: 25, autoAlpha: 0 });
         gsap.set(".about-image", { y: 80, scale: 0.95, autoAlpha: 0 });
 
         gsap.set(".panel-1, .panel-2", {
@@ -131,6 +134,12 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
             duration: 0.9,
             ease: "power2.out",
           }, 0.25)
+          .to(".about-cta", {
+            y: 0,
+            autoAlpha: 1,
+            duration: 0.9,
+            ease: "power2.out",
+          }, 0.3)
           .to(".about-image", {
             y: 0,
             scale: 1,
@@ -528,6 +537,21 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
                   engineering — turning ambitious ideas into production-grade
                   systems built to scale.
                 </p>
+
+                {/* Know More CTA Button */}
+                <div className="about-cta mt-4 sm:mt-6 will-change-transform">
+                  <MagneticButton
+                    href="/about"
+                    magneticStrength={0.35}
+                    scaleOnHover={1.06}
+                    className="group inline-flex items-center gap-2 px-4.5 sm:px-5.5 py-2 sm:py-2.5 rounded-full bg-[#141b16] text-[#faf8f5] hover:bg-black font-sans font-bold text-xs sm:text-sm border-2 border-[#141b16] shadow-[2.5px_2.5px_0px_#c5eb35] hover:shadow-[4px_4px_0px_#c5eb35] transition-all duration-200 cursor-pointer uppercase tracking-wider"
+                  >
+                    <span>Know More</span>
+                    <span className="w-5 h-5 rounded-full bg-white/15 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:bg-[#c5eb35] group-hover:text-[#141b16] transition-all duration-200">
+                      <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
+                    </span>
+                  </MagneticButton>
+                </div>
               </div>
             </div>
 

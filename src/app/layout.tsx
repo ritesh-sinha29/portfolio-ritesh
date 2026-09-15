@@ -4,6 +4,7 @@ import { Outfit, Merriweather, Fira_Code, Silkscreen } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { SmoothCursor } from "@/components/ui/smooth-cursor";
 import SmoothScroll from "@/components/providers/SmoothScroll";
+import { LoadingProvider } from "@/components/providers/LoadingProvider";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -59,10 +60,12 @@ export default function RootLayout({
         <link rel="preload" href="/ritesh mic.svg" as="image" type="image/svg+xml" />
       </head>
       <body className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
-        <SmoothScroll>
-          <SmoothCursor />
-          {children}
-        </SmoothScroll>
+        <LoadingProvider>
+          <SmoothScroll>
+            <SmoothCursor />
+            {children}
+          </SmoothScroll>
+        </LoadingProvider>
       </body>
     </html>
   );

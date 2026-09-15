@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import MagneticDock, { DockItem } from "@/components/tweenlabs/MagneticDock";
@@ -28,68 +28,90 @@ export default function Header({
   isLoading = false,
   className = "",
 }: HeaderProps) {
+  const router = useRouter();
   const pathname = usePathname();
   const isHomePage = pathname === "/";
-  const currentActiveTab = activeTab || (pathname === "/work" ? "works" : "home");
+  const currentActiveTab =
+    activeTab || (pathname === "/work" ? "works" : pathname === "/about" ? "about" : "home");
+
+  const scrollToHomeSection = (id: string) => {
+    const lenis = (
+      window as unknown as {
+        lenis?: {
+          scrollTo: (
+            target: number | string | HTMLElement,
+            options?: Record<string, unknown>,
+          ) => void;
+        };
+      }
+    ).lenis;
+
+    const getTargetPos = () => {
+      if (id === "home") return 0;
+      const el = document.getElementById("about-section");
+      if (!el) return 0;
+      const pinSpacer = el.closest(".pin-spacer") as HTMLElement | null;
+      const top = (pinSpacer || el).getBoundingClientRect().top + window.scrollY;
+
+      if (id === "skills") return top + 900;
+      if (id === "works" || id === "projects") return top + 1750;
+      if (id === "contact") return top + 2600;
+      return top;
+    };
+
+    const targetPos = getTargetPos();
+    if (lenis) {
+      lenis.scrollTo(targetPos, {
+        duration: 1.15,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+    } else {
+      window.scrollTo({ top: targetPos, behavior: "smooth" });
+    }
+  };
 
   const handleTabAction = (id: string) => {
-    if (onTabClick) {
+    if (id === "about") {
+      if (pathname === "/about") {
+        const lenis = (window as unknown as { lenis?: { scrollTo: (t: number) => void } }).lenis;
+        if (lenis) {
+          lenis.scrollTo(0);
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      } else {
+        router.push("/about");
+      }
+      return;
+    }
+
+    if (id === "works") {
+      if (pathname === "/work") {
+        const lenis = (window as unknown as { lenis?: { scrollTo: (t: number) => void } }).lenis;
+        if (lenis) {
+          lenis.scrollTo(0);
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      } else {
+        router.push("/work");
+      }
+      return;
+    }
+
+    if (onTabClick && isHomePage) {
       onTabClick(id);
       return;
     }
 
     if (isHomePage) {
-      const lenis = (
-        window as unknown as {
-          lenis?: {
-            scrollTo: (
-              target: number | string | HTMLElement,
-              options?: Record<string, unknown>,
-            ) => void;
-          };
-        }
-      ).lenis;
-
-      const getTargetPos = () => {
-        if (id === "home") return 0;
-        const el = document.getElementById("about-section");
-        if (!el) return 0;
-        const pinSpacer = el.closest(".pin-spacer") as HTMLElement | null;
-        const top = (pinSpacer || el).getBoundingClientRect().top + window.scrollY;
-
-        if (id === "about") return top + 2;
-        if (id === "skills") return top + 900;
-        if (id === "works") return top + 1750;
-        if (id === "contact") return top + 2590;
-        return top;
-      };
-
-      if (id === "works") {
-        window.location.href = "/work";
-        return;
-      }
-
-      const targetPos = getTargetPos();
-      if (lenis) {
-        lenis.scrollTo(targetPos, {
-          duration: 1.15,
-          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        });
-      } else {
-        window.scrollTo({ top: targetPos, behavior: "smooth" });
-      }
+      scrollToHomeSection(id);
     } else {
-      // On sub-pages like /work
-      if (id === "works") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      } else if (id === "home") {
-        window.location.href = "/";
-      } else if (id === "about") {
-        window.location.href = "/#about-section";
-      } else if (id === "skills") {
-        window.location.href = "/#skills-section";
-      } else if (id === "contact") {
-        window.location.href = "/#footer-section";
+      // Sub-pages like /work or /about
+      if (id === "home") {
+        router.push("/");
+      } else {
+        router.push(`/?section=${id}`);
       }
     }
   };
@@ -98,7 +120,7 @@ export default function Header({
     if (isHomePage) {
       handleTabAction("contact");
     } else {
-      window.location.href = "/#footer-section";
+      router.push("/?section=contact");
     }
   };
 
@@ -114,9 +136,11 @@ export default function Header({
           <Link
             href="/"
             onClick={(e) => {
+              e.preventDefault();
               if (isHomePage) {
-                e.preventDefault();
                 handleTabAction("home");
+              } else {
+                router.push("/");
               }
             }}
             className="group flex items-center gap-2 p-1 sm:px-3 sm:py-1.5 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:bg-card transition-all duration-200"
@@ -143,32 +167,7 @@ export default function Header({
             variant="inline"
             activeId={currentActiveTab}
             onItemClick={(id) => handleTabAction(id)}
-            items={[
-              {
-                id: "home",
-                label: "HOME",
-                href: isHomePage ? undefined : "/",
-                onClick: isHomePage ? () => handleTabAction("home") : undefined,
-              },
-              {
-                id: "about",
-                label: "ABOUT",
-                href: isHomePage ? undefined : "/#about-section",
-                onClick: isHomePage ? () => handleTabAction("about") : undefined,
-              },
-              {
-                id: "skills",
-                label: "SKILLS",
-                href: isHomePage ? undefined : "/#skills-section",
-                onClick: isHomePage ? () => handleTabAction("skills") : undefined,
-              },
-              {
-                id: "works",
-                label: "WORKS",
-                href: isHomePage ? "/work" : undefined,
-                onClick: !isHomePage ? () => handleTabAction("works") : undefined,
-              },
-            ]}
+            items={defaultNavItems}
           />
         </div>
 

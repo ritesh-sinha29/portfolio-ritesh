@@ -36,16 +36,20 @@ portfolio-ritesh/
 ## 5. Important File Map
 | Section | Files |
 | :--- | :--- |
-| Core Layout & Global Styles | `src/app/layout.tsx`, `src/app/globals.css` |
-| Hero / About | `src/components/Hero.*`, `src/components/About.*` or `src/modules/` |
-| Projects / Work | `src/components/Projects.*`, `src/modules/projects/` |
-| Skills / Experience | `src/components/Skills.*`, `src/components/Experience.*` |
-| Contact Form | `src/components/Contact.*` |
+| Core Layout & Global Styles | `src/app/layout.tsx`, `src/app/globals.css`, `src/components/providers/LoadingProvider.tsx` |
+| Navigation Header & Dock | `src/modules/web/Header.tsx`, `src/components/tweenlabs/MagneticDock.tsx` |
+| Home Page & Overlay | `src/app/page.tsx`, `src/modules/web/Hero.tsx`, `src/modules/web/Overlay_about-me.tsx` |
+| Dedicated About Page | `src/app/about/page.tsx`, `src/modules/about/PlayfulPhysicsCanvas.tsx`, `src/modules/about/KnowMeBetterSection.tsx`, `src/modules/about/TechStackSkills.tsx`, `src/modules/about/GitHubActivitySection.tsx` |
+| Selected Works Page | `src/app/work/page.tsx`, `src/modules/web/ProjectsSection.tsx` |
+| Footer & Contact | `src/modules/web/Footer.tsx` |
 | Config & Dependencies | `package.json`, `next.config.ts`, `tsconfig.json` |
 
 ## 6. Current Task Context
-- Current task: Initialized AI Brain architecture for token optimization.
-- Relevant files: `AI_BRAIN.md`, `AGENTS.md`, `AI_RULES.md`, `SESSION_MEMORY.md`, `.agents/rules/token_efficient_memory.md`
+- Completed seamless header navigation with session-level `LoadingProvider` to eliminate re-triggering the loader.
+- Added "Know More" button in the Home About section linking to `/about`.
+- Created and ported complete `/about` page featuring Matter.js 2D rigid-body interactive physics simulation (`PlayfulPhysicsCanvas`), expandable story cards (`KnowMeBetterSection`), technical arsenal (`TechStackSkills`), and real-time live GitHub contributions & pinned repos (`GitHubActivitySection`).
+- Configured universal Header routing so clicking "ABOUT" seamlessly navigates to `/about`.
 
 ## 7. Last Session Summary
-- Portfolio AI Brain initialized successfully with token-efficient architecture.
+- Fixed loader triggers across header button navigations.
+- Ported and integrated complete rox-portfolio About architecture into `portfolio-ritesh`.

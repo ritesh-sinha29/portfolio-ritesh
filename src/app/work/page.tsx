@@ -190,28 +190,25 @@ export default function WorkPage() {
 
         {/* Hero Header Area: Dedicated Full First Dome */}
         <section className="relative w-full min-h-screen flex flex-col justify-center items-center text-center px-4 sm:px-8 max-w-5xl mx-auto pt-20 pb-16">
-          {/* Editorial Sub-badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/5 text-[#5a625b] text-[11px] font-mono uppercase tracking-[0.15em] mb-4 sm:mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-            Curated Engineering Archive
-          </div>
-
+          
           {/* Big Headline */}
-          <h1 className="font-serif italic font-light text-6xl xs:text-7xl sm:text-8xl md:text-[6.5rem] lg:text-[7.5rem] tracking-tight text-foreground leading-[1.02]">
-            Top <span className="font-sans font-bold not-italic text-foreground">Works.</span>
+          <h1
+            style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}
+            className="font-normal not-italic text-6xl xs:text-7xl sm:text-8xl md:text-[6.5rem] lg:text-[7.5rem] xl:text-[8.5rem] tracking-tight text-foreground leading-[1.02]"
+          >
+            Top Loved Works
           </h1>
 
           {/* Subtitle */}
-          <p className="font-sans text-sm xs:text-base sm:text-lg md:text-xl text-muted-foreground font-medium max-w-2xl mx-auto mt-4 sm:mt-6 leading-relaxed px-2">
-            Intelligent AI agents, real-time collaborative canvases, distributed architectures, and voice engines built with production-grade performance.
+          <p className="font-sans text-xs sm:text-sm md:text-[14.5px] text-[#5a625b] font-normal max-w-md mx-auto mt-3.5 sm:mt-4 leading-relaxed px-4">
+            A curated collection of autonomous multi-agent systems, real-time voice engines, and full-stack AI platforms built for production.
           </p>
 
           {/* Scroll Down Cue */}
           <div className="absolute bottom-8 sm:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/60 select-none">
-            <span className="text-[10px] font-mono uppercase tracking-widest font-semibold">Scroll to Explore</span>
-            <div className="w-5 h-8 rounded-full border border-black/15 flex items-start justify-center p-1">
-              <div className="w-1 h-2 rounded-full bg-foreground/50 animate-bounce" />
-            </div>
+            <span className="text-[11px] sm:text-xs font-mono tracking-wider text-muted-foreground/70 flex items-center gap-1.5">
+              scroll down to see work <span className="animate-bounce">↓</span>
+            </span>
           </div>
         </section>
 

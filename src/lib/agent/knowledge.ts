@@ -8,8 +8,8 @@ export const RITESH_PROFILE = {
   email: "riteshsinha4146@gmail.com",
   socials: {
     github: "https://github.com/ritesh-sinha29",
-    linkedin: "https://linkedin.com",
-    x: "https://x.com",
+    linkedin: "https://www.linkedin.com/in/ritesh-sinha-rk/",
+    x: "https://x.com/ritesh_sinha29",
     portfolio: "https://riteshsinha.dev",
     resume: "/resume.pdf",
   },

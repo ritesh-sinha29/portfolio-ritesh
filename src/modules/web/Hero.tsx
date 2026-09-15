@@ -198,7 +198,7 @@ export default function Hero({ isLoaded = false }: HeroProps) {
       >
         <div className="relative w-full h-full">
           <Image
-            src="/ritesh standing.svg"
+            src="/1.svg"
             alt="Ritesh Sinha"
             fill
             priority
@@ -241,10 +241,10 @@ export default function Hero({ isLoaded = false }: HeroProps) {
         {/* Spacer */}
         <div className="flex-1" />
 
-        {/* Bottom Right: Social Icons Pill Dock (GitHub, LinkedIn, X) */}
+        {/* Bottom Right: Clean Floating Social Icons (GitHub, LinkedIn, X) */}
         <div
           ref={bottomSocialsRef}
-          className="p-1 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-xs flex items-center gap-1 text-foreground"
+          className="flex items-center gap-3.5 sm:gap-4.5 text-[#141b16]"
         >
           {/* GitHub */}
           <MagneticButton
@@ -252,9 +252,11 @@ export default function Hero({ isLoaded = false }: HeroProps) {
             target="_blank"
             rel="noreferrer"
             ariaLabel="GitHub"
-            className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-muted text-foreground transition-colors"
+            magneticStrength={0.4}
+            scaleOnHover={1.15}
+            className="text-[#141b16] hover:text-primary transition-colors p-1 cursor-pointer"
           >
-            <svg className="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 sm:w-5.5 sm:h-5.5 fill-current" viewBox="0 0 24 24">
               <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -265,26 +267,30 @@ export default function Hero({ isLoaded = false }: HeroProps) {
 
           {/* LinkedIn */}
           <MagneticButton
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/ritesh-sinha-rk/"
             target="_blank"
             rel="noreferrer"
             ariaLabel="LinkedIn"
-            className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-muted text-foreground transition-colors"
+            magneticStrength={0.4}
+            scaleOnHover={1.15}
+            className="text-[#141b16] hover:text-primary transition-colors p-1 cursor-pointer"
           >
-            <svg className="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 sm:w-5.5 sm:h-5.5 fill-current" viewBox="0 0 24 24">
               <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.45 1.45 0 1 0 0-2.9 1.45 1.45 0 0 0 0 2.9m1.4 9.74V9.97H5.06v8.53h2.8z" />
             </svg>
           </MagneticButton>
 
           {/* X / Twitter */}
           <MagneticButton
-            href="https://x.com"
+            href="https://x.com/ritesh_sinha29"
             target="_blank"
             rel="noreferrer"
             ariaLabel="X"
-            className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-muted text-foreground transition-colors"
+            magneticStrength={0.4}
+            scaleOnHover={1.15}
+            className="text-[#141b16] hover:text-primary transition-colors p-1 cursor-pointer"
           >
-            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <svg className="w-4.5 h-4.5 sm:w-5 sm:h-5 fill-current" viewBox="0 0 24 24">
               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
             </svg>
           </MagneticButton>

@@ -40,9 +40,10 @@ portfolio-ritesh/
 - Harmonized the vertical rhythm and structure across all interactive panels (About Me, Skills, Featured Projects):
   - In [Overlay_about-me.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/web/Overlay_about-me.tsx), restructured Panel 0 (About Me) with clean top clearance (`pt-16 sm:pt-20 md:pt-24`), balanced heading margins (`mb-2 sm:mb-4 md:mb-6`), refined headline line-height and typography scale (`leading-[1.18]`), ensuring the "KNOW MORE" CTA stays comfortably in view above the fold on all desktop and laptop resolutions.
   - In [SkillsSection.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/web/SkillsSection.tsx), unified top container padding and heading margins to match Panel 0 and Panel 2.
-  - In [ProjectsSection.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/web/ProjectsSection.tsx), provided clear distance from top header dock and optimized card viewport scaling.
-- Standardized the `/about` page top header navigation:
-  - Centered Magnetic Dock (`HOME`, `ABOUT`, `SKILLS`, `WORKS`) with active route styling.
+  - Enhanced **Home Hero Section ([Hero.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/web/Hero.tsx))**:
+  - Integrated role status tag (`Co-Founder @ VRSA • AI Engineer`) with live green pulse.
+  - Upgraded CTA dock to tactile neo-brutalist styling with border, offset shadow, and vibrant active terracotta "Explore Works ↗" magnetic button.
+  - Rendered bottom-right socials as clean floating magnetic icons (`GitHub`, `LinkedIn`, `X`) with smooth magnetic cursor physics and hover color transition.
   - Enhanced the GitHub Contribution Activity section:
     - Expanded graph width to `lg:col-span-8` giving contribution cells larger size and greater visual prominence.
     - Compressed the 4 stat cards on the right into a tight, compact 2x2 grid (`lg:col-span-4`) with refined typography and padding.
@@ -99,12 +100,19 @@ portfolio-ritesh/
 | Config & Dependencies | `package.json`, `next.config.ts`, `tsconfig.json`, `.env.example` |
 
 - Redesigned **Selected Works Page (`/work`)**:
-  - Structured the **First Dome / Hero** as a dedicated full-viewport fold (`min-h-screen`) containing exclusively the editorial badge, large **"Top Works."** headline, subtitle description, and a subtle animated scroll cue.
+  - Structured the **First Dome / Hero** as a dedicated full-viewport fold (`min-h-screen`) containing exclusively the curated archive badge, grand **"Top Loved Works"** headline in *Instrument Serif*, subtitle description, and `scroll down to see work ↓` animated scroll cue.
   - Moved the filter tabs dock and project cards grid into the subsequent stage below the first dome, ensuring clean visual separation with no cut-off cards on initial page load.
   - Retained the signature sticky curtain reveal Alpine mountain footer at the bottom of the page.
 - Updated **About Page Overlay ([KnowMeBetterSection.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/about/KnowMeBetterSection.tsx) & [page.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/app/about/page.tsx))**:
   - Restored circular top rounded corners (`rounded-t-[36px] sm:rounded-t-[52px]`) with smooth drop shadow on the "Know Me Better" card.
   - Eliminated the dark background artifact behind the top corners by keeping the overlay card backdrop fully transparent so the sticky hero section behind it (text, physics simulation, background) shows through the corner notches seamlessly.
   - Rendered [`Footer`](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/web/Footer.tsx) directly at the bottom of the About page flow.
-- Fixed **React Hydration Error in Contact Page ([contact/page.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/app/contact/page.tsx))**:
+- Fixed **React Hydration Error & Restructured Layout in Contact Page ([contact/page.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/app/contact/page.tsx))**:
   - Resolved invalid `<button>` nesting inside `<MagneticButton>` by removing the redundant inner `<button>` and passing `type="submit"`, `disabled={...}`, and classes directly to `<MagneticButton>`.
+  - Reorganized the page into a 2-column split layout on desktop:
+    - **Left Column**: "Get In Touch" badge, Instrument Serif headline, subtitle description, and direct copyable email dock pill.
+    - **Right Column**: Tactile neo-brutalist contact form card with direct message fields and magnetic submit button.
+    - Preserves the sticky curtain reveal Alpine mountain footer beneath the curtain stage.
+- Updated **Hero Image & LinkedIn Profile**:
+  - Set Hero cutout image source to `/1.svg`.
+  - Updated LinkedIn profile URL across Hero, Footer, and AI agent knowledge base to `https://www.linkedin.com/in/ritesh-sinha-rk/`.

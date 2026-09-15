@@ -151,7 +151,7 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(
 
             {/* LinkedIn */}
             <MagneticButton
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/ritesh-sinha-rk/"
               target="_blank"
               rel="noreferrer"
               ariaLabel="LinkedIn"
@@ -164,7 +164,7 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(
 
             {/* X / Twitter */}
             <MagneticButton
-              href="https://x.com"
+              href="https://x.com/ritesh_sinha29"
               target="_blank"
               rel="noreferrer"
               ariaLabel="X"

@@ -33,6 +33,19 @@ portfolio-ritesh/
 - Keep components modular and avoid duplicate styling utilities.
 - Source code is ground truth: if memory conflicts with code, update the brain to match the code.
 
+## Recent Changes
+- Standardized the `/about` page top header navigation:
+  - Centered Magnetic Dock (`HOME`, `ABOUT`, `SKILLS`, `WORKS`) with active route styling.
+  - Converted the GitHub profile button to a clean, non-filled outline pill (`bg-white border border-black/10 text-[#141b16]`) removing the solid filled orange background.
+  - Updated GitHub Contribution Graph and legend to use official authentic GitHub green colors (`#ebedf0`, `#9be9a8`, `#40c463`, `#30a14e`, `#216e39`) and authentic dark tooltip style (`#24292f`).
+  - Reduced the size and padding of the Tech Stack & Skills category filter dock to a compact, sleek pill layout (`text-[10px] sm:text-[11px]`, `px-3 sm:px-3.5 py-1 sm:py-1.5`).
+  - Replaced the yellow Zap icon in the `Bounce` button with a clean monochrome `Activity` vector stroke icon (`stroke-[2] text-[#141b16]`) to remove the emoji appearance.
+  - Positioned the simple, minimalist `Bounce` and `Drop Again` pills in the top right of the header bar aligned with the navigation.
+  - Added frosted glass backdrop (`bg-white/80 backdrop-blur-md`) so buttons remain clearly visible and legible over both light sections and dark footer imagery.
+  - Removed left brand avatar on `/about` to keep the layout clean and balanced.
+  - Linked physics impulse methods (`handleNudgeAll` and `handleResetDrop`) cleanly via `useImperativeHandle`.
+  - Updated portrait container in `KnowMeBetterSection` to `aspect-[3/4]` with `object-cover object-bottom` to match `/2.svg`.
+
 ## 5. Important File Map
 | Section | Files |
 | :--- | :--- |

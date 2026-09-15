@@ -125,7 +125,7 @@ const KnowMeBetterSection = forwardRef<HTMLDivElement, KnowMeBetterProps>(
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-10 sm:pb-14 border-b border-black/8">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 text-[#5a625b] text-[11px] font-mono uppercase tracking-[0.15em] mb-4">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#3fd89f]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                 01 / Background &amp; Philosophy
               </div>
               <h2
@@ -150,7 +150,7 @@ const KnowMeBetterSection = forwardRef<HTMLDivElement, KnowMeBetterProps>(
               className="lg:col-span-5 flex flex-col gap-5 sticky top-12"
             >
               {/* Image Container */}
-              <div className="relative w-full aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5] rounded-[28px] overflow-hidden bg-gradient-to-b from-[#eaeae6] to-[#dbdbd5] border border-black/8 shadow-[0_12px_36px_rgba(0,0,0,0.06)] flex items-end justify-center group">
+              <div className="relative w-full aspect-[3/4] rounded-[28px] overflow-hidden bg-gradient-to-b from-[#eaeae6] to-[#dbdbd5] border border-black/8 shadow-[0_12px_36px_rgba(0,0,0,0.06)] flex items-end justify-center group">
                 {/* Top Badges */}
                 <div className="absolute top-6 left-6 right-6 flex justify-between items-center z-10">
                   <span className="px-3 py-1 rounded-full bg-white/85 backdrop-blur-md border border-black/6 text-[11px] font-mono uppercase tracking-wider text-[#141b16] flex items-center gap-1.5 shadow-sm">
@@ -164,12 +164,12 @@ const KnowMeBetterSection = forwardRef<HTMLDivElement, KnowMeBetterProps>(
                 </div>
 
                 {/* Portrait Image */}
-                <div className="relative w-full h-full">
+                <div className="relative w-full h-full flex items-end justify-center">
                   <Image
-                    src="/rox_study.png"
-                    alt="ROX Portrait"
+                    src="/2.svg"
+                    alt="Ritesh Sinha Portrait"
                     fill
-                    className="object-contain object-bottom transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                    className="object-cover object-bottom transition-transform duration-500 ease-out group-hover:scale-[1.02]"
                     priority
                     sizes="(max-width: 1024px) 100vw, 40vw"
                   />
@@ -191,7 +191,7 @@ const KnowMeBetterSection = forwardRef<HTMLDivElement, KnowMeBetterProps>(
                     key={story.id}
                     className={`qa-card rounded-[26px] transition-all duration-300 border overflow-hidden ${
                       isOpen
-                        ? "bg-white border-black/12 shadow-[0_16px_40px_rgba(0,0,0,0.08)] ring-1 ring-black/5"
+                        ? "bg-white border-primary/20 shadow-[0_16px_40px_rgba(0,0,0,0.08)] ring-1 ring-primary/20"
                         : "bg-white/80 hover:bg-white border-black/6 shadow-xs hover:shadow-sm"
                     }`}
                   >
@@ -224,7 +224,7 @@ const KnowMeBetterSection = forwardRef<HTMLDivElement, KnowMeBetterProps>(
                       <div
                         className={`w-8 h-8 rounded-full border flex items-center justify-center shrink-0 transition-all duration-300 ${
                           isOpen
-                            ? "bg-[#141b16] text-[#c5eb35] border-transparent rotate-180 shadow-xs"
+                            ? "bg-primary text-primary-foreground border-transparent rotate-180 shadow-xs"
                             : "bg-black/[0.04] text-[#5a625b] border-black/6 hover:bg-black/8 rotate-0"
                         }`}
                       >

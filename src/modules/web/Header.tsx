@@ -15,6 +15,7 @@ export interface HeaderProps {
   className?: string;
   showBrand?: boolean;
   showContact?: boolean;
+  rightContent?: React.ReactNode;
 }
 
 export const defaultNavItems: DockItem[] = [
@@ -31,6 +32,7 @@ export default function Header({
   className = "",
   showBrand = true,
   showContact = true,
+  rightContent,
 }: HeaderProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -134,14 +136,10 @@ export default function Header({
     <header
       className={`fixed top-0 left-0 right-0 z-50 pointer-events-none w-full transition-opacity duration-300 ${className}`}
     >
-      <div
-        className={`max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-5 flex items-center ${
-          !showBrand && !showContact ? "justify-center" : "justify-between"
-        }`}
-      >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-5 flex items-center justify-between">
         {/* Left: Brand / Logo */}
-        {showBrand && (
-          <div className="pointer-events-auto">
+        <div className="flex-1 flex items-center justify-start pointer-events-auto">
+          {showBrand && (
             <Link
               href="/"
               onClick={(e) => {
@@ -168,11 +166,11 @@ export default function Header({
                 RITESH SINHA
               </span>
             </Link>
-          </div>
-        )}
+          )}
+        </div>
 
         {/* Center: Universal Navigation Pill Dock */}
-        <div className="pointer-events-auto">
+        <div className="flex items-center justify-center pointer-events-auto">
           <MagneticDock
             variant="inline"
             activeId={currentActiveTab}
@@ -181,9 +179,11 @@ export default function Header({
           />
         </div>
 
-        {/* Right: Contact Pill CTA */}
-        {showContact && (
-          <div className="pointer-events-auto">
+        {/* Right: Contact Pill CTA or Custom Right Content */}
+        <div className="flex-1 flex items-center justify-end pointer-events-auto">
+          {rightContent ? (
+            rightContent
+          ) : showContact ? (
             <div className="p-1 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-[0_4px_20px_rgba(0,0,0,0.06)] inline-flex items-center">
               <MagneticButton
                 onClick={handleContactClick}
@@ -195,8 +195,8 @@ export default function Header({
                 </span>
               </MagneticButton>
             </div>
-          </div>
-        )}
+          ) : null}
+        </div>
       </div>
     </header>
   );

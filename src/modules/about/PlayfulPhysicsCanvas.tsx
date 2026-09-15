@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react";
 import Matter from "matter-js";
 import gsap from "gsap";
 import {
@@ -193,13 +193,20 @@ const MOBILE_BADGE_PRESETS: BadgeItem[] = [
   BADGE_PRESETS[9], // Circle Brain (circle)
 ];
 
-interface PlayfulPhysicsCanvasProps {
-  className?: string;
+export interface PlayfulPhysicsCanvasRef {
+  handleNudgeAll: () => void;
+  handleResetDrop: () => void;
 }
 
-export default function PlayfulPhysicsCanvas({
-  className = "",
-}: PlayfulPhysicsCanvasProps) {
+export interface PlayfulPhysicsCanvasProps {
+  className?: string;
+  hideFloatingControls?: boolean;
+}
+
+const PlayfulPhysicsCanvas = forwardRef<
+  PlayfulPhysicsCanvasRef,
+  PlayfulPhysicsCanvasProps
+>(({ className = "", hideFloatingControls = false }, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const elementsRef = useRef<Map<string, HTMLDivElement>>(new Map());
   const bodiesRef = useRef<Map<string, Matter.Body>>(new Map());
@@ -472,6 +479,11 @@ export default function PlayfulPhysicsCanvas({
     });
   };
 
+  useImperativeHandle(ref, () => ({
+    handleNudgeAll,
+    handleResetDrop,
+  }));
+
   return (
     <div className={`absolute inset-0 w-full h-full pointer-events-none md:pointer-events-auto touch-pan-y overflow-hidden z-20 ${className}`}>
       {/* Physics World Canvas / Interaction Layer */}
@@ -517,28 +529,30 @@ export default function PlayfulPhysicsCanvas({
         })}
       </div>
 
-      {/* Floating Physics Controls */}
-      <div className="absolute top-20 sm:top-24 right-4 sm:right-8 z-40 flex items-center gap-2">
-        <button
-          type="button"
-          onClick={handleNudgeAll}
-          title="Jump / Shockwave"
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/5 hover:bg-black/10 text-[#141b16] backdrop-blur-sm border border-black/5 text-[11px] font-normal transition-all hover:scale-105 active:scale-95 cursor-pointer"
-        >
-          <Zap className="w-3.5 h-3.5 text-amber-500 fill-amber-400" />
-          <span>Bounce</span>
-        </button>
+      {/* Floating Physics Controls (if not rendered in Header) */}
+      {!hideFloatingControls && (
+        <div className="absolute top-20 sm:top-24 right-4 sm:right-8 z-40 flex items-center gap-2">
+          <button
+            type="button"
+            onClick={handleNudgeAll}
+            title="Jump / Shockwave"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 hover:bg-white/95 text-[#141b16] backdrop-blur-md border border-black/10 shadow-xs text-[11px] sm:text-xs font-medium transition-all hover:scale-105 active:scale-95 cursor-pointer select-none"
+          >
+            <Activity className="w-3.5 h-3.5 text-[#141b16] stroke-[2]" />
+            <span>Bounce</span>
+          </button>
 
-        <button
-          type="button"
-          onClick={handleResetDrop}
-          title="Reset and Drop from top"
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/5 hover:bg-black/10 text-[#141b16] backdrop-blur-sm border border-black/5 text-[11px] font-normal transition-all hover:scale-105 active:scale-95 cursor-pointer"
-        >
-          <RotateCcw className="w-3.5 h-3.5" />
-          <span>Drop Again</span>
-        </button>
-      </div>
+          <button
+            type="button"
+            onClick={handleResetDrop}
+            title="Reset and Drop from top"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 hover:bg-white/95 text-[#141b16] backdrop-blur-md border border-black/10 shadow-xs text-[11px] sm:text-xs font-medium transition-all hover:scale-105 active:scale-95 cursor-pointer select-none"
+          >
+            <RotateCcw className="w-3.5 h-3.5 text-[#141b16]" />
+            <span>Drop Again</span>
+          </button>
+        </div>
+      )}
 
       {/* Subtle Bottom Interaction Hint */}
       <div className="absolute bottom-5 sm:bottom-6 left-1/2 -translate-x-1/2 z-30 pointer-events-none opacity-40 hover:opacity-100 transition-opacity text-center">
@@ -548,4 +562,8 @@ export default function PlayfulPhysicsCanvas({
       </div>
     </div>
   );
-}
+});
+
+PlayfulPhysicsCanvas.displayName = "PlayfulPhysicsCanvas";
+
+export default PlayfulPhysicsCanvas;

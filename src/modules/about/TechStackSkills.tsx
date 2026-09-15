@@ -56,7 +56,7 @@ const skillsData: SkillItem[] = [
     category: "ai",
     level: "Specialized",
     description: "Standardized tool & resource orchestration for autonomous agents",
-    iconBg: "bg-[#141b16] text-[#c5eb35]",
+    iconBg: "bg-primary/10 text-primary",
     icon: "mcp",
   },
   {
@@ -397,7 +397,7 @@ export default function TechStackSkills() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 text-[#5a625b] text-[11px] font-mono uppercase tracking-[0.15em] mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#c5eb35]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-primary" />
             02 / Technical Arsenal
           </div>
           <h2
@@ -412,8 +412,8 @@ export default function TechStackSkills() {
           </p>
         </div>
 
-        {/* Filter Pills: Default AI & Agents, No 'All Skills' */}
-        <div className="flex flex-wrap items-center gap-2 bg-black/[0.04] p-1.5 rounded-full border border-black/5 self-start md:self-auto">
+        {/* Filter Pills matching Global Header / Magnetic Dock styling (Compact) */}
+        <div className="p-1 rounded-full bg-card/95 backdrop-blur-md border border-border shadow-[0_2px_12px_rgba(0,0,0,0.05)] inline-flex items-center gap-1 self-start md:self-auto select-none">
           {[
             { id: "ai", label: "AI & Agents" },
             { id: "frontend", label: "Frontend & Creative" },
@@ -423,10 +423,10 @@ export default function TechStackSkills() {
               key={tab.id}
               type="button"
               onClick={() => setActiveTab(tab.id as "ai" | "frontend" | "backend")}
-              className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-tight transition-all duration-200 cursor-pointer ${
+              className={`px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-[11px] font-sans font-bold uppercase tracking-wider transition-all duration-150 cursor-pointer ${
                 activeTab === tab.id
-                  ? "bg-[#141b16] text-[#c5eb35] shadow-sm"
-                  : "text-[#5a625b] hover:text-[#141b16] hover:bg-black/5"
+                  ? "bg-primary text-primary-foreground shadow-xs"
+                  : "text-foreground hover:text-foreground hover:bg-muted"
               }`}
             >
               {tab.label}
@@ -466,7 +466,7 @@ export default function TechStackSkills() {
             </div>
 
             {/* Bottom Accent Bar on Hover */}
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#c5eb35] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
           </div>
         ))}
       </div>

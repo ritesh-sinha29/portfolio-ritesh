@@ -265,16 +265,16 @@ export default function GitHubActivitySection() {
           </p>
         </div>
 
-        {/* View GitHub Profile Button */}
+        {/* View GitHub Profile Button with clean, non-filled outline styling */}
         <a
-          href="https://github.com/ronitrai27"
+          href="https://github.com/ritesh-sinha29"
           target="_blank"
           rel="noopener noreferrer"
-          className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#141b16] text-[#c5eb35] hover:bg-black text-xs font-semibold tracking-wide transition-all duration-300 shadow-sm hover:scale-105 active:scale-95 self-start md:self-auto cursor-pointer"
+          className="group inline-flex items-center gap-2 px-4 sm:px-4.5 py-2 rounded-full bg-white hover:bg-black/[0.04] text-[#141b16] border border-black/10 shadow-xs hover:border-black/20 font-sans font-semibold text-xs uppercase tracking-wider transition-all duration-150 hover:scale-105 active:scale-95 self-start md:self-auto cursor-pointer select-none"
         >
-          <GithubIcon className="w-4 h-4 text-[#c5eb35]" />
-          <span>@ronitrai27 on GitHub</span>
-          <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          <GithubIcon className="w-4 h-4 text-[#141b16]" />
+          <span>@ritesh-sinha29 on GitHub</span>
+          <ArrowUpRight className="w-3.5 h-3.5 text-[#5a625b] group-hover:text-[#141b16] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform stroke-[2.2]" />
         </a>
       </div>
 
@@ -359,7 +359,7 @@ export default function GitHubActivitySection() {
         {/* Top Title & Hover Tooltip */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-[#c5eb35] text-[#141b16] flex items-center justify-center font-bold">
+            <div className="w-8 h-8 rounded-xl bg-[#216e39]/10 text-[#216e39] flex items-center justify-center font-bold">
               <Calendar className="w-4 h-4" />
             </div>
             <div>
@@ -377,10 +377,10 @@ export default function GitHubActivitySection() {
             </div>
           </div>
 
-          {/* Active Hover Tooltip Indicator */}
+          {/* Active Hover Tooltip Indicator (Authentic GitHub Dark Tooltip) */}
           <div className="h-6 flex items-center">
             {hoveredCell ? (
-              <span className="px-3 py-1 rounded-full bg-[#141b16] text-[#c5eb35] text-[11px] font-mono shadow-xs animate-in fade-in duration-200">
+              <span className="px-3 py-1 rounded-full bg-[#24292f] text-white text-[11px] font-mono shadow-md animate-in fade-in duration-200">
                 {hoveredCell.count > 0
                   ? `${hoveredCell.count} contributions on ${hoveredCell.date}`
                   : `No contributions on ${hoveredCell.date}`}
@@ -408,12 +408,12 @@ export default function GitHubActivitySection() {
               {contributionGrid.map((week, wIndex) => (
                 <div key={wIndex} className="flex flex-col gap-[3.5px]">
                   {week.map((day, dIndex) => {
-                    // Color mapping based on activity level
-                    let bgClass = "bg-[#e8e8e4]";
-                    if (day.level === 1) bgClass = "bg-[#dcf875]";
-                    else if (day.level === 2) bgClass = "bg-[#c5eb35]";
-                    else if (day.level === 3) bgClass = "bg-[#9cc414]";
-                    else if (day.level === 4) bgClass = "bg-[#141b16]";
+                    // Official GitHub Green contribution palette
+                    let bgClass = "bg-[#ebedf0]";
+                    if (day.level === 1) bgClass = "bg-[#9be9a8]";
+                    else if (day.level === 2) bgClass = "bg-[#40c463]";
+                    else if (day.level === 3) bgClass = "bg-[#30a14e]";
+                    else if (day.level >= 4) bgClass = "bg-[#216e39]";
 
                     return (
                       <div
@@ -435,11 +435,11 @@ export default function GitHubActivitySection() {
               <span className="text-[10px]">Mon • Wed • Fri</span>
               <div className="flex items-center gap-1.5">
                 <span className="text-[10px]">Less</span>
-                <span className="w-2.5 h-2.5 rounded-[2px] bg-[#e8e8e4]" />
-                <span className="w-2.5 h-2.5 rounded-[2px] bg-[#dcf875]" />
-                <span className="w-2.5 h-2.5 rounded-[2px] bg-[#c5eb35]" />
-                <span className="w-2.5 h-2.5 rounded-[2px] bg-[#9cc414]" />
-                <span className="w-2.5 h-2.5 rounded-[2px] bg-[#141b16]" />
+                <span className="w-2.5 h-2.5 rounded-[2px] bg-[#ebedf0]" />
+                <span className="w-2.5 h-2.5 rounded-[2px] bg-[#9be9a8]" />
+                <span className="w-2.5 h-2.5 rounded-[2px] bg-[#40c463]" />
+                <span className="w-2.5 h-2.5 rounded-[2px] bg-[#30a14e]" />
+                <span className="w-2.5 h-2.5 rounded-[2px] bg-[#216e39]" />
                 <span className="text-[10px]">More</span>
               </div>
             </div>

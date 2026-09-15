@@ -5,8 +5,9 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { RotateCcw, Activity } from "lucide-react";
 import Header from "@/modules/web/Header";
-import PlayfulPhysicsCanvas from "@/modules/about/PlayfulPhysicsCanvas";
+import PlayfulPhysicsCanvas, { PlayfulPhysicsCanvasRef } from "@/modules/about/PlayfulPhysicsCanvas";
 import KnowMeBetterSection from "@/modules/about/KnowMeBetterSection";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -17,6 +18,7 @@ export default function AboutPage() {
   const badgeRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subRef = useRef<HTMLParagraphElement>(null);
+  const physicsRef = useRef<PlayfulPhysicsCanvasRef>(null);
 
   useGSAP(() => {
     // Entrance animations for hero texts
@@ -64,8 +66,35 @@ export default function AboutPage() {
 
   return (
     <main className="relative w-full bg-[#fafafa] text-[#141b16] selection:bg-primary selection:text-primary-foreground">
-      {/* Universal Fixed Top Header with Magnetic Dock Navigation */}
-      <Header activeTab="about" showBrand={false} showContact={false} />
+      {/* Universal Fixed Top Header with Magnetic Dock Navigation & Simple Physics Controls on Right */}
+      <Header
+        activeTab="about"
+        showBrand={false}
+        showContact={false}
+        rightContent={
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => physicsRef.current?.handleNudgeAll()}
+              title="Jump / Shockwave"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 hover:bg-white/95 text-[#141b16] backdrop-blur-md border border-black/10 shadow-xs text-[11px] sm:text-xs font-medium transition-all hover:scale-105 active:scale-95 cursor-pointer select-none"
+            >
+              <Activity className="w-3.5 h-3.5 text-[#141b16] stroke-[2]" />
+              <span>Bounce</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => physicsRef.current?.handleResetDrop()}
+              title="Reset and Drop from top"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 hover:bg-white/95 text-[#141b16] backdrop-blur-md border border-black/10 shadow-xs text-[11px] sm:text-xs font-medium transition-all hover:scale-105 active:scale-95 cursor-pointer select-none"
+            >
+              <RotateCcw className="w-3.5 h-3.5 text-[#141b16] stroke-[2]" />
+              <span>Drop Again</span>
+            </button>
+          </div>
+        }
+      />
 
       {/* Sticky Hero Section with Interactive Physics Badges */}
       <div className="sticky top-0 w-full h-screen overflow-hidden z-10 bg-[#fafafa]">
@@ -121,7 +150,11 @@ export default function AboutPage() {
         </div>
 
         {/* Interactive 2D Rigid-Body Physics Simulation (On Top of Text: z-20) */}
-        <PlayfulPhysicsCanvas className="z-20" />
+        <PlayfulPhysicsCanvas
+          ref={physicsRef}
+          hideFloatingControls={true}
+          className="z-20"
+        />
       </div>
 
       {/* "Know me better" Overlay Section that glides over the hero */}

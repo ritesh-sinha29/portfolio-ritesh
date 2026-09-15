@@ -157,19 +157,19 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
         className="relative z-10 mt-6 xs:mt-10 sm:mt-14 md:mt-16 mb-auto flex flex-col items-center justify-start text-center px-4"
       >
         <div className="flex items-center justify-center flex-wrap">
-          <h1 className="font-serif italic text-4xl xs:text-5xl sm:text-7xl md:text-8xl lg:text-[5.5rem] xl:text-[6.2rem] tracking-tight text-white leading-none drop-shadow-[0_8px_30px_rgba(0,0,0,0.9)]">
+          <h1 className="font-serif italic text-5xl xs:text-6xl sm:text-8xl md:text-9xl lg:text-[7rem] xl:text-[8.5rem] 2xl:text-[9.5rem] tracking-tight text-white leading-none drop-shadow-[0_8px_30px_rgba(0,0,0,0.9)]">
             {typedText}
           </h1>
 
           {/* Typewriter cursor */}
           <span
-            className="inline-block w-2 xs:w-2.5 h-8 xs:h-10 sm:h-14 md:h-16 lg:h-20 bg-[#F5C86C] animate-[pulse_0.75s_infinite] ml-2 shadow-[0_0_15px_#F5C86C]"
+            className="inline-block w-2.5 xs:w-3 sm:w-3.5 md:w-4 h-10 xs:h-12 sm:h-16 md:h-20 lg:h-24 xl:h-28 bg-[#F5C86C] animate-[pulse_0.75s_infinite] ml-2.5 shadow-[0_0_20px_#F5C86C]"
             style={{ verticalAlign: "middle" }}
           />
         </div>
 
         {/* Subtitle */}
-        <p className="font-sans font-semibold text-[11px] xs:text-xs sm:text-sm md:text-base text-[#F5C86C] mt-3 sm:mt-4 tracking-[0.25em] uppercase drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
+        <p className="font-sans font-semibold text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl text-[#F5C86C] mt-4 sm:mt-6 tracking-[0.28em] uppercase drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
           AI Engineer &amp; Builder
         </p>
       </main>
@@ -177,10 +177,10 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
       {/* Bottom Footer: Status on Left, Number in Silkscreen on Right */}
       <footer
         ref={footerRef}
-        className="relative z-10 w-full flex justify-between items-end"
+        className="relative z-10 w-full flex justify-between items-end pb-2 sm:pb-0"
       >
         {/* Status text */}
-        <div className="font-sans text-xs sm:text-sm font-medium tracking-wider text-white/90 drop-shadow-md">
+        <div className="font-sans text-sm sm:text-base md:text-lg font-semibold tracking-widest uppercase text-white/90 drop-shadow-md">
           Loading Experience
         </div>
 
@@ -188,7 +188,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
         <div className="text-right">
           <span
             ref={numberRef}
-            className="font-silkscreen text-4xl sm:text-6xl md:text-7xl text-white font-bold tracking-tight block leading-none drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]"
+            className="font-silkscreen text-5xl sm:text-7xl md:text-8xl lg:text-9xl text-white font-bold tracking-tight block leading-none drop-shadow-[0_4px_30px_rgba(0,0,0,0.9)]"
           >
             0
           </span>

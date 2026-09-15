@@ -49,10 +49,15 @@ portfolio-ritesh/
     - Implemented a floating white popover tooltip with caret pointing directly to the hovered contribution square showing `{X} commits on {Month} {DD}, {YYYY}`, matching GitHub's authentic interaction.
     - Added mutual exclusivity between custom cursor and tooltip: custom cursor seamlessly disappears whenever hovering over contribution squares (`data-hide-cursor` / `dataset.cursorHidden`), ensuring only 1 of the two is visible at a time without overlap.
 
+- Increased typography and cursor scale in [LoadingScreen.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/web/LoadingScreen.tsx):
+  - Scaled typewriter headline ("Hey I'm Ritesh") up to `text-5xl xs:text-6xl sm:text-8xl md:text-9xl lg:text-[7rem] xl:text-[8.5rem] 2xl:text-[9.5rem]` with proportional cursor thickness and height.
+  - Scaled subtitle badge ("AI Engineer & Builder") up to `text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl`.
+  - Scaled footer status text ("Loading Experience") up to `text-sm sm:text-base md:text-lg` and number counter up to `text-5xl sm:text-7xl md:text-8xl lg:text-9xl`.
+
 ## 5. Important File Map
 | Section | Files |
 | :--- | :--- |
-| Core Layout & Global Styles | `src/app/layout.tsx`, `src/app/globals.css`, `src/components/providers/LoadingProvider.tsx` |
+| Core Layout & Global Styles | `src/app/layout.tsx`, `src/app/globals.css`, `src/components/providers/LoadingProvider.tsx`, `src/modules/web/LoadingScreen.tsx` |
 | Navigation Header & Dock | `src/modules/web/Header.tsx`, `src/components/tweenlabs/MagneticDock.tsx` |
 | Home Page & Overlay | `src/app/page.tsx`, `src/modules/web/Hero.tsx`, `src/modules/web/Overlay_about-me.tsx` |
 | Dedicated About Page | `src/app/about/page.tsx`, `src/modules/about/PlayfulPhysicsCanvas.tsx`, `src/modules/about/KnowMeBetterSection.tsx`, `src/modules/about/TechStackSkills.tsx`, `src/modules/about/GitHubActivitySection.tsx` |
@@ -61,11 +66,7 @@ portfolio-ritesh/
 | Config & Dependencies | `package.json`, `next.config.ts`, `tsconfig.json` |
 
 ## 6. Current Task Context
-- Set up typography and font variables to match rox-portfolio: `Instrument Serif` (`--font-serif`), `Inter` (`--font-sans`), `Fira Code` (`--font-mono`), and `Silkscreen` (`--font-silkscreen`).
-- Preserved full editorial headline size (`text-[44px] sm:text-[66px] md:text-[80px] lg:text-[92px]`) on the About page.
-- Configured centered magnetic navigation dock on `/about` (`[HOME, ABOUT, SKILLS, WORKS]`) and hid the left logo and right Contact pill on the About page as requested.
+- Increased loader screen typography scale across mobile and desktop.
 
 ## 7. Last Session Summary
-- Fixed loader triggers across header button navigations.
-- Ported and integrated complete rox-portfolio About architecture into `portfolio-ritesh`.
-- Configured font system and centered magnetic dock for `/about`.
+- Enhanced loader text ("Hey I'm Ritesh", subtitle, status, and counter) with larger font sizes and responsive scaling.

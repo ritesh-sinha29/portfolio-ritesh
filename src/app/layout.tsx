@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { SmoothCursor } from "@/components/ui/smooth-cursor";
 import SmoothScroll from "@/components/providers/SmoothScroll";
 import { LoadingProvider } from "@/components/providers/LoadingProvider";
+import ConvexClientProvider from "@/components/providers/ConvexClientProvider";
 import ChatWidget from "@/modules/agent/ChatWidget";
 
 const inter = Inter({
@@ -71,13 +72,15 @@ export default function RootLayout({
         <link rel="preload" href="/ritesh mic.svg" as="image" type="image/svg+xml" />
       </head>
       <body className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
-        <LoadingProvider>
-          <SmoothScroll>
-            <SmoothCursor />
-            {children}
-            <ChatWidget />
-          </SmoothScroll>
-        </LoadingProvider>
+        <ConvexClientProvider>
+          <LoadingProvider>
+            <SmoothScroll>
+              <SmoothCursor />
+              {children}
+              <ChatWidget />
+            </SmoothScroll>
+          </LoadingProvider>
+        </ConvexClientProvider>
       </body>
     </html>
   );

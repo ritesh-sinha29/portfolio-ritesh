@@ -91,10 +91,11 @@ export default function ChatWidget({
         >
           <div className="relative w-5 h-5 sm:w-6 sm:h-6 rounded-full overflow-hidden border border-[#141b16] shrink-0">
             <Image
-              src="/podium rites bg.svg"
+              src="/podium_rites_bg.webp"
               alt="Ritesh Sinha"
               width={24}
               height={24}
+              quality={85}
               className="w-full h-full object-cover"
             />
           </div>
@@ -132,10 +133,11 @@ export default function ChatWidget({
                 <div className="flex items-center gap-3">
                   <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border-2 border-[#141b16] shadow-xs shrink-0">
                     <Image
-                      src="/podium rites bg.svg"
+                      src="/podium_rites_bg.webp"
                       alt="Ritesh Sinha"
                       width={40}
                       height={40}
+                      quality={85}
                       className="w-full h-full object-cover"
                     />
                   </div>

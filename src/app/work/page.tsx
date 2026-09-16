@@ -241,6 +241,8 @@ export default function WorkPage() {
                   src={project.imageUrl}
                   alt={project.title}
                   fill
+                  quality={90}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 400px"
                   className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-104"
                   containerClassName="absolute inset-0 w-full h-full"
                 />

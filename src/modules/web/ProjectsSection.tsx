@@ -160,8 +160,8 @@ const ProjectsSection = forwardRef<HTMLDivElement, ProjectsSectionProps>(
                     alt={project.title}
                     fill
                     priority
-                    quality={95}
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
+                    quality={90}
+                    sizes="(max-width: 640px) 35vw, (max-width: 1024px) 30vw, 320px"
                     className="object-cover object-top select-none"
                   />
                 </div>

@@ -50,6 +50,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
+      style={{ backgroundColor: "#0c1319" }}
       className={cn(
         "antialiased",
         inter.variable,
@@ -59,10 +61,15 @@ export default function RootLayout({
       )}
     >
       <head>
+        <link rel="preload" href="/loading_video.mp4" as="video" type="video/mp4" />
         <link rel="preload" href="/ritesh standing.svg" as="image" type="image/svg+xml" />
         <link rel="preload" href="/ritesh mic.svg" as="image" type="image/svg+xml" />
       </head>
-      <body className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
+      <body
+        suppressHydrationWarning
+        style={{ backgroundColor: "#0c1319" }}
+        className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground"
+      >
         <ConvexClientProvider>
           <LoadingProvider>
             <SmoothScroll>

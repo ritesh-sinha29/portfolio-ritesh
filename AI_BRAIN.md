@@ -34,6 +34,8 @@ portfolio-ritesh/
 - Source code is ground truth: if memory conflicts with code, update the brain to match the code.
 
 ## Recent Changes
+- **Universal Invisible Scrollbar**:
+  - In [globals.css](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/app/globals.css): Configured universal invisible scrollbars across WebKit (Chrome, Safari, Edge, Opera), Firefox (`scrollbar-width: none`), and legacy engines (`-ms-overflow-style: none`) while preserving smooth scrolling across the entire site.
 - **Optimized All Videos & Images for Cross-Device Performance**:
   - In [next.config.ts](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/next.config.ts): Added responsive mobile `deviceSizes` (`[360, 480, 640, 750, 828, 1080, 1200, 1920, 2560]`), multi-tier `qualities` (`[75, 85, 90, 95]`), 1-year immutable caching (`minimumCacheTTL: 31536000`), and safe SVG handling.
   - In [LoadingScreen.tsx](file:///e:/Users/Ritesh%20Sinha/Desktop/portfolio-ritesh/src/modules/web/LoadingScreen.tsx): Added low-power mode & iOS Safari autoplay error handling with seamless gesture fallback, plus theme terracotta orange (`#EB5E28`) background fallback with crisp white and gold typography on low-end devices / slow connections, and memory cache pre-warming for critical assets (`ritesh standing.svg`, `ritesh mic.svg`, `footer.mp4`, WebPs).

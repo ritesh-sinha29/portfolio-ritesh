@@ -170,9 +170,13 @@
   * {
     @apply border-border outline-ring/50;
     box-sizing: border-box;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
   }
   html {
     @apply font-sans;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
   }
   body {
     @apply bg-background text-foreground font-sans;
@@ -180,8 +184,43 @@
     padding: 0;
     overflow-x: hidden;
     letter-spacing: var(--tracking-normal);
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
   }
 }
+
+/* Universal Invisible Scrollbars (Chrome, Safari, Edge, Firefox, Opera) */
+::-webkit-scrollbar,
+*::-webkit-scrollbar,
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+  background: transparent !important;
+}
+
+html,
+body,
+:root,
+* {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+/* Custom Scrollbar Utilities */
+.no-scrollbar {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+  background: transparent !important;
+}
+
+
 
 .font-serif {
   font-family: 'Instrument Serif', Georgia, serif;
